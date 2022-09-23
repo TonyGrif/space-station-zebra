@@ -43,3 +43,12 @@ TEST(PartsTest, TestIsBroken)
 
     ASSERT_EQ(defaultPart.PartId(), 1);
 }
+
+TEST(PartsTest, TestToString)
+{
+    Parts defaultPart;
+    std::string value = defaultPart.toString();
+
+    ASSERT_TRUE(value.find(std::to_string(defaultPart.PartId())) != std::string::npos);
+    ASSERT_TRUE(value.find(std::to_string(defaultPart.IsBroken())) != std::string::npos);
+}
