@@ -31,3 +31,15 @@ TEST(PartsTest, TestPartID)
 
     ASSERT_EQ(defaultPart.IsBroken(), false);
 }
+
+TEST(PartsTest, TestIsBroken)
+{
+    Parts defaultPart;
+
+    ASSERT_EQ(defaultPart.IsBroken(), false);
+
+    defaultPart.IsBroken(true);
+    ASSERT_EQ(defaultPart.IsBroken(), true);
+
+    ASSERT_EQ(defaultPart.PartId(), 1);
+}
