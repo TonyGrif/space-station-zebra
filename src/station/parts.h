@@ -1,6 +1,8 @@
 #ifndef PARTS_H 
 #define PARTS_H
 
+#include <string>
+
 class Parts
 {
     public:
@@ -41,6 +43,11 @@ class Parts
         bool IsBroken() const {
             return this->isBroken;
         }
+
+        /**
+         * Return a string representation of this object.
+         */
+        std::string toString() const;
 
     private:
         /**
