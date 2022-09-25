@@ -92,6 +92,7 @@ TEST(ShipTest, TestGenerateParts)
     Ship defaultShip;
 
     ASSERT_FALSE(defaultShip.GetParts().empty());
+    ASSERT_TRUE(defaultShip.GetParts().size() >= 1);
     int minVal, maxVal;
     if(defaultShip.Type() == 'H') {
         minVal = 1;
