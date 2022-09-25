@@ -3,25 +3,13 @@
 Ship::Ship() 
 {
     this->ShipID(1);
-    this->Type('A');
+    this->SetType();
 }
 
 Ship::Ship(int id)
 {
     this->ShipID(id);
-    this->Type('A');
-}
-
-Ship::Ship(char t)
-{
-    this->ShipID(1);
-    this->Type(t);
-}
-
-Ship::Ship(int id, char t)
-{
-    this->ShipID(id);
-    this->Type(t);
+    this->SetType();
 }
 
 void Ship::GenerateParts()

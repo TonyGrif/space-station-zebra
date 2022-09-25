@@ -7,7 +7,11 @@ TEST(ShipTest, TestDefaultConstructor)
     Ship defaultShip;
 
     ASSERT_EQ(defaultShip.ShipID(), 1);
-    ASSERT_EQ(defaultShip.Type(), 'A');
+    ASSERT_TRUE(defaultShip.Type() == 'H'
+        || defaultShip.Type() == 'F'
+        || defaultShip.Type() == 'K'
+        || defaultShip.Type() == 'R'
+        || defaultShip.Type() == 'O');
 }
 
 TEST(ShipTest, TestNonDefaultConstructor)
@@ -18,18 +22,11 @@ TEST(ShipTest, TestNonDefaultConstructor)
     ASSERT_NE(defaultShip.ShipID(), nonDefaultShip.ShipID());
     ASSERT_EQ(nonDefaultShip.ShipID(), 7);
 
-    ASSERT_EQ(defaultShip.Type(), nonDefaultShip.Type());
-}
-
-TEST(ShipTest, TestNonDefaultCharConstructor)
-{
-    Ship defaultShip, nonDefaultShip('E');
-
-    // Compare two ships
-    ASSERT_NE(defaultShip.Type(), nonDefaultShip.Type());
-    ASSERT_EQ(nonDefaultShip.Type(), 'E');
-
-    ASSERT_EQ(defaultShip.ShipID(), nonDefaultShip.ShipID());
+        ASSERT_TRUE(nonDefaultShip.Type() == 'H'
+        || nonDefaultShip.Type() == 'F'
+        || nonDefaultShip.Type() == 'K'
+        || nonDefaultShip.Type() == 'R'
+        || nonDefaultShip.Type() == 'O');
 }
 
 TEST(ShipTest, TestGenerateParts)
@@ -50,34 +47,24 @@ TEST(ShipTest, TestShipID)
     ASSERT_EQ(defaultShip.ShipID(), 24);
 
     // Ensure no other variables were changed
-    ASSERT_EQ(defaultShip.Type(), 'A');
+    ASSERT_TRUE(defaultShip.Type() == 'H'
+        || defaultShip.Type() == 'F'
+        || defaultShip.Type() == 'K'
+        || defaultShip.Type() == 'R'
+        || defaultShip.Type() == 'O');
 }
 
 TEST(ShipTest, TestShipType)
 {
     Ship defaultShip;
 
-    // Test default set
-    ASSERT_EQ(defaultShip.Type(), 'A');
+    ASSERT_TRUE(defaultShip.Type() == 'H'
+        || defaultShip.Type() == 'F'
+        || defaultShip.Type() == 'K'
+        || defaultShip.Type() == 'R'
+        || defaultShip.Type() == 'O');
 
-    // Testing post set
-    defaultShip.Type('Z');
-    ASSERT_NE(defaultShip.Type(), 'A');
-    ASSERT_EQ(defaultShip.Type(), 'Z');
-
-    // Ensure no other variables were changed
     ASSERT_EQ(defaultShip.ShipID(), 1);
-}
-
-TEST(ShipTest, TestFullConstructor)
-{
-    Ship defaultShip, nonDefaultShip(7, 'E');
-
-    ASSERT_NE(defaultShip.ShipID(), nonDefaultShip.ShipID());
-    ASSERT_NE(defaultShip.Type(), nonDefaultShip.Type());
-
-    ASSERT_EQ(nonDefaultShip.ShipID(), 7);
-    ASSERT_EQ(nonDefaultShip.Type(), 'E');
 }
 
 TEST(ShipTest, TestToString)

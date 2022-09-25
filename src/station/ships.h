@@ -7,8 +7,10 @@
 #include <vector>
 
 class Ship 
-{
+{    
     public:
+        using partsCollection = std::vector<Parts>;
+
         /**
          * Default Ship constructor.
          */
@@ -20,19 +22,18 @@ class Ship
         Ship(int);
 
         /**
-         * Non-default Ship constructor.
-         */
-        Ship(char);
-
-        /**
-         * Construct a full ship object
-         */
-        Ship(int, char);
-
-        /**
          * Function to generate parts for this ship.
          */
         void GenerateParts();
+
+        /**
+         * Get the parts collection. 
+         * 
+         * @return partsCollection 
+         */
+        partsCollection GetParts() const {
+            return this->parts;
+        }
 
         /**
          * Set the ship identification number.
@@ -53,12 +54,13 @@ class Ship
         }
 
         /**
-         * Set the ship's type.
+         * Generate the ship's type.
          * 
-         * @param t char identification letter.
+         * Set the value based on the percentage chance of any of them.
+         * H(50%), F(15%), K(10%), R(5%), O(20%)
          */
-        void Type(char t) {
-            this->type = t;
+        void Type() {
+            
         }
 
         /**
@@ -78,8 +80,6 @@ class Ship
         std::string toString() const;
 
     private:
-        using partsCollection = std::vector<Parts>;
-
         /**
          * Collection of parts that make up the ship.
          */
