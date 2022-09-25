@@ -22,7 +22,7 @@ TEST(ShipTest, TestNonDefaultConstructor)
     ASSERT_NE(defaultShip.ShipID(), nonDefaultShip.ShipID());
     ASSERT_EQ(nonDefaultShip.ShipID(), 7);
 
-        ASSERT_TRUE(nonDefaultShip.Type() == 'H'
+    ASSERT_TRUE(nonDefaultShip.Type() == 'H'
         || nonDefaultShip.Type() == 'F'
         || nonDefaultShip.Type() == 'K'
         || nonDefaultShip.Type() == 'R'
@@ -32,6 +32,7 @@ TEST(ShipTest, TestNonDefaultConstructor)
 TEST(ShipTest, TestGenerateParts)
 {
     Ship defaultShip;
+    FAIL() << "Generate Parts Not Implemented";
 }
 
 TEST(ShipTest, TestShipID)

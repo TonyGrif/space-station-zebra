@@ -59,9 +59,7 @@ class Ship
          * Set the value based on the percentage chance of any of them.
          * H(50%), F(15%), K(10%), R(5%), O(20%)
          */
-        void Type() {
-            
-        }
+        void SetType();
 
         /**
          * Return the ship's type.

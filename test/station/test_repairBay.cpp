@@ -87,6 +87,7 @@ TEST(RepairBayTest, TestToString)
     RepairBay defaultBay;
     Ship battleship;
     Ship* testingPtr = &battleship;
+    defaultBay.CurrentShip(testingPtr);
 
     std::string value = defaultBay.toString();
 
