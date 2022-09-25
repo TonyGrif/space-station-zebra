@@ -3,15 +3,13 @@
 Ship::Ship() 
 {
     this->ShipID(1);
-    this->SetType();
-    this->GenerateParts();
+    this->Build();
 }
 
 Ship::Ship(int id)
 {
     this->ShipID(id);
-    this->SetType();
-    this->GenerateParts();
+    this->Build();
 }
 
 void Ship::SetType()
