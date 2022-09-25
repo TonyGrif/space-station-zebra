@@ -4,12 +4,14 @@ Ship::Ship()
 {
     this->ShipID(1);
     this->SetType();
+    this->GenerateParts();
 }
 
 Ship::Ship(int id)
 {
     this->ShipID(id);
     this->SetType();
+    this->GenerateParts();
 }
 
 void Ship::SetType()
@@ -38,7 +40,27 @@ void Ship::SetType()
 
 void Ship::GenerateParts()
 {
-    
+    int minVal, maxVal;
+    if(this->Type() == 'H') {
+        minVal = 1;
+        maxVal= 100;
+    }
+    else if(this->Type() == 'F') {
+        minVal = 75;
+        maxVal= 125;
+    }
+    else if(this->Type() == 'K') {
+        minVal = 2;
+        maxVal= 200;
+    }
+    else if(this->Type() == 'R') {
+        minVal = 1;
+        maxVal= 199;
+    }
+    else {
+        minVal = 200;
+        maxVal = 999;
+    }
 }
 
 std::string Ship::toString() const
@@ -51,6 +73,13 @@ std::string Ship::toString() const
     tempStr += " (Type ";
     tempStr += (this->Type());
     tempStr += ")";
+
+    tempStr += "\n";
+    for(auto& i : this->GetParts()) {
+        tempStr.append(std::to_string(i.PartId()));
+        tempStr += " - ";
+        tempStr.append(std::to_string(i.IsBroken()));
+    }
 
     return tempStr;
 }
