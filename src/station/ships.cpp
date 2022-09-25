@@ -70,11 +70,14 @@ void Ship::GenerateParts()
     }
 
     // Generate number of parts
-    //std::default_random_engine* generator;
-    //std::normal_distribution<float> distro(7, 3);
+    std::default_random_engine* generator;
+    generator = new  std::default_random_engine(time(NULL));
+    std::normal_distribution<float> distro(7, 3);
+
+    int numOfParts = (int)distro(*generator);
 
     // Generate the id of parts
-    for(int x = 0; x < 2; x++) {
+    for(int x = 0; x < numOfParts; x++) {
         Parts* ptr = new Parts();
 
         // Min + (rand() % max)
