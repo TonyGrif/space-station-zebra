@@ -54,9 +54,9 @@ class Station
         }
 
         /**
-         * Add the ship to the bay.
+         * Add ship to the appropriate state (bay or queue).
          */
-        void AddShipToBay(Ship*);
+        void AddShip(Ship*);
 
         /**
          * Set the waitline based on parameters.
@@ -74,22 +74,6 @@ class Station
          */
         std::queue<Ship*> WaitLine() const {
             return this->waitLine;
-        }
-
-        /**
-         * Add a ship to this wait line.
-         * 
-         * @param sp a ship pointer to be added. 
-         */
-        void AddShipToQueue(Ship* sp) {
-            this->waitLine.push(sp);
-        }
-
-        /**
-         * Remove the ship from the top of the queue.
-         */
-        void RemoveShipFromQueue() {
-            this->waitLine.pop();
         }
 
         /**
@@ -135,6 +119,30 @@ class Station
          * String representation of a Station object's identification. 
          */
         std::string stationID;
+
+        /**
+         * Attempt to add the ship to the bay.
+         * 
+         * @return true if ship was added.
+         * @return false if the ship was not added.
+         */
+        bool AddShipToBay(Ship*);
+
+        /**
+         * Add a ship to this wait line.
+         * 
+         * @param sp a ship pointer to be added. 
+         */
+        void AddShipToQueue(Ship* sp) {
+            this->waitLine.push(sp);
+        }
+
+        /**
+         * Remove the ship from the top of the queue.
+         */
+        void RemoveShipFromQueue() {
+            this->waitLine.pop();
+        }
 };
 
 #endif 

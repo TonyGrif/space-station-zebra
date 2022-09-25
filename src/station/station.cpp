@@ -19,16 +19,38 @@ Station::Station(RepairBay a, RepairBay b, RepairBay c)
     this->Bays(a, b, c);
 }
 
-void Station::AddShipToBay(Ship* toAdd)
+void Station::AddShip(Ship* toAdd)
 {
-    for(int x = 0; x < NUM_OF_REPAIR_BAYS; x++)
-    {
-        if(this->Bays()[x].IsFull() == false) {
-            this->bays[x].CurrentShip(toAdd);
-            return;
+    Ship* tempPtr;
+
+    // If there is already a line, add to queue
+    if(this->WaitLine().empty() != true) {
+        this->waitLine.push(toAdd);
+
+        // Ship to add will be the one at the front of the queue
+        // Not popped off the queue until we can determine if it is added to a bay
+        tempPtr = this->waitLine.front();
+        if(this->AddShipToBay(tempPtr) == true) {
+            this->waitLine.pop();
         }
     }
-    this->AddShipToQueue(toAdd);
+    else {
+        tempPtr = toAdd;
+        if(this->AddShipToBay(tempPtr) != true) {
+            this->waitLine.push(tempPtr);
+        }
+    }
+}
+
+bool Station::AddShipToBay(Ship* toAdd)
+{
+    for(auto& i : this->bays) {
+        if(i.IsFull() == false) {
+            i.CurrentShip(toAdd);
+            return true;
+        }
+    }
+    return false;
 }
 
 std::string Station::toString() const
