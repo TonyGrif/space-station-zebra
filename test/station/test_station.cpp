@@ -78,7 +78,7 @@ TEST(StationTest, TestStationBays)
 TEST(StationTest, TestAddToBay)
 {
     Station defaultStation;
-    Ship battleship, tank(2, 'B'), stealth(3, 'C'), last(4, 'D');
+    Ship battleship, tank(2), stealth(3), last(4);
     Ship* bPtr = &battleship;
     Ship* tPtr = &tank;
     Ship* sPtr = &stealth;
@@ -92,7 +92,6 @@ TEST(StationTest, TestAddToBay)
     defaultStation.AddShipToBay(bPtr);
     defaultStation.AddShipToBay(tPtr);
     defaultStation.AddShipToBay(sPtr);
-
 
     ASSERT_TRUE(defaultStation.Bays()[0].IsFull());
 
