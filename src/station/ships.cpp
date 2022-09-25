@@ -73,6 +73,7 @@ void Ship::GenerateParts()
     std::normal_distribution<float> distro(7, 3);
 
     int numOfParts = (int)distro(*generator);
+    if(numOfParts == 0) { numOfParts++; }
 
     // Generate the id of parts
     std::random_device rd;
