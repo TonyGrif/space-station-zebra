@@ -31,13 +31,13 @@ void Station::AddShip(Ship* toAdd)
         // Not popped off the queue until we can determine if it is added to a bay
         tempPtr = this->waitLine.front();
         if(this->AddShipToBay(tempPtr) == true) {
-            this->waitLine.pop();
+            this->RemoveShipFromQueue();
         }
     }
     else {
         tempPtr = toAdd;
         if(this->AddShipToBay(tempPtr) != true) {
-            this->waitLine.push(tempPtr);
+            this->AddShipToQueue(tempPtr);
         }
     }
 }
