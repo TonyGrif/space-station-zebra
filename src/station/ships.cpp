@@ -40,8 +40,6 @@ void Ship::SetType()
 
 void Ship::GenerateParts()
 {
-    srand((unsigned) time(NULL)); 
-
     bool isEven = false;
     bool isOdd = false;
     int minVal, maxVal;
@@ -77,11 +75,14 @@ void Ship::GenerateParts()
     int numOfParts = (int)distro(*generator);
 
     // Generate the id of parts
+    std::random_device rd;
+    std::mt19937 gen(rd()); // seed the generator
+    std::uniform_int_distribution<> distr(minVal, maxVal); // define the range
+
     for(int x = 0; x < numOfParts; x++) {
         Parts* ptr = new Parts();
 
-        // Min + (rand() % max)
-        int randNum = (minVal + (rand() % maxVal));
+        int randNum = distr(gen);
 
         if(isEven == true && ((randNum % 2) != 0)) {
             if(randNum == minVal) { randNum++; }
@@ -111,9 +112,11 @@ std::string Ship::toString() const
 
     tempStr += "\n";
     for(auto& i : this->GetParts()) {
+        tempStr += "    ";
         tempStr.append(std::to_string(i.PartId()));
         tempStr += " - ";
         tempStr.append(std::to_string(i.IsBroken()));
+        tempStr += "\n";
     }
 
     return tempStr;
