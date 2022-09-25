@@ -3,25 +3,37 @@
 Ship::Ship() 
 {
     this->ShipID(1);
-    this->Type('A');
+    this->SetType();
 }
 
 Ship::Ship(int id)
 {
     this->ShipID(id);
-    this->Type('A');
+    this->SetType();
 }
 
-Ship::Ship(char t)
+void Ship::SetType()
 {
-    this->ShipID(1);
-    this->Type(t);
-}
+    // Quick and dirty way
+    srand((unsigned) time(NULL)); 
+    // Min + (rand() % max)
+    int randNum = (1 + (rand() % 100));
 
-Ship::Ship(int id, char t)
-{
-    this->ShipID(id);
-    this->Type(t);
+    if(randNum <= 51) {
+        this->type = 'H';
+    }
+    else if(randNum <= 65) {
+        this->type = 'F';
+    }
+    else if(randNum <= 75) {
+        this->type = 'K';
+    }
+    else if(randNum <= 80) {
+        this->type = 'R';
+    }
+    else {
+        this->type = 'O';
+    }
 }
 
 void Ship::GenerateParts()
