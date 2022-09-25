@@ -3,8 +3,10 @@
 
 #include "parts.h"
 
+#include <iostream>
 #include <string>
 #include <vector>
+#include <random>
 
 class Ship 
 {    
@@ -22,9 +24,12 @@ class Ship
         Ship(int);
 
         /**
-         * Function to generate parts for this ship.
+         * Calls the set type and generate parts functions 
          */
-        void GenerateParts();
+        void Build() {
+            this->SetType();
+            this->GenerateParts();
+        }
 
         /**
          * Get the parts collection. 
@@ -52,14 +57,6 @@ class Ship
         int ShipID() const {
             return this->shipID;
         }
-
-        /**
-         * Generate the ship's type.
-         * 
-         * Set the value based on the percentage chance of any of them.
-         * H(50%), F(15%), K(10%), R(5%), O(20%)
-         */
-        void SetType();
 
         /**
          * Return the ship's type.
@@ -92,6 +89,25 @@ class Ship
          * Ship type.
          */
         char type;
+
+        /**
+         * Generate the ship's type.
+         * 
+         * Set the value based on the percentage chance of any of them.
+         * H(50%), F(15%), K(10%), R(5%), O(20%)
+         */
+        void SetType();
+
+        /**
+         * Function to generate parts for this ship based on the type.
+         * 
+         * H = id (1 - 100)
+         * F = id (75 - 125)
+         * K = id (2 - 200, only even)
+         * R = id (1 - 199, only odd)
+         * O = id (200 - 999)
+         */
+        void GenerateParts();
 };
 
 #endif 
