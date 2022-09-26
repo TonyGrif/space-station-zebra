@@ -48,7 +48,7 @@ void Ship::GenerateParts()
     }
     else if(this->Type() == 'F') {
         minVal = 75;
-        maxVal= 125;
+        maxVal= 150;
     }
     else if(this->Type() == 'K') {
         minVal = 2;
@@ -111,10 +111,7 @@ std::string Ship::toString() const
 
     tempStr += "\n";
     for(auto& i : this->GetParts()) {
-        tempStr += "    ";
-        tempStr.append(std::to_string(i.PartId()));
-        tempStr += " - ";
-        tempStr.append(std::to_string(i.IsBroken()));
+        tempStr += i.toString();
         tempStr += "\n";
     }
 

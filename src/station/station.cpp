@@ -25,7 +25,7 @@ void Station::AddShip(Ship* toAdd)
 
     // If there is already a line, add to queue
     if(this->WaitLine().empty() != true) {
-        this->waitLine.push(toAdd);
+        this->AddShipToQueue(toAdd);
 
         // Ship to add will be the one at the front of the queue
         // Not popped off the queue until we can determine if it is added to a bay

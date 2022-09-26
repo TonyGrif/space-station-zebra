@@ -25,7 +25,7 @@ std::string RepairBay::toString() const
     tempStr.append("Repair Bay ");
     tempStr += this->Designation();
 
-    if(this->CurrentShip() == NULL)
+    if(this->IsFull() != true)
     {
         tempStr.append(" - Empty");
     }
