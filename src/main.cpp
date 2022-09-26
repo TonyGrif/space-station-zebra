@@ -5,7 +5,7 @@
 int main()
 {
     Station station;
-    int timeCycles;
+    int timeCycles, currentShipCount = 0;
     bool proceed;
     Ship* newShipPtr;
 
@@ -32,8 +32,9 @@ int main()
 
             // Process them into the station
             for(int x = 0; x < shipNum; x++) {
-                newShipPtr = new Ship();
+                newShipPtr = new Ship(currentShipCount);
                 station.AddShip(newShipPtr);
+                currentShipCount++;
             }
         }
 
