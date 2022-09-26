@@ -75,30 +75,34 @@ TEST(StationTest, TestStationBays)
     ASSERT_TRUE(defaultStation.WaitLine().empty());
 }
 
-TEST(StationTest, TestAddToBay)
+TEST(StationTest, TestAddShip)
 {
     Station defaultStation;
-    Ship battleship, tank(2), stealth(3), last(4);
-    Ship* bPtr = &battleship;
-    Ship* tPtr = &tank;
-    Ship* sPtr = &stealth;
-    Ship* fPtr = &last;
+    Ship s1, s2, s3, s4, s5;
+    Ship* s1p = &s1, 
+        *s2p = &s2,
+        *s3p = &s3,
+        *s4p = &s4,
+        *s5p = &s5;
 
-    for(int x = 0; x < NUM_OF_REPAIR_BAYS; x++) {
-        ASSERT_FALSE(defaultStation.Bays()[x].IsFull());
+    defaultStation.AddShip(s1p);
+    defaultStation.AddShip(s2p);
+    defaultStation.AddShip(s3p);
+
+    // Ensure each bay is full
+    for(auto& i : defaultStation.Bays()) {
+        ASSERT_TRUE(i.CurrentShip() != NULL);
     }
-
-    // Add all the ships to the bays
-    defaultStation.AddShipToBay(bPtr);
-    defaultStation.AddShipToBay(tPtr);
-    defaultStation.AddShipToBay(sPtr);
-
-    ASSERT_TRUE(defaultStation.Bays()[0].IsFull());
-
+    // Ensure queue remains empty
     ASSERT_TRUE(defaultStation.WaitLine().empty());
-    // Add in one more, should add to the queue
-    defaultStation.AddShipToBay(fPtr);
-    ASSERT_FALSE(defaultStation.WaitLine().empty());
+
+    defaultStation.AddShip(s4p);
+    defaultStation.AddShip(s5p);
+
+    for(auto& i : defaultStation.Bays()) {
+        ASSERT_TRUE(i.CurrentShip() != NULL);
+    }
+    ASSERT_EQ(defaultStation.WaitLine().size(), 2);
 }
 
 TEST(StationTest, TestStationWaitList) 
@@ -123,74 +127,12 @@ TEST(StationTest, TestStationWaitList)
     ASSERT_TRUE(testStation.WaitLine() == testQueue);
     ASSERT_EQ(testStation.WaitLine().size(), 2);
 
-    // Adding to queue to ensure difference
-    testStation.AddShipToQueue(fPtr);
-    ASSERT_NE(testStation.WaitLine(), testQueue);
-    ASSERT_EQ(testStation.WaitLine().size(), 3);
-
     // Testing other variables to ensure no changes
     ASSERT_EQ(testStation.Bays()[0].Designation(), 'A');
     ASSERT_EQ(testStation.Bays()[1].Designation(), 'B');
     ASSERT_EQ(testStation.Bays()[2].Designation(), 'C');
 
     ASSERT_EQ(testStation.StationID(), "Zebra");
-}
-
-TEST(StationTest, TestAddToQueue)
-{
-    Station defaultStation;
-    // Ship variables
-    Ship ship1, ship2;
-    Ship* sPtr1 = &ship1;
-    Ship* sPtr2 = &ship2;
-
-    // Testing default state. 
-    ASSERT_TRUE(defaultStation.WaitLine().empty());
-
-    // Adding to queue
-    defaultStation.AddShipToQueue(sPtr1);
-    ASSERT_EQ(defaultStation.WaitLine().size(), 1);
-
-    // Adding another to queue
-    defaultStation.AddShipToQueue(sPtr2);
-    ASSERT_EQ(defaultStation.WaitLine().size(), 2);
-
-    // Testing all other variables
-    ASSERT_EQ(defaultStation.Bays()[0].Designation(), 'A');
-    ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'B');
-    ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'C');
-
-    ASSERT_EQ(defaultStation.StationID(), "Zebra");
-}
-
-TEST(StationTest, TestStationPop)
-{
-    Station defaultStation;
-    // Ship variables
-    Ship ship1, ship2;
-    Ship* sPtr1 = &ship1;
-    Ship* sPtr2 = &ship2;
-
-    // Testing default state. 
-    ASSERT_TRUE(defaultStation.WaitLine().empty());
-
-    // Adding to queue
-    defaultStation.AddShipToQueue(sPtr1);
-    defaultStation.AddShipToQueue(sPtr2);
-
-    // Begin pop
-    defaultStation.RemoveShipFromQueue();
-    ASSERT_EQ(defaultStation.WaitLine().size(), 1);
-
-    defaultStation.RemoveShipFromQueue();
-    ASSERT_TRUE(defaultStation.WaitLine().empty());
-
-    // Testing all other variables
-    ASSERT_EQ(defaultStation.Bays()[0].Designation(), 'A');
-    ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'B');
-    ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'C');
-
-    ASSERT_EQ(defaultStation.StationID(), "Zebra");
 }
 
 TEST(StationTest, TestStationDesignation)
