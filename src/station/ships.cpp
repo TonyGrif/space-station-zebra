@@ -66,33 +66,33 @@ void Ship::GenerateParts()
     }
 
     // Generate number of parts
-    std::default_random_engine* generator;
-    generator = new  std::default_random_engine(time(NULL));
-    std::normal_distribution<float> distro(7, 3);
+    // std::default_random_engine* generator;
+    // generator = new  std::default_random_engine(time(NULL));
+    // std::normal_distribution<float> distro(7, 3);
 
-    int numOfParts = (int)distro(*generator);
-    if(numOfParts == 0) { numOfParts++; }
+    // Special case, generate 100 random parts within the range provided
+    if(this->Type() == 'O') {
+        std::random_device rd;
+        std::mt19937 gen(rd()); // seed the generator
+        std::uniform_int_distribution<> distr(minVal, maxVal); // define the range
 
-    // Generate the id of parts
-    std::random_device rd;
-    std::mt19937 gen(rd()); // seed the generator
-    std::uniform_int_distribution<> distr(minVal, maxVal); // define the range
+        for(int x = 0; x <= 100; x++) {
+            int randNum = distr(gen);
+            Parts* ptr = new Parts(randNum, false);
 
-    for(int x = 0; x < numOfParts; x++) {
-        Parts* ptr = new Parts();
-
-        int randNum = distr(gen);
-
-        if(isEven == true && ((randNum % 2) != 0)) {
-            if(randNum == minVal) { randNum++; }
-            else { randNum--; }
+            this->parts.push_back(*ptr);
         }
-        else if(isOdd == true && ((randNum % 2) == 0)) {
-            if(randNum == minVal) { randNum++; }
-            else { randNum--; }
-        }
+        return;
+    }
 
-        ptr->PartId(randNum);
+    for(int x = minVal; x <= maxVal; x++) {
+        if(isEven == true && (x%2 != 0)) {
+            continue;
+        }
+        else if(isOdd == true && (x%2 ==0)) {
+            continue;
+        }
+        Parts* ptr = new Parts(x, false);
 
         this->parts.push_back(*ptr);
     }
