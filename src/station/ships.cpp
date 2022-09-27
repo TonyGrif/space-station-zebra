@@ -14,10 +14,12 @@ Ship::Ship(int id)
 
 void Ship::SetType()
 {
-    // Quick and dirty way
-    srand((unsigned) time(NULL)); 
-    // Min + (rand() % max)
-    int randNum = (1 + (rand() % 100));
+    // Generate number of parts
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> uiDistro(0, 100);
+
+    int randNum = uiDistro(gen);
 
     if(randNum <= 51) {
         this->type = 'H';
@@ -64,11 +66,6 @@ void Ship::GenerateParts()
         minVal = 200;
         maxVal = 999;
     }
-
-    // Generate number of parts
-    // std::default_random_engine* generator;
-    // generator = new  std::default_random_engine(time(NULL));
-    // std::normal_distribution<float> distro(7, 3);
 
     // Special case, generate 100 random parts within the range provided
     if(this->Type() == 'O') {
