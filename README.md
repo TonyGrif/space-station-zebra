@@ -13,7 +13,7 @@ Imagine in deep space there is a space station designed to repair docked space s
 		* Designation (A, B, C)
 	* Ships
 		* Id (1 through 999 sequential)
-		* Type (char (H (50%), F(15%), K(10%), and R(5%), O(20%))), determines parts 
+		* Type (char (H, F, K, and R, O)), determines parts 
 		* Collection of parts
 			* Number of parts is a normal distribution with a mean of 7 (+-3) and a minimum of 1
 	* Parts
@@ -21,11 +21,34 @@ Imagine in deep space there is a space station designed to repair docked space s
 		* Bool for broken or not
 
 ## Data for Parts
-	* H : Part ID = 1-100,  
-	* F : Part ID = 75-150,  
-	* K : Part ID = 2-200 (only even numbers)  
-	* R : Part ID = 1-199 (only odd numbers)  
-	* O : Part ID = 200-999  
+	* H - Humans
+		* 20% chance of being ship
+		* Part ID = 1-100
+		* 5% chance of a broken part
+		* 1-5 time steps required per broken part
+	* F -  
+		* 15% chance of being ship
+		* Part ID = 75-150  
+		* 8% chance of a broken part
+		* 2-7 time steps required per broken part
+	* K - 
+		* 10% chance of being ship  
+		* Part ID = 2-200 (only even numbers)
+		* 6% chance of a broken part
+		* 2-6 time steps required per broken part
+	* R -   
+		* 5% chance of being ship
+		* Part ID = 1-199 (only odd numbers)
+		* 6% chance of a broken part
+		* 3-7 time steps required per broken part
+	* O - Other
+		* 20% chance of being ship
+		* Part ID = 200-999  
+		* 7% chance of a broken part
+		* 1-10 time steps required per broken part
+
+## Output
+Output will be generated in a diary format describing the current status of each of the objects in play
 
 ## Basic Algorithm
 Basic Time Step
