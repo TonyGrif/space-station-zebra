@@ -119,6 +119,13 @@ TEST(ShipTest, TestGenerateParts)
     {
         ASSERT_TRUE(i.PartId() >= minVal && i.PartId() <= maxVal);
     }
+
+    if(defaultShip.Type() != 'K' && defaultShip.Type() != 'R' && defaultShip.Type() != 'O') {
+        ASSERT_EQ(defaultShip.GetParts().size(), (maxVal-minVal)+1);
+    }
+    else {
+        ASSERT_EQ(defaultShip.GetParts().size(), 100);
+    }
 }
 
 TEST(ShipTest, TestShipID)
