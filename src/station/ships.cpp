@@ -79,7 +79,7 @@ void Ship::GenerateParts()
     std::uniform_int_distribution<> distr(minVal, maxVal); // define the range
 
     for(int x = 0; x < numOfParts; x++) {
-        Parts* ptr = new Parts();
+        Parts* ptr;
 
         int randNum = distr(gen);
 
@@ -92,7 +92,7 @@ void Ship::GenerateParts()
             else { randNum--; }
         }
 
-        ptr->PartId(randNum);
+        ptr = new Parts(randNum);
 
         this->parts.push_back(*ptr);
     }

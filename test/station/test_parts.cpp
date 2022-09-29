@@ -12,24 +12,24 @@ TEST(PartsTest, TestDefaultConstructor)
 
 TEST(PartsTest, TestNonDefaultIntConstructor)
 {
-    Parts defaultPart, nonDefaultShip(3, true);
+    Parts defaultPart, nonDefaultShip(3);
 
     ASSERT_NE(defaultPart.PartId(), nonDefaultShip.PartId());
     ASSERT_EQ(nonDefaultShip.PartId(), 3);
-    ASSERT_NE(defaultPart.IsBroken(), nonDefaultShip.IsBroken());
-    ASSERT_TRUE(nonDefaultShip.IsBroken());
+    ASSERT_EQ(defaultPart.IsBroken(), nonDefaultShip.IsBroken());
+    ASSERT_FALSE(nonDefaultShip.IsBroken());
 }
 
 TEST(PartsTest, TestPartID)
 {
-    Parts defaultPart;
+    Parts defaultPart, differentPartID(4);
 
     ASSERT_EQ(defaultPart.PartId(), 1);
 
-    defaultPart.PartId(4);
-    ASSERT_EQ(defaultPart.PartId(), 4);
+    ASSERT_EQ(differentPartID.PartId(), 4);
 
     ASSERT_EQ(defaultPart.IsBroken(), false);
+    ASSERT_EQ(differentPartID.IsBroken(), false);
 }
 
 TEST(PartsTest, TestIsBroken)

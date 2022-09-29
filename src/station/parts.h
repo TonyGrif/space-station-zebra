@@ -14,14 +14,7 @@ class Parts
         /**
          * Non default constructor.
          */
-        Parts(int, bool);
-
-        /**
-         * Set the part id.
-         */
-        void PartId(int id) {
-            this->partId = id;
-        }
+        Parts(int);
 
         /**
          * Return the part id.
@@ -32,13 +25,14 @@ class Parts
 
         /**
          * Set the status of this parts health.
+         * Note: Leaving public due to potential future use to change over repair time.
          */
         void IsBroken(bool ib) {
             this->isBroken = ib;
         }
 
         /**
-         * Return the status of this parts health
+         * Return the status of this parts health.
          */
         bool IsBroken() const {
             return this->isBroken;
@@ -59,6 +53,14 @@ class Parts
          * Boolean status of this part's health.
          */
         bool isBroken;
+
+        /**
+         * Set the part id.
+         */
+        void PartId(int id) {
+            this->partId = id;
+        }
+
 };
 
 #endif 

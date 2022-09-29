@@ -6,10 +6,10 @@ Parts::Parts()
     this->IsBroken(false);
 }
 
-Parts::Parts(int id, bool b)
+Parts::Parts(int id)
 {
     this->PartId(id);
-    this->IsBroken(b);
+    this->IsBroken(false);
 }
 
 std::string Parts::toString() const
