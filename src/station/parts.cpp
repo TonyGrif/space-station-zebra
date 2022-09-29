@@ -1,18 +1,18 @@
 #include "parts.h"
 
-Parts::Parts()
+Part::Part()
 {
     this->PartId(1);
     this->IsBroken(false);
 }
 
-Parts::Parts(int id)
+Part::Part(int id)
 {
     this->PartId(id);
     this->IsBroken(false);
 }
 
-std::string Parts::toString() const
+std::string Part::toString() const
 {
     std::string temp;
 

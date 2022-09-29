@@ -2,53 +2,75 @@
 
 #include "../../src/station/parts.h"
 
+Part *testingPart, *secondTestingPart;
+
 TEST(PartsTest, TestDefaultConstructor)
 {
-    Parts defaultPart;
+    testingPart = new Part();
 
-    ASSERT_EQ(defaultPart.PartId(), 1);
-    ASSERT_FALSE(defaultPart.IsBroken());
+    ASSERT_EQ(testingPart->PartId(), 1);
+    ASSERT_FALSE(testingPart->IsBroken());
+
+    delete testingPart;
+    delete secondTestingPart;
 }
 
 TEST(PartsTest, TestNonDefaultIntConstructor)
 {
-    Parts defaultPart, nonDefaultShip(3);
+    testingPart = new Part();
+    secondTestingPart = new Part(3);
 
-    ASSERT_NE(defaultPart.PartId(), nonDefaultShip.PartId());
-    ASSERT_EQ(nonDefaultShip.PartId(), 3);
-    ASSERT_EQ(defaultPart.IsBroken(), nonDefaultShip.IsBroken());
-    ASSERT_FALSE(nonDefaultShip.IsBroken());
+    ASSERT_NE(testingPart->PartId(), secondTestingPart->PartId());
+    ASSERT_EQ(secondTestingPart->PartId(), 3);
+    ASSERT_EQ(testingPart->IsBroken(), secondTestingPart->IsBroken());
+    ASSERT_FALSE(testingPart->IsBroken());
+
+    delete testingPart;
+    delete secondTestingPart;
 }
 
 TEST(PartsTest, TestPartID)
 {
-    Parts defaultPart, differentPartID(4);
+    testingPart = new Part();
+    secondTestingPart = new Part(4);
 
-    ASSERT_EQ(defaultPart.PartId(), 1);
+    ASSERT_EQ(testingPart->PartId(), 1);
 
-    ASSERT_EQ(differentPartID.PartId(), 4);
+    ASSERT_EQ(secondTestingPart->PartId(), 4);
 
-    ASSERT_EQ(defaultPart.IsBroken(), false);
-    ASSERT_EQ(differentPartID.IsBroken(), false);
+    ASSERT_EQ(testingPart->IsBroken(), false);
+    ASSERT_EQ(secondTestingPart->IsBroken(), false);
+
+    delete testingPart;
+    delete secondTestingPart;
 }
 
 TEST(PartsTest, TestIsBroken)
 {
-    Parts defaultPart;
+    testingPart = new Part();
 
-    ASSERT_EQ(defaultPart.IsBroken(), false);
+    ASSERT_EQ(testingPart->IsBroken(), false);
 
-    defaultPart.IsBroken(true);
-    ASSERT_EQ(defaultPart.IsBroken(), true);
+    testingPart->IsBroken(true);
+    ASSERT_EQ(testingPart->IsBroken(), true);
 
-    ASSERT_EQ(defaultPart.PartId(), 1);
+    ASSERT_EQ(testingPart->PartId(), 1);
+
+    delete testingPart;
+    delete secondTestingPart;
 }
 
 TEST(PartsTest, TestToString)
 {
-    Parts defaultPart;
-    std::string value = defaultPart.toString();
+    testingPart = new Part();
+    std::string value = testingPart->toString();
 
-    ASSERT_TRUE(value.find(std::to_string(defaultPart.PartId())) != std::string::npos);
-    ASSERT_TRUE(value.find(std::to_string(defaultPart.IsBroken())) != std::string::npos);
+    ASSERT_TRUE(value.find(std::to_string(testingPart->PartId())) != std::string::npos);
+    ASSERT_TRUE(value.find(std::to_string(testingPart->IsBroken())) != std::string::npos);
+
+    ASSERT_EQ(testingPart->PartId(), 1);
+    ASSERT_EQ(testingPart->IsBroken(), false);
+
+    delete testingPart;
+    delete secondTestingPart;
 }

@@ -3,18 +3,18 @@
 
 #include <string>
 
-class Parts
+class Part
 {
     public:
         /**
          * Default constructor
          */
-        Parts();
+        Part();
 
         /**
          * Non default constructor.
          */
-        Parts(int);
+        Part(int);
 
         /**
          * Return the part id.
@@ -60,7 +60,6 @@ class Parts
         void PartId(int id) {
             this->partId = id;
         }
-
 };
 
 #endif 
