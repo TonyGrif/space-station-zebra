@@ -4,6 +4,12 @@
 
 Part *testingPart, *secondTestingPart;
 
+// Utility function to delete testing pointers
+void cleanUp() {
+    delete testingPart;
+    delete secondTestingPart;
+}
+
 TEST(PartsTest, TestDefaultConstructor)
 {
     testingPart = new Part();
@@ -11,8 +17,7 @@ TEST(PartsTest, TestDefaultConstructor)
     ASSERT_EQ(testingPart->PartId(), 1);
     ASSERT_FALSE(testingPart->IsBroken());
 
-    delete testingPart;
-    delete secondTestingPart;
+    cleanUp();
 }
 
 TEST(PartsTest, TestNonDefaultIntConstructor)
@@ -25,8 +30,7 @@ TEST(PartsTest, TestNonDefaultIntConstructor)
     ASSERT_EQ(testingPart->IsBroken(), secondTestingPart->IsBroken());
     ASSERT_FALSE(testingPart->IsBroken());
 
-    delete testingPart;
-    delete secondTestingPart;
+    cleanUp();
 }
 
 TEST(PartsTest, TestPartID)
@@ -41,8 +45,7 @@ TEST(PartsTest, TestPartID)
     ASSERT_EQ(testingPart->IsBroken(), false);
     ASSERT_EQ(secondTestingPart->IsBroken(), false);
 
-    delete testingPart;
-    delete secondTestingPart;
+    cleanUp();
 }
 
 TEST(PartsTest, TestIsBroken)
@@ -56,8 +59,7 @@ TEST(PartsTest, TestIsBroken)
 
     ASSERT_EQ(testingPart->PartId(), 1);
 
-    delete testingPart;
-    delete secondTestingPart;
+    cleanUp();
 }
 
 TEST(PartsTest, TestToString)
@@ -71,6 +73,5 @@ TEST(PartsTest, TestToString)
     ASSERT_EQ(testingPart->PartId(), 1);
     ASSERT_EQ(testingPart->IsBroken(), false);
 
-    delete testingPart;
-    delete secondTestingPart;
+    cleanUp();
 }

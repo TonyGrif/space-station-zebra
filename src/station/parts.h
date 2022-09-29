@@ -7,14 +7,16 @@ class Part
 {
     public:
         /**
-         * Default constructor
+         * Default constructor.
          */
         Part();
 
         /**
          * Non default constructor.
+         * 
+         * Part id is necessary, the health status is optional.
          */
-        Part(int);
+        Part(int, bool = false);
 
         /**
          * Return the part id.
