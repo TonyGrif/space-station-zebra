@@ -67,15 +67,15 @@ void Ship::GenerateParts()
         maxVal = 999;
     }
 
-    // Special case, generate 100 random parts within the range provided
+    // Special case, generate 100 random parts with ids in the range provided
     if(this->Type() == 'O') {
         std::random_device rd;
         std::mt19937 gen(rd()); // seed the generator
         std::uniform_int_distribution<> distr(minVal, maxVal); // define the range
 
-        for(int x = 0; x <= 100; x++) {
+        for(int x = 0; x < 100; x++) {
             int randNum = distr(gen);
-            Parts* ptr = new Parts(randNum, false);
+            Part* ptr = new Part(randNum);
 
             this->parts.push_back(*ptr);
         }
@@ -89,7 +89,7 @@ void Ship::GenerateParts()
         else if(isOdd == true && (x%2 ==0)) {
             continue;
         }
-        Parts* ptr = new Parts(x, false);
+        Part* ptr = new Part(x);
 
         this->parts.push_back(*ptr);
     }

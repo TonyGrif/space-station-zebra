@@ -3,15 +3,13 @@
 
 #include "parts.h"
 
-#include <iostream>
-#include <string>
 #include <vector>
 #include <random>
 
 class Ship 
 {    
     public:
-        using partsCollection = std::vector<Parts>;
+        using partsCollection = std::vector<Part>;
 
         /**
          * Default Ship constructor.
