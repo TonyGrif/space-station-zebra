@@ -50,19 +50,5 @@ Imagine in deep space there is a space station designed to repair docked space s
 ## Output
 Output will be generated in a diary format describing the current status of each of the objects in play
 
-## Basic Algorithm
-Basic Time Step
-Generate damaged ships (0-4)
-Check for available bays
-If available, dock ship; Else, add to queue of ship pointers
-Continue to repair current damaged ships in the docks by decrementing repair time
-Check for completed repairs; if 0, exit ship (delete pointer) 
-Continue until we stay stop (user input) 
-
-## Random Number Generator
-std::default_random_engine * drePrt;
-drePrt = new std::default_random_engine(time(NULL));
-std::normal_distribution<int> IdList(mean, standardDev);
-
 ## Due Date
 October 3rd, 2022
