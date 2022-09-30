@@ -115,10 +115,13 @@ TEST(ShipTest, TestGenerateParts)
         maxVal = 999;
     }
 
+    int brokenCount = 0;
     for(auto& i : defaultShip.GetParts())
     {
         ASSERT_TRUE(i.PartId() >= minVal && i.PartId() <= maxVal);
+        if(i.IsBroken()) { brokenCount++; }
     }
+    ASSERT_NE(brokenCount, 0);
 
     if(defaultShip.Type() != 'K' && defaultShip.Type() != 'R' && defaultShip.Type() != 'O') {
         ASSERT_EQ(defaultShip.GetParts().size(), (maxVal-minVal)+1);
