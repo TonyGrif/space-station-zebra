@@ -1,47 +1,54 @@
 # Project 1
-Problem = imagine in deep space there is a repair space station, space ships arrive w/ damage, if there is docking bay that is free (station has 3) then dock ship for repairs, how long to repair is a function of the sum of the id's broken parts; if no free dock, damage ship waits (FIFO)
+Imagine in deep space there is a space station designed to repair docked space ships. Space ships will arrive with damage and, if there is docking bay that is free, then the ship will dock for repairs; if there is no free dock, the damaged ship waits in the queue.
 
 ## Class Lists
-	* Ships
-		* Id (100 through 999), determines parts
-		* Type (char (H (50%), F(15%), K(10%), and R(5%), O(20%)))
-		* List of parts
 	* Space Station
 		* 3 repair bays
-		* ID Name (first one == Zebra)
-	* Repair Bays (measures dock time until finished)
-		* Ship pointer (current ship, if null == no ship there)
-		* Designation (A, B, C)(initially empty)
-		* Repair time (sum of IDs of broken parts divided by 5)
+		* Queue of ships waiting for a free dock
+		* Station ID name (first one == Zebra)
+	* Repair Bays 
+		* Repair counter (Measures dock time until finished)
+			* Repair time (sum of IDs of broken parts divided by 5)
+		* Ship pointer (pointer to the current ship; if null == no ship there)
+		* Designation (A, B, C)
+	* Ships
+		* Id (1 through 999 sequential)
+		* Type (char (H, F, K, and R, O)), determines parts 
+		* Collection of parts
+			* Number of parts is a normal distribution with a mean of 7 (+-3) and a minimum of 1
 	* Parts
 		* Part ID #
 		* Bool for broken or not
 
 ## Data for Parts
-H : Part ID = 1-100,
-F : Part ID = 75-125,
-K : Part ID = 2-200 (only even numbers)
-R : Part ID = 1-199 (only odd numbers)
-O : Part ID = 200-999; 100 random parts
+	* H - Humans
+		* 20% chance of being ship
+		* Part ID = 1-100
+		* 5% chance of a broken part
+		* 1-5 time steps required per broken part
+	* F -  
+		* 15% chance of being ship
+		* Part ID = 75-150  
+		* 8% chance of a broken part
+		* 2-7 time steps required per broken part
+	* K - 
+		* 10% chance of being ship  
+		* Part ID = 2-200 (only even numbers)
+		* 6% chance of a broken part
+		* 2-6 time steps required per broken part
+	* R -   
+		* 5% chance of being ship
+		* Part ID = 1-199 (only odd numbers)
+		* 6% chance of a broken part
+		* 3-7 time steps required per broken part
+	* O - Other
+		* 20% chance of being ship
+		* Part ID = 200-999  
+		* 7% chance of a broken part
+		* 1-10 time steps required per broken part
 
-## Damage
-Randomized
-To determine if part is broken -> Normal distribution w/ mean of 7 (+- 3), minimum of 1, no maximum
-Choose that number of parts from the ship's part list and mark as broken (bool)
-
-## Basic Algorithm
-Basic Time Step
-Generate damaged ships (0-4)
-Check for available bays
-If available, dock ship; Else, add to queue of ship pointers
-Continue to repair current damaged ships in the docks by decrementing repair time
-Check for completed repairs; if 0, exit ship (delete pointer) 
-Continue until we stay stop (user input) 
-
-## Random Number Generator
-std::default_random_engine * drePrt;
-drePrt = new std::default_random_engine(time(NULL));
-std::normal_distribution<int> IdList(mean, standardDev);
+## Output
+Output will be generated in a diary format describing the current status of each of the objects in play
 
 ## Due Date
-TO BE DETERMINED
+October 3rd, 2022

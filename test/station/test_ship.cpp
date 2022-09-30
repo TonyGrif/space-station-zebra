@@ -23,7 +23,7 @@ TEST(ShipTest, TestDefaultConstructor)
     }
     else if(defaultShip.Type() == 'F') {
         minVal = 75;
-        maxVal= 125;
+        maxVal= 150;
     }
     else if(defaultShip.Type() == 'K') {
         minVal = 2;
@@ -66,7 +66,7 @@ TEST(ShipTest, TestNonDefaultConstructor)
     }
     else if(nonDefaultShip.Type() == 'F') {
         minVal = 75;
-        maxVal= 125;
+        maxVal= 150;
     }
     else if(nonDefaultShip.Type() == 'K') {
         minVal = 2;
@@ -100,7 +100,7 @@ TEST(ShipTest, TestGenerateParts)
     }
     else if(defaultShip.Type() == 'F') {
         minVal = 75;
-        maxVal= 125;
+        maxVal= 150;
     }
     else if(defaultShip.Type() == 'K') {
         minVal = 2;
