@@ -43,13 +43,6 @@ TEST(StationTest, TestStationBays)
     ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'B');
     ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'C');
 
-    // Testing values post change
-    defaultStation.Bays(RepairBay('Z'), RepairBay('Y'), RepairBay('X'));
-
-    ASSERT_EQ(defaultStation.Bays()[0].Designation(), 'Z');
-    ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'Y');
-    ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'X');
-
     // Ensuring no other variables were changed
     ASSERT_EQ(defaultStation.StationID(), "Zebra");
     ASSERT_TRUE(defaultStation.WaitLine().empty());
@@ -85,54 +78,23 @@ TEST(StationTest, TestAddShip)
     ASSERT_EQ(defaultStation.WaitLine().size(), 2);
 }
 
-TEST(StationTest, TestStationWaitList) 
-{
-    // Default Station
-    Station testStation;
-    // Ship variables
-    Ship ship1, ship2, finalShip;
-    Ship* sPtr1 = &ship1;
-    Ship* sPtr2 = &ship2;
-    Ship* fPtr = &finalShip;
-    // Setting up testing queue
-    std::queue<Ship*> testQueue;
-    testQueue.push(sPtr1);
-    testQueue.push(sPtr2);
-
-    // Testing default state
-    ASSERT_TRUE(testStation.WaitLine().empty());
-
-    // Testing post set
-    testStation.WaitLine(testQueue);
-    ASSERT_TRUE(testStation.WaitLine() == testQueue);
-    ASSERT_EQ(testStation.WaitLine().size(), 2);
-
-    // Testing other variables to ensure no changes
-    ASSERT_EQ(testStation.Bays()[0].Designation(), 'A');
-    ASSERT_EQ(testStation.Bays()[1].Designation(), 'B');
-    ASSERT_EQ(testStation.Bays()[2].Designation(), 'C');
-
-    ASSERT_EQ(testStation.StationID(), "Zebra");
-}
-
 TEST(StationTest, TestStationDesignation)
 {
-    Station defaultStation;
+    Station defaultStation, nonDefaultStation("Otter");
 
     // Testing default designation
     ASSERT_EQ(defaultStation.StationID(), "Zebra");
 
     // Testing post change
-    defaultStation.StationID("Otter");
-    ASSERT_NE(defaultStation.StationID(), "Zebra");
-    ASSERT_EQ(defaultStation.StationID(), "Otter");
+    ASSERT_NE(nonDefaultStation.StationID(), "Zebra");
+    ASSERT_EQ(nonDefaultStation.StationID(), "Otter");
 
     // Ensuring no other variables were changed
-    ASSERT_EQ(defaultStation.Bays()[0].Designation(), 'A');
-    ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'B');
-    ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'C');
+    ASSERT_EQ(nonDefaultStation.Bays()[0].Designation(), 'A');
+    ASSERT_EQ(nonDefaultStation.Bays()[1].Designation(), 'B');
+    ASSERT_EQ(nonDefaultStation.Bays()[2].Designation(), 'C');
 
-    ASSERT_TRUE(defaultStation.WaitLine().empty());
+    ASSERT_TRUE(nonDefaultStation.WaitLine().empty());
 }
 
 TEST(StationTest, TestToString)

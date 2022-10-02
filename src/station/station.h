@@ -4,7 +4,6 @@
 #include "repairBay.h"
 #include "ships.h"
 
-#include <iostream>
 #include <array>
 #include <queue>
 
@@ -32,17 +31,6 @@ class Station
          */
         Station(std::string);
 
-        /** 
-         * Set the repair bays.
-         * 
-         * @param RepairBays are the bays to be added to a Station's collection.
-         */
-        void Bays(RepairBay a, RepairBay b, RepairBay c) {
-            this->bays[0] = a;
-            this->bays[1] = b; 
-            this->bays[2] = c;
-        }
-
         /**
          * Get the repair bays.
          */
@@ -56,32 +44,12 @@ class Station
         void AddShip(Ship*);
 
         /**
-         * Set the waitline based on parameters.
-         * 
-         * @param qs a queue of ship pointers. 
-         */
-        void WaitLine(lineCollection qs) {
-            this->waitLine = qs;
-        }
-
-        /**
          * Return the queue of ships to the user.
          * 
          * @return queue of ship pointers.  
          */
         lineCollection WaitLine() const {
             return this->waitLine;
-        }
-
-        /**
-         * Sets the station id.
-         * 
-         * Sets the station id based on the string input supplied.
-         * 
-         * @param string = string representation of identification.
-         */
-        void StationID(std::string sid) {
-            this->stationID = sid;
         }
 
         /**
@@ -116,6 +84,28 @@ class Station
          * String representation of a Station object's identification. 
          */
         std::string stationID;
+
+        /**
+         * Sets the station id.
+         * 
+         * Sets the station id based on the string input supplied.
+         * 
+         * @param string = string representation of identification.
+         */
+        void StationID(std::string sid) {
+            this->stationID = sid;
+        }
+
+        /** 
+         * Set the repair bays.
+         * 
+         * @param RepairBays are the bays to be added to a Station's collection.
+         */
+        void Bays(RepairBay a, RepairBay b, RepairBay c) {
+            this->bays[0] = a;
+            this->bays[1] = b; 
+            this->bays[2] = c;
+        }
 
         /**
          * Attempt to add the ship to the bay.
