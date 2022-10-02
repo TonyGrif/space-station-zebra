@@ -3,13 +3,15 @@
 Ship::Ship() 
 {
     this->ShipID(1);
-    this->Build();
+    this->SetType();
+    this->GenerateParts();
 }
 
 Ship::Ship(int id)
 {
     this->ShipID(id);
-    this->Build();
+    this->SetType();
+    this->GenerateParts();
 }
 
 void Ship::SetType()
@@ -43,39 +45,57 @@ void Ship::GenerateParts()
     bool isEven = false;
     bool isOdd = false;
     int minVal, maxVal;
+    // Representation of the percent chance of a broken part (8 = 8%)
+    int brokenVal;
 
     if(this->Type() == 'H') {
         minVal = 1;
         maxVal= 100;
+        brokenVal = 5; // 5%
     }
     else if(this->Type() == 'F') {
         minVal = 75;
         maxVal= 150;
+        brokenVal = 8; // 8%
     }
     else if(this->Type() == 'K') {
         minVal = 2;
         maxVal= 200;
         isEven = true;
+        brokenVal = 6;
     }
     else if(this->Type() == 'R') {
         minVal = 1;
         maxVal= 199;
         isOdd = true;
+        brokenVal = 6;
     }
     else {
         minVal = 200;
         maxVal = 999;
+        brokenVal = 7;
     }
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> brokenDistro(0, 100);
 
     // Special case, generate 100 random parts with ids in the range provided
     if(this->Type() == 'O') {
-        std::random_device rd;
-        std::mt19937 gen(rd()); // seed the generator
-        std::uniform_int_distribution<> distr(minVal, maxVal); // define the range
+        std::uniform_int_distribution<> distr(minVal, maxVal);
 
         for(int x = 0; x < 100; x++) {
             int randNum = distr(gen);
-            Part* ptr = new Part(randNum);
+            int broken = brokenDistro(gen);
+
+            Part* ptr;
+
+            if(broken <= brokenVal) {
+                ptr = new Part(randNum, true);
+            }
+            else {
+                ptr = new Part(randNum);
+            }
 
             this->parts.push_back(*ptr);
         }
@@ -89,7 +109,16 @@ void Ship::GenerateParts()
         else if(isOdd == true && (x%2 ==0)) {
             continue;
         }
-        Part* ptr = new Part(x);
+
+        int broken = brokenDistro(gen);
+        Part* ptr;
+        
+        if(broken <= brokenVal) {
+            ptr = new Part(x, true);
+        }
+        else {
+            ptr = new Part(x);
+        }
 
         this->parts.push_back(*ptr);
     }
@@ -108,8 +137,11 @@ std::string Ship::toString() const
 
     tempStr += "\n";
     for(auto& i : this->GetParts()) {
-        tempStr += i.toString();
-        tempStr += "\n";
+        if(i.IsBroken() == true)
+        {
+            tempStr += i.toString();
+            tempStr += "\n";
+        }
     }
 
     return tempStr;

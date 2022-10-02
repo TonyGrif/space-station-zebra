@@ -3,13 +3,13 @@
 
 #include "parts.h"
 
-#include <vector>
+#include <list>
 #include <random>
 
 class Ship 
 {    
     public:
-        using partsCollection = std::vector<Part>;
+        using partsCollection = std::list<Part>;
 
         /**
          * Default Ship constructor.
@@ -22,29 +22,12 @@ class Ship
         Ship(int);
 
         /**
-         * Calls the set type and generate parts functions 
-         */
-        void Build() {
-            this->SetType();
-            this->GenerateParts();
-        }
-
-        /**
          * Get the parts collection. 
          * 
          * @return partsCollection 
          */
         partsCollection GetParts() const {
             return this->parts;
-        }
-
-        /**
-         * Set the ship identification number.
-         * 
-         * @param si integer identification number.
-         */
-        void ShipID(int si) {
-            this->shipID = si;
         }
 
         /**
@@ -89,6 +72,15 @@ class Ship
         char type;
 
         /**
+         * Set the ship identification number.
+         * 
+         * @param si integer identification number.
+         */
+        void ShipID(int si) {
+            this->shipID = si;
+        }
+
+        /**
          * Generate the ship's type.
          * 
          * Set the value based on the percentage chance of any of them.
@@ -99,11 +91,11 @@ class Ship
         /**
          * Function to generate parts for this ship based on the type.
          * 
-         * H = id (1 - 100)
-         * F = id (75 - 150)
-         * K = id (2 - 200, only even)
-         * R = id (1 - 199, only odd)
-         * O = id (200 - 999)
+         * H = id (1 - 100), 5% chance of broken part.
+         * F = id (75 - 150), 8% chance of broken part.
+         * K = id (2 - 200, only even), 6% chance of broken part.
+         * R = id (1 - 199, only odd), 6% chance of broken part.
+         * O = id (200 - 999), 7% chance of broken part.
          */
         void GenerateParts();
 };

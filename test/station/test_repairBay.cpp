@@ -25,33 +25,19 @@ TEST(RepairBayTest, TestNonDefaultBayConstructor)
     ASSERT_EQ(NULL, nonDefaultBay.CurrentShip());
 }
 
-TEST(RepairBayTest, TestShipAddedBayConstructor)
-{
-    Ship battleShip;
-    Ship *ptr = &battleShip;
-    RepairBay defaultBay, nonDefaultBay(ptr);
-
-    // Testing set value
-    ASSERT_NE(defaultBay.CurrentShip(), nonDefaultBay.CurrentShip());
-    ASSERT_EQ(nonDefaultBay.CurrentShip(), &battleShip);
-
-    // Testing remaining variables
-    ASSERT_EQ(defaultBay.Designation(), nonDefaultBay.Designation());
-}
-
 TEST(RepairBayTest, TestBayDesignation)
 {
     // Testing default designation
-    RepairBay bay;
+    RepairBay bay, bay2('Z');
     ASSERT_EQ(bay.Designation(), 'A');
 
     // Testing designation accessor and mutator
-    bay.Designation('Z');
-    ASSERT_NE(bay.Designation(), 'A');
-    ASSERT_EQ(bay.Designation(), 'Z');
+    ASSERT_NE(bay2.Designation(), 'A');
+    ASSERT_EQ(bay2.Designation(), 'Z');
 
     // Testing all other variables to ensure no changes
     ASSERT_EQ(NULL, bay.CurrentShip());
+    ASSERT_EQ(NULL, bay2.CurrentShip());
 }
 
 TEST(RepairBayTest, TestCurrentShip)
@@ -75,7 +61,8 @@ TEST(RepairBayTest, TestIsFull)
 {
     Ship battleship;
     Ship* testingPtr = &battleship;
-    RepairBay nullBay, nonNullBay(testingPtr);
+    RepairBay nullBay, nonNullBay;
+    nonNullBay.CurrentShip(testingPtr);
 
     // Testing return
     ASSERT_FALSE(nullBay.IsFull());

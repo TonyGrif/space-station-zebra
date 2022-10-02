@@ -34,26 +34,6 @@ TEST(StationTest, TestStationNonDefaultConstuctor)
     ASSERT_TRUE(nonDefaultStation.WaitLine().empty());
 }
 
-TEST(StationTest, TestStationBayBasedConstructor)
-{
-    Station defaultStation;
-    Station nonDefaultStation(RepairBay('Z'), RepairBay('Y'), RepairBay('X'));
-
-    // Testing set values
-    ASSERT_NE(nonDefaultStation.Bays()[0].Designation(), 'A');
-    ASSERT_NE(nonDefaultStation.Bays()[1].Designation(), 'B');
-    ASSERT_NE(nonDefaultStation.Bays()[2].Designation(), 'C');    
-    
-    ASSERT_EQ(nonDefaultStation.Bays()[0].Designation(), 'Z');
-    ASSERT_EQ(nonDefaultStation.Bays()[1].Designation(), 'Y');
-    ASSERT_EQ(nonDefaultStation.Bays()[2].Designation(), 'X');
-
-    // Testing other variables
-    ASSERT_EQ(defaultStation.StationID(), nonDefaultStation.StationID());
-
-    ASSERT_TRUE(nonDefaultStation.WaitLine().empty());
-}
-
 TEST(StationTest, TestStationBays)
 {
     Station defaultStation;

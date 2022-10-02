@@ -1,8 +1,6 @@
 #ifndef REPAIR_H 
 #define REPAIR_H
 
-#include <cstddef>
-
 #include "ships.h"
 
 /**
@@ -19,25 +17,10 @@ class RepairBay
         /**
          * Non-default constructor for a repair bay.
          * 
-         * @param char = character representation of a bay.
+         * @param char character representation of a bay.
+         * @param Ship pointer to a ship to be docked at the bay (optional)
          */
-        RepairBay(char);
-
-        /**
-         * Non-default constructor for a repair bay.
-         * 
-         * @param ship* = ship pointer to be "docked" at the bay/
-         */
-        RepairBay(Ship*);
-
-        /**
-         * Set the designation of a bay object.
-         * 
-         * @param char = character representation of a bay.
-         */
-        void Designation(char d) {
-            this->designation = d;
-        }
+        RepairBay(char, Ship* = NULL);
 
         /**
          * Return the char designation of a bay object. 
@@ -90,6 +73,15 @@ class RepairBay
          * Pointer to the ship currently docked
          */
         Ship *currentShip;
+
+        /**
+         * Set the designation of a bay object.
+         * 
+         * @param char = character representation of a bay.
+         */
+        void Designation(char d) {
+            this->designation = d;
+        }
 };
 
 #endif 
