@@ -3,13 +3,15 @@
 Ship::Ship() 
 {
     this->ShipID(1);
-    this->Build();
+    this->SetType();
+    this->GenerateParts();
 }
 
 Ship::Ship(int id)
 {
     this->ShipID(id);
-    this->Build();
+    this->SetType();
+    this->GenerateParts();
 }
 
 void Ship::SetType()
@@ -109,7 +111,6 @@ void Ship::GenerateParts()
         }
 
         int broken = brokenDistro(gen);
-
         Part* ptr;
         
         if(broken <= brokenVal) {

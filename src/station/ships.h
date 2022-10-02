@@ -3,13 +3,13 @@
 
 #include "parts.h"
 
-#include <vector>
+#include <list>
 #include <random>
 
 class Ship 
 {    
     public:
-        using partsCollection = std::vector<Part>;
+        using partsCollection = std::list<Part>;
 
         /**
          * Default Ship constructor.
@@ -22,29 +22,12 @@ class Ship
         Ship(int);
 
         /**
-         * Calls the set type and generate parts functions 
-         */
-        void Build() {
-            this->SetType();
-            this->GenerateParts();
-        }
-
-        /**
          * Get the parts collection. 
          * 
          * @return partsCollection 
          */
         partsCollection GetParts() const {
             return this->parts;
-        }
-
-        /**
-         * Set the ship identification number.
-         * 
-         * @param si integer identification number.
-         */
-        void ShipID(int si) {
-            this->shipID = si;
         }
 
         /**
@@ -87,6 +70,15 @@ class Ship
          * Ship type.
          */
         char type;
+
+        /**
+         * Set the ship identification number.
+         * 
+         * @param si integer identification number.
+         */
+        void ShipID(int si) {
+            this->shipID = si;
+        }
 
         /**
          * Generate the ship's type.

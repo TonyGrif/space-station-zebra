@@ -2,34 +2,43 @@
 
 #include "../../src/station/ships.h"
 
+Ship *testingPtr, *secondPtr;
+
+// Utility function for pointer deletion
+void cleanUpShips() {
+    delete testingPtr;
+    delete secondPtr;
+}
+
 TEST(ShipTest, TestDefaultConstructor)
 {
-    Ship defaultShip;
+    testingPtr = new Ship();
 
-    ASSERT_EQ(defaultShip.ShipID(), 1);
-    ASSERT_TRUE(defaultShip.Type() == 'H'
-        || defaultShip.Type() == 'F'
-        || defaultShip.Type() == 'K'
-        || defaultShip.Type() == 'R'
-        || defaultShip.Type() == 'O');
+    ASSERT_EQ(testingPtr->ShipID(), 1);
+    ASSERT_TRUE(testingPtr->Type() == 'H'
+        || testingPtr->Type() == 'F'
+        || testingPtr->Type() == 'K'
+        || testingPtr->Type() == 'R'
+        || testingPtr->Type() == 'O');
 
 
-    ASSERT_FALSE(defaultShip.GetParts().empty());
+    ASSERT_FALSE(testingPtr->GetParts().empty());
+
     // Note: Does not test for the odd/even mix
     int minVal, maxVal;
-    if(defaultShip.Type() == 'H') {
+    if(testingPtr->Type() == 'H') {
         minVal = 1;
         maxVal= 100;
     }
-    else if(defaultShip.Type() == 'F') {
+    else if(testingPtr->Type() == 'F') {
         minVal = 75;
         maxVal= 150;
     }
-    else if(defaultShip.Type() == 'K') {
+    else if(testingPtr->Type() == 'K') {
         minVal = 2;
         maxVal= 200;
     }
-    else if(defaultShip.Type() == 'R') {
+    else if(testingPtr->Type() == 'R') {
         minVal = 1;
         maxVal= 199;
     }
@@ -38,41 +47,44 @@ TEST(ShipTest, TestDefaultConstructor)
         maxVal = 999;
     }
 
-    for(auto& i : defaultShip.GetParts())
+    for(auto& i : testingPtr->GetParts())
     {
         ASSERT_TRUE(i.PartId() >= minVal && i.PartId() <= maxVal);
     }
+
+    cleanUpShips();
 }
 
 TEST(ShipTest, TestNonDefaultConstructor)
 {
-    Ship defaultShip, nonDefaultShip(7);
+    testingPtr = new Ship();
+    secondPtr = new Ship(7);
 
     // Compare the two ships
-    ASSERT_NE(defaultShip.ShipID(), nonDefaultShip.ShipID());
-    ASSERT_EQ(nonDefaultShip.ShipID(), 7);
+    ASSERT_NE(testingPtr->ShipID(), secondPtr->ShipID());
+    ASSERT_EQ(secondPtr->ShipID(), 7);
 
-    ASSERT_TRUE(nonDefaultShip.Type() == 'H'
-        || nonDefaultShip.Type() == 'F'
-        || nonDefaultShip.Type() == 'K'
-        || nonDefaultShip.Type() == 'R'
-        || nonDefaultShip.Type() == 'O');
+    ASSERT_TRUE(secondPtr->Type() == 'H'
+        || secondPtr->Type() == 'F'
+        || secondPtr->Type() == 'K'
+        || secondPtr->Type() == 'R'
+        || secondPtr->Type() == 'O');
 
-    ASSERT_FALSE(defaultShip.GetParts().empty());
+    ASSERT_FALSE(secondPtr->GetParts().empty());
     int minVal, maxVal;
-    if(nonDefaultShip.Type() == 'H') {
+    if(secondPtr->Type() == 'H') {
         minVal = 1;
         maxVal= 100;
     }
-    else if(nonDefaultShip.Type() == 'F') {
+    else if(secondPtr->Type() == 'F') {
         minVal = 75;
         maxVal= 150;
     }
-    else if(nonDefaultShip.Type() == 'K') {
+    else if(secondPtr->Type() == 'K') {
         minVal = 2;
         maxVal= 200;
     }
-    else if(nonDefaultShip.Type() == 'R') {
+    else if(secondPtr->Type() == 'R') {
         minVal = 1;
         maxVal= 199;
     }
@@ -81,32 +93,51 @@ TEST(ShipTest, TestNonDefaultConstructor)
         maxVal = 999;
     }
 
-    for(auto& i : nonDefaultShip.GetParts())
+    for(auto& i : secondPtr->GetParts())
     {
         ASSERT_TRUE(i.PartId() >= minVal && i.PartId() <= maxVal);
     }
+
+    cleanUpShips();
+}
+
+TEST(ShipTest, TestSetType)
+{
+    testingPtr = new Ship();
+
+    ASSERT_FALSE(testingPtr->GetParts().empty());
+
+    // TODO: Write a test case that will ensure all of these are valid within one test run
+    ASSERT_TRUE(testingPtr->Type() == 'H'
+        || testingPtr->Type() == 'F'
+        || testingPtr->Type() == 'K'
+        || testingPtr->Type() == 'R'
+        || testingPtr->Type() == 'O');
+
+    cleanUpShips();
 }
 
 TEST(ShipTest, TestGenerateParts)
 {
-    Ship defaultShip;
+    testingPtr = new Ship();
 
-    ASSERT_FALSE(defaultShip.GetParts().empty());
-    ASSERT_TRUE(defaultShip.GetParts().size() >= 1);
+    ASSERT_FALSE(testingPtr->GetParts().empty());
+    ASSERT_TRUE(testingPtr->GetParts().size() >= 1);
+
     int minVal, maxVal;
-    if(defaultShip.Type() == 'H') {
+    if(testingPtr->Type() == 'H') {
         minVal = 1;
         maxVal= 100;
     }
-    else if(defaultShip.Type() == 'F') {
+    else if(testingPtr->Type() == 'F') {
         minVal = 75;
         maxVal= 150;
     }
-    else if(defaultShip.Type() == 'K') {
+    else if(testingPtr->Type() == 'K') {
         minVal = 2;
         maxVal= 200;
     }
-    else if(defaultShip.Type() == 'R') {
+    else if(testingPtr->Type() == 'R') {
         minVal = 1;
         maxVal= 199;
     }
@@ -115,61 +146,49 @@ TEST(ShipTest, TestGenerateParts)
         maxVal = 999;
     }
 
-    int brokenCount = 0;
-    for(auto& i : defaultShip.GetParts())
+    for(auto& i : testingPtr->GetParts())
     {
         ASSERT_TRUE(i.PartId() >= minVal && i.PartId() <= maxVal);
-        if(i.IsBroken()) { brokenCount++; }
     }
-    ASSERT_NE(brokenCount, 0);
 
-    if(defaultShip.Type() != 'K' && defaultShip.Type() != 'R' && defaultShip.Type() != 'O') {
-        ASSERT_EQ(defaultShip.GetParts().size(), (maxVal-minVal)+1);
+    if(testingPtr->Type() != 'K' && testingPtr->Type() != 'R' && testingPtr->Type() != 'O') {
+        ASSERT_EQ(testingPtr->GetParts().size(), (maxVal-minVal)+1);
     }
     else {
-        ASSERT_EQ(defaultShip.GetParts().size(), 100);
+        ASSERT_EQ(testingPtr->GetParts().size(), 100);
     }
+
+    cleanUpShips();
 }
 
 TEST(ShipTest, TestShipID)
 {
-    Ship defaultShip;
+    testingPtr = new Ship();
+    secondPtr = new Ship(24);
 
     // Test default set
-    ASSERT_EQ(defaultShip.ShipID(), 1);
+    ASSERT_EQ(testingPtr->ShipID(), 1);
 
-    // Testing post set
-    defaultShip.ShipID(24);
-    ASSERT_NE(defaultShip.ShipID(), 1);
-    ASSERT_EQ(defaultShip.ShipID(), 24);
+    // Testing non default set
+    ASSERT_NE(secondPtr->ShipID(), 1);
+    ASSERT_EQ(secondPtr->ShipID(), 24);
 
     // Ensure no other variables were changed
-    ASSERT_TRUE(defaultShip.Type() == 'H'
-        || defaultShip.Type() == 'F'
-        || defaultShip.Type() == 'K'
-        || defaultShip.Type() == 'R'
-        || defaultShip.Type() == 'O');
-}
+    ASSERT_TRUE(testingPtr->Type() == 'H'
+        || testingPtr->Type() == 'F'
+        || testingPtr->Type() == 'K'
+        || testingPtr->Type() == 'R'
+        || testingPtr->Type() == 'O');
 
-TEST(ShipTest, TestShipType)
-{
-    Ship defaultShip;
-
-    ASSERT_TRUE(defaultShip.Type() == 'H'
-        || defaultShip.Type() == 'F'
-        || defaultShip.Type() == 'K'
-        || defaultShip.Type() == 'R'
-        || defaultShip.Type() == 'O');
-
-    ASSERT_EQ(defaultShip.ShipID(), 1);
+    cleanUpShips();
 }
 
 TEST(ShipTest, TestToString)
 {
-    Ship defaultShip;
+    testingPtr = new Ship();
 
-    std::string value = defaultShip.toString();
+    std::string value = testingPtr->toString();
 
-    ASSERT_TRUE(value.find(std::to_string(defaultShip.ShipID())) != std::string::npos);
-    ASSERT_TRUE(value.find(defaultShip.Type()) != std::string::npos);
+    ASSERT_TRUE(value.find(std::to_string(testingPtr->ShipID())) != std::string::npos);
+    ASSERT_TRUE(value.find(testingPtr->Type()) != std::string::npos);
 }
