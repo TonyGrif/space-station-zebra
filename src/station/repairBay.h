@@ -36,6 +36,7 @@ class RepairBay
          */
         void CurrentShip(Ship* cs) {
             this->currentShip = cs;
+            this->CalculateRepairTime();
         }
 
         /**
@@ -44,6 +45,13 @@ class RepairBay
          */
         Ship* CurrentShip() const {
             return this->currentShip;
+        }
+
+        /**
+         * Return the time to repair
+         */
+        int TimeToRepair() const {
+            return this->repairTime;
         }
 
         /** 
@@ -73,6 +81,16 @@ class RepairBay
          * Pointer to the ship currently docked
          */
         Ship *currentShip;
+
+        /**
+         * Counter for how long the current ship will take to repair
+         */
+        int repairTime;
+                
+        /**
+         * Calculate the total time it will take to repair the current ship
+         */
+        void CalculateRepairTime();
 
         /**
          * Set the designation of a bay object.
