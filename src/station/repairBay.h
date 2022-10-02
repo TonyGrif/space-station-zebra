@@ -33,6 +33,7 @@ class RepairBay
 
         /**
          * Set the current ship pointer. 
+         * Calculate the time it will take to repair the new ship.
          */
         void CurrentShip(Ship* cs) {
             this->currentShip = cs;

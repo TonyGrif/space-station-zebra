@@ -4,14 +4,12 @@ RepairBay::RepairBay()
 {
     this->Designation('A');
     this->CurrentShip(NULL);
-    this->CalculateRepairTime();
 }
 
 RepairBay::RepairBay(char d, Ship* ptr)
 {
     this->Designation(d);
     this->CurrentShip(ptr);
-    this->CalculateRepairTime();
 }
 
 void RepairBay::CalculateRepairTime() 
