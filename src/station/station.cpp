@@ -13,12 +13,6 @@ Station::Station(std::string id)
     this->Bays(RepairBay('A'), RepairBay('B'), RepairBay('C'));
 }
 
-Station::Station(RepairBay a, RepairBay b, RepairBay c)
-{
-    this->StationID("Zebra");
-    this->Bays(a, b, c);
-}
-
 void Station::AddShip(Ship* toAdd)
 {
     Ship* tempPtr;
@@ -63,10 +57,9 @@ std::string Station::toString() const
     tempStr.append("\n");
 
     // Add in repair bay information
-    // TODO: Iterator support
-    for(int x = 0; x < NUM_OF_REPAIR_BAYS; x++)
+    for(auto& i : this->Bays())
     {
-        tempStr.append(bays[x].toString());
+        tempStr.append(i.toString());
         tempStr.append("\n");
     }
 

@@ -32,13 +32,6 @@ class Station
          */
         Station(std::string);
 
-        /**
-         * Non-Default constructor for Station.
-         * 
-         * @param RepairBays = set default repair bays for Station.
-         */
-        Station(RepairBay, RepairBay, RepairBay);
-
         /** 
          * Set the repair bays.
          * 
