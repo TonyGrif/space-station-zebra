@@ -9,6 +9,7 @@ TEST(RepairBayTest, TestBayConstructor)
 
     ASSERT_EQ(bay.Designation(), 'A');
     ASSERT_EQ(NULL, bay.CurrentShip());
+    ASSERT_EQ(bay.TimeToRepair(), 0);
 }
 
 TEST(RepairBayTest, TestNonDefaultBayConstructor)
@@ -23,6 +24,8 @@ TEST(RepairBayTest, TestNonDefaultBayConstructor)
     // Testing remaining variables
     ASSERT_EQ(defaultBay.CurrentShip(), nonDefaultBay.CurrentShip());
     ASSERT_EQ(NULL, nonDefaultBay.CurrentShip());
+    ASSERT_EQ(nonDefaultBay.TimeToRepair(), 0);
+
 }
 
 TEST(RepairBayTest, TestBayDesignation)
@@ -38,6 +41,8 @@ TEST(RepairBayTest, TestBayDesignation)
     // Testing all other variables to ensure no changes
     ASSERT_EQ(NULL, bay.CurrentShip());
     ASSERT_EQ(NULL, bay2.CurrentShip());
+    ASSERT_EQ(bay.TimeToRepair(), 0);
+    ASSERT_EQ(bay2.TimeToRepair(), 0);
 }
 
 TEST(RepairBayTest, TestCurrentShip)
@@ -55,6 +60,7 @@ TEST(RepairBayTest, TestCurrentShip)
 
     // Testing all other variables
     ASSERT_EQ(bay.Designation(), 'A');
+    ASSERT_NE(bay.TimeToRepair(), 0);
 }
 
 TEST(RepairBayTest, TestIsFull)
@@ -74,7 +80,6 @@ TEST(RepairBayTest, TestToString)
     RepairBay defaultBay;
     Ship battleship;
     Ship* testingPtr = &battleship;
-    defaultBay.CurrentShip(testingPtr);
 
     std::string value = defaultBay.toString();
 
@@ -84,10 +89,6 @@ TEST(RepairBayTest, TestToString)
     ASSERT_TRUE(value.find("Empty"));
 
     defaultBay.CurrentShip(testingPtr);
-
-    // Contains the current ship information
-    ASSERT_TRUE(value.find(std::to_string(defaultBay.CurrentShip()->ShipID())));
-    ASSERT_TRUE(value.find(defaultBay.CurrentShip()->Type()) != std::string::npos);
 
     // Ensure no values were changed
     ASSERT_EQ(defaultBay.Designation(), 'A');
