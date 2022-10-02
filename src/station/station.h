@@ -16,6 +16,10 @@ const int NUM_OF_REPAIR_BAYS = 3;
 class Station 
 {
     public:
+        // Easier to change this way if needed
+        using bayCollection = std::array<RepairBay, NUM_OF_REPAIR_BAYS>;
+        using lineCollection = std::queue<Ship*>;
+
         /**
          * Default constructor for Station.
          */
@@ -49,7 +53,7 @@ class Station
         /**
          * Get the repair bays.
          */
-        std::array<RepairBay, 3> Bays() const {
+        bayCollection Bays() const {
             return this->bays;
         }
 
@@ -63,7 +67,7 @@ class Station
          * 
          * @param qs a queue of ship pointers. 
          */
-        void WaitLine(std::queue<Ship*> qs) {
+        void WaitLine(lineCollection qs) {
             this->waitLine = qs;
         }
 
@@ -72,7 +76,7 @@ class Station
          * 
          * @return queue of ship pointers.  
          */
-        std::queue<Ship*> WaitLine() const {
+        lineCollection WaitLine() const {
             return this->waitLine;
         }
 
@@ -106,14 +110,14 @@ class Station
          * Collection of repair bays.
          * Number is determined by the constant supplied.
          */
-        std::array<RepairBay, 3> bays;
+        bayCollection bays;
 
         /**
          * Queue of ship pointers.
          * Occupants are added whenever a bay is unavailable.
          * Occupant is freed when a bay is made available.
          */
-        std::queue<Ship*> waitLine;
+        lineCollection waitLine;
 
         /**
          * String representation of a Station object's identification. 
