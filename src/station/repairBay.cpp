@@ -6,16 +6,10 @@ RepairBay::RepairBay()
     this->CurrentShip(NULL);
 }
 
-RepairBay::RepairBay(char d)
+RepairBay::RepairBay(char d, Ship* ptr)
 {
     this->Designation(d);
-    this->CurrentShip(NULL);
-}
-
-RepairBay::RepairBay(Ship* sPtr)
-{
-    this->Designation('A');
-    this->CurrentShip(sPtr);
+    this->CurrentShip(ptr);
 }
 
 std::string RepairBay::toString() const
@@ -25,7 +19,7 @@ std::string RepairBay::toString() const
     tempStr.append("Repair Bay ");
     tempStr += this->Designation();
 
-    if(this->IsFull() != true)
+    if(this->IsFull() == false)
     {
         tempStr.append(" - Empty");
     }
