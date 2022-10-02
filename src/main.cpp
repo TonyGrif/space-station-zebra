@@ -37,6 +37,10 @@ int main()
                 station.AddShip(newShipPtr);
                 currentShipCount++;
             }
+
+            // Do any repair time steps needed
+            // And handle any ships that are repaired and need to leave
+            station.RepairTimeStep();
         }
 
         std::cout << station.toString();

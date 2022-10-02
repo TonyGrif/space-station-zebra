@@ -13,6 +13,27 @@ Station::Station(std::string id)
     this->Bays(RepairBay('A'), RepairBay('B'), RepairBay('C'));
 }
 
+void Station::RepairTimeStep()
+{
+    for(auto& i : this->bays) {
+        if(i.TimeToRepair() != 0) {
+            i.DecrementRepairCounter();
+        }
+        // If the ship is ready to go
+        else {
+            i.RemoveShip();
+
+            // Add in another one from the queue if applicable
+            if(this->WaitLine().empty() != true) {
+                Ship* holdingPtr;
+                holdingPtr = this->waitLine.front();
+                AddShipToBay(holdingPtr);
+                this->RemoveShipFromQueue();
+            }
+        }
+    }
+}
+
 void Station::AddShip(Ship* toAdd)
 {
     Ship* tempPtr;

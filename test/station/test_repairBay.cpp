@@ -45,6 +45,35 @@ TEST(RepairBayTest, TestBayDesignation)
     ASSERT_EQ(bay2.TimeToRepair(), 0);
 }
 
+TEST(RepairBayTest, TestRemoveShip)
+{
+    RepairBay defaultBay;
+    Ship* testPtr;
+
+    testPtr = new Ship();
+    defaultBay.CurrentShip(testPtr);
+
+    ASSERT_TRUE(defaultBay.CurrentShip() != NULL);
+
+    defaultBay.RemoveShip();
+    ASSERT_EQ(NULL, defaultBay.CurrentShip());
+}
+
+TEST(RepairBayTest, TestDecrementCounter)
+{
+    RepairBay defaultBay;
+    Ship* testPtr;
+
+    testPtr = new Ship();
+    defaultBay.CurrentShip(testPtr);
+
+    int defaultCounter = defaultBay.TimeToRepair();
+
+    defaultBay.DecrementRepairCounter();
+    ASSERT_NE(defaultCounter, defaultBay.TimeToRepair());
+    ASSERT_EQ(defaultCounter-1, defaultBay.TimeToRepair());
+}
+
 TEST(RepairBayTest, TestCurrentShip)
 {
     // Testing default current ship (null)

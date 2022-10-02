@@ -48,10 +48,25 @@ class RepairBay
         }
 
         /**
+         * Removes the current ship pointer.
+         */
+        void RemoveShip() {
+            delete this->currentShip;
+            this->currentShip = NULL;
+        }
+
+        /**
          * Return the time to repair
          */
         int TimeToRepair() const {
             return this->repairTime;
+        }
+
+        /**
+         * Decrements the repair counter by one.
+         */
+        void DecrementRepairCounter() {
+            this->repairTime--;
         }
 
         /** 
