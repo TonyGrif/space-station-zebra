@@ -12,6 +12,15 @@ Part::Part(int id, bool b)
     this->IsBroken(b);
 }
 
+bool Part::operator==(const Part& rhs) const
+{
+    if(this->PartId() == rhs.PartId() && this->IsBroken() == rhs.IsBroken()) 
+    {
+        return true;
+    }
+    return false;
+}
+
 std::string Part::toString() const
 {
     std::string temp;
