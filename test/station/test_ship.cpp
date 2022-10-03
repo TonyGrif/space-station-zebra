@@ -21,36 +21,7 @@ TEST(ShipTest, TestDefaultConstructor)
         || testingPtr->Type() == 'R'
         || testingPtr->Type() == 'O');
 
-
     ASSERT_FALSE(testingPtr->GetParts().empty());
-
-    // Note: Does not test for the odd/even mix
-    int minVal, maxVal;
-    if(testingPtr->Type() == 'H') {
-        minVal = 1;
-        maxVal= 100;
-    }
-    else if(testingPtr->Type() == 'F') {
-        minVal = 75;
-        maxVal= 150;
-    }
-    else if(testingPtr->Type() == 'K') {
-        minVal = 2;
-        maxVal= 200;
-    }
-    else if(testingPtr->Type() == 'R') {
-        minVal = 1;
-        maxVal= 199;
-    }
-    else {
-        minVal = 200;
-        maxVal = 999;
-    }
-
-    for(auto& i : testingPtr->GetParts())
-    {
-        ASSERT_TRUE(i.PartId() >= minVal && i.PartId() <= maxVal);
-    }
 
     cleanUpShips();
 }
@@ -71,32 +42,30 @@ TEST(ShipTest, TestNonDefaultConstructor)
         || secondPtr->Type() == 'O');
 
     ASSERT_FALSE(secondPtr->GetParts().empty());
-    int minVal, maxVal;
-    if(secondPtr->Type() == 'H') {
-        minVal = 1;
-        maxVal= 100;
-    }
-    else if(secondPtr->Type() == 'F') {
-        minVal = 75;
-        maxVal= 150;
-    }
-    else if(secondPtr->Type() == 'K') {
-        minVal = 2;
-        maxVal= 200;
-    }
-    else if(secondPtr->Type() == 'R') {
-        minVal = 1;
-        maxVal= 199;
-    }
-    else {
-        minVal = 200;
-        maxVal = 999;
-    }
 
-    for(auto& i : secondPtr->GetParts())
-    {
-        ASSERT_TRUE(i.PartId() >= minVal && i.PartId() <= maxVal);
-    }
+    cleanUpShips();
+}
+
+TEST(ShipTest, TestShipID)
+{
+    testingPtr = new Ship();
+    secondPtr = new Ship(24);
+
+    // Test default set
+    ASSERT_EQ(testingPtr->ShipID(), 1);
+
+    // Testing non default set
+    ASSERT_NE(secondPtr->ShipID(), testingPtr->ShipID());
+    ASSERT_EQ(secondPtr->ShipID(), 24);
+
+    // Ensure no other variables were changed
+    ASSERT_TRUE(testingPtr->Type() == 'H'
+        || testingPtr->Type() == 'F'
+        || testingPtr->Type() == 'K'
+        || testingPtr->Type() == 'R'
+        || testingPtr->Type() == 'O');
+
+    ASSERT_FALSE(secondPtr->GetParts().empty());
 
     cleanUpShips();
 }
@@ -105,14 +74,29 @@ TEST(ShipTest, TestSetType)
 {
     testingPtr = new Ship();
 
-    ASSERT_FALSE(testingPtr->GetParts().empty());
+    // Efficient? No!
+    // Works? Probably!
+    do { testingPtr = new Ship(); }
+    while(testingPtr->Type() != 'H');
+    ASSERT_EQ(testingPtr->Type(), 'H');
 
-    // TODO: Write a test case that will ensure all of these are valid within one test run
-    ASSERT_TRUE(testingPtr->Type() == 'H'
-        || testingPtr->Type() == 'F'
-        || testingPtr->Type() == 'K'
-        || testingPtr->Type() == 'R'
-        || testingPtr->Type() == 'O');
+    do { testingPtr = new Ship(); }
+    while(testingPtr->Type() != 'F');
+    ASSERT_EQ(testingPtr->Type(), 'F');
+
+    do { testingPtr = new Ship(); }
+    while(testingPtr->Type() != 'K');
+    ASSERT_EQ(testingPtr->Type(), 'K');
+
+    do { testingPtr = new Ship(); }
+    while(testingPtr->Type() != 'R');
+    ASSERT_EQ(testingPtr->Type(), 'R');
+
+    do { testingPtr = new Ship(); }
+    while(testingPtr->Type() != 'O');
+    ASSERT_EQ(testingPtr->Type(), 'O');
+
+    ASSERT_FALSE(testingPtr->GetParts().empty());
 
     cleanUpShips();
 }
@@ -124,6 +108,8 @@ TEST(ShipTest, TestGenerateParts)
     ASSERT_FALSE(testingPtr->GetParts().empty());
     ASSERT_TRUE(testingPtr->GetParts().size() >= 1);
 
+    // Note: does not test for odd/even
+    // Note: does not test for all values in each run
     int minVal, maxVal;
     if(testingPtr->Type() == 'H') {
         minVal = 1;
@@ -161,28 +147,6 @@ TEST(ShipTest, TestGenerateParts)
     cleanUpShips();
 }
 
-TEST(ShipTest, TestShipID)
-{
-    testingPtr = new Ship();
-    secondPtr = new Ship(24);
-
-    // Test default set
-    ASSERT_EQ(testingPtr->ShipID(), 1);
-
-    // Testing non default set
-    ASSERT_NE(secondPtr->ShipID(), 1);
-    ASSERT_EQ(secondPtr->ShipID(), 24);
-
-    // Ensure no other variables were changed
-    ASSERT_TRUE(testingPtr->Type() == 'H'
-        || testingPtr->Type() == 'F'
-        || testingPtr->Type() == 'K'
-        || testingPtr->Type() == 'R'
-        || testingPtr->Type() == 'O');
-
-    cleanUpShips();
-}
-
 TEST(ShipTest, TestToString)
 {
     testingPtr = new Ship();
@@ -191,4 +155,12 @@ TEST(ShipTest, TestToString)
 
     ASSERT_TRUE(value.find(std::to_string(testingPtr->ShipID())) != std::string::npos);
     ASSERT_TRUE(value.find(testingPtr->Type()) != std::string::npos);
+
+    // Contains all broken part info
+    for(auto& i : testingPtr->GetParts()) {
+        if(i.IsBroken()) {
+            ASSERT_TRUE(value.find(std::to_string(i.PartId())) != std::string::npos);
+            ASSERT_TRUE(value.find(std::to_string(i.IsBroken())) != std::string::npos);
+        }
+    }
 }

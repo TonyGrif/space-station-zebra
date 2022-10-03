@@ -6,6 +6,11 @@
 #include <list>
 #include <random>
 
+/**
+ * Ship class.
+ * 
+ * This class is responsible for generating a type, list of parts (broken or not), and have its own id number.
+ */
 class Ship 
 {    
     public:
@@ -18,17 +23,10 @@ class Ship
 
         /**
          * Non-default Ship constructor.
+         * 
+         * @param int sets the ship identification number.
          */
         Ship(int);
-
-        /**
-         * Get the parts collection. 
-         * 
-         * @return partsCollection 
-         */
-        partsCollection GetParts() const {
-            return this->parts;
-        }
 
         /**
          * Return the ship's identification number.
@@ -42,10 +40,19 @@ class Ship
         /**
          * Return the ship's type.
          * 
-         * @return ship type char.
+         * @return the ship's types.
          */
         char Type() const {
             return this->type;
+        }
+
+        /**
+         * Get the parts collection. 
+         * 
+         * @return partsCollection 
+         */
+        partsCollection GetParts() const {
+            return this->parts;
         }
 
         /**
@@ -57,11 +64,6 @@ class Ship
 
     private:
         /**
-         * Collection of parts that make up the ship.
-         */
-        partsCollection parts;
-
-        /**
          * Ship identification number.
          */
         int shipID;
@@ -70,6 +72,11 @@ class Ship
          * Ship type.
          */
         char type;
+
+        /**
+         * Collection of parts that make up the ship.
+         */
+        partsCollection parts;
 
         /**
          * Set the ship identification number.
@@ -84,7 +91,7 @@ class Ship
          * Generate the ship's type.
          * 
          * Set the value based on the percentage chance of any of them.
-         * H(50%), F(15%), K(10%), R(5%), O(20%)
+         * H(50%), F(15%), K(10%), R(5%), O(20%).
          */
         void SetType();
 

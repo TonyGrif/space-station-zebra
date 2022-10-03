@@ -139,6 +139,7 @@ std::string Ship::toString() const
     for(auto& i : this->GetParts()) {
         if(i.IsBroken() == true)
         {
+            tempStr += "    ";
             tempStr += i.toString();
             tempStr += "\n";
         }
