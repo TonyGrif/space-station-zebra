@@ -39,6 +39,21 @@ class Station
         }
 
         /**
+         * Return one of the bays
+         * 
+         * @param loc determines which of the bays to return
+         * @return RepairBay 
+         */
+        RepairBay Bay(int loc) const {
+            return this->bays.at(loc);
+        }
+
+        /**
+         * Runs through all the bays and handles one time cycle worth of repairs if needed.
+         */
+        void RepairTimeStep();
+
+        /**
          * Add ship to the appropriate state (bay or queue).
          */
         void AddShip(Ship*);

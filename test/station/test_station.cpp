@@ -34,6 +34,44 @@ TEST(StationTest, TestStationNonDefaultConstuctor)
     ASSERT_TRUE(nonDefaultStation.WaitLine().empty());
 }
 
+TEST(StationTest, TestRepairTimeCycle)
+{
+    Station defaultStation;
+    Ship* testPtr;
+
+    // Add a new ship to each bay
+    // Add three extra to the queue
+    for(auto& i : defaultStation.Bays()) {
+        testPtr = new Ship();
+        defaultStation.AddShip(testPtr);
+
+        testPtr = new Ship();
+        defaultStation.AddShip(testPtr);
+    }
+
+    // Grab the first repair time number
+    int repairNumber = defaultStation.Bay(0).TimeToRepair();
+
+    // Ensure changes to the repair time counter
+    defaultStation.RepairTimeStep();
+    ASSERT_NE(repairNumber, defaultStation.Bay(0).TimeToRepair());
+
+    Ship *storePtr;
+
+    while(defaultStation.Bay(0).TimeToRepair() != 0) {
+        defaultStation.RepairTimeStep();
+    }
+    storePtr = defaultStation.WaitLine().front();
+    defaultStation.RepairTimeStep();
+
+    ASSERT_EQ(storePtr, defaultStation.Bay(0).CurrentShip());
+
+    // Ensure no other changes
+    ASSERT_EQ(defaultStation.Bays()[0].Designation(), 'A');
+    ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'B');
+    ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'C');
+}
+
 TEST(StationTest, TestStationBays)
 {
     Station defaultStation;
