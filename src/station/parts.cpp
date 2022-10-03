@@ -25,7 +25,7 @@ std::string Part::toString() const
 {
     std::string temp;
 
-    temp.append("    Part #");
+    temp.append("Part #");
     temp += std::to_string(this->PartId());
     temp.append(" - ");
     temp += std::to_string(this->IsBroken());
