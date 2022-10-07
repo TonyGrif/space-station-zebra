@@ -1,6 +1,8 @@
 #include "ships.h"
+#include <iostream>
 
-std::default_random_engine Ship::gen = std::default_random_engine(time(NULL));
+// Todo: look up why {} works in this case
+std::default_random_engine Ship::gen = std::default_random_engine(std::random_device{}());
 
 Ship::Ship() 
 {
@@ -18,7 +20,7 @@ Ship::Ship(int id)
 
 void Ship::SetType()
 {
-    std::uniform_int_distribution<int> uiDistro(0, 100);
+    std::uniform_int_distribution<> uiDistro(0, 100);
 
     int randNum = uiDistro(Ship::gen);
 
@@ -34,7 +36,7 @@ void Ship::SetType()
     else if(randNum <= 80) {
         this->type = 'R';
     }
-    else {
+    else if(randNum <= 100) {
         this->type = 'O';
     }
 }
