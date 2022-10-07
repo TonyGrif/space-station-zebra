@@ -2,97 +2,88 @@
 
 #include "../../src/station/parts.h"
 
-Part *testingPart, *secondTestingPart;
-
-// Utility function to delete testing pointers
-void cleanUp() {
-    delete testingPart;
-    delete secondTestingPart;
-}
-
 TEST(PartsTest, TestDefaultConstructor)
 {
-    testingPart = new Part();
+    Part testingPart;
 
-    ASSERT_EQ(testingPart->PartId(), 1);
-    ASSERT_FALSE(testingPart->IsBroken());
-
-    cleanUp();
+    ASSERT_EQ(testingPart.PartId(), 1);
+    ASSERT_FALSE(testingPart.IsBroken());
 }
 
 TEST(PartsTest, TestNonDefaultConstructor)
 {
-    testingPart = new Part();
-    secondTestingPart = new Part(3);
+    Part testingPart;
+    Part secondTestingPart(3);
+    Part thirdTestingPart(5, true);
 
-    ASSERT_NE(testingPart->PartId(), secondTestingPart->PartId());
-    ASSERT_EQ(secondTestingPart->PartId(), 3);
-    ASSERT_EQ(testingPart->IsBroken(), secondTestingPart->IsBroken());
-    ASSERT_FALSE(testingPart->IsBroken());
+    ASSERT_NE(testingPart.PartId(), secondTestingPart.PartId());
+    ASSERT_EQ(secondTestingPart.PartId(), 3);
+    ASSERT_EQ(testingPart.IsBroken(), secondTestingPart.IsBroken());
+    ASSERT_FALSE(testingPart.IsBroken());
 
-    testingPart = new Part(5, true);
-    ASSERT_EQ(testingPart->PartId(), 5);
-    ASSERT_TRUE(testingPart->IsBroken());
-
-    cleanUp();
+    ASSERT_EQ(thirdTestingPart.PartId(), 5);
+    ASSERT_TRUE(thirdTestingPart.IsBroken());
 }
 
 TEST(PartsTest, TestPartID)
 {
-    testingPart = new Part();
-    secondTestingPart = new Part(4);
+    Part testingPart;
+    Part secondTestingPart(4);
 
-    ASSERT_EQ(testingPart->PartId(), 1);
-    ASSERT_EQ(secondTestingPart->PartId(), 4);
-    ASSERT_NE(testingPart->PartId(), secondTestingPart->PartId());
+    ASSERT_EQ(testingPart.PartId(), 1);
+    ASSERT_EQ(secondTestingPart.PartId(), 4);
+    ASSERT_NE(testingPart.PartId(), secondTestingPart.PartId());
 
-    ASSERT_FALSE(testingPart->IsBroken());
-    ASSERT_FALSE(secondTestingPart->IsBroken());
-
-    cleanUp();
+    ASSERT_FALSE(testingPart.IsBroken());
+    ASSERT_FALSE(secondTestingPart.IsBroken());
 }
 
 TEST(PartsTest, TestIsBroken)
 {
-    testingPart = new Part();
+    Part testingPart;
 
-    ASSERT_FALSE(testingPart->IsBroken());
-    ASSERT_EQ(testingPart->PartId(), 1);
+    ASSERT_FALSE(testingPart.IsBroken());
+    ASSERT_EQ(testingPart.PartId(), 1);
 
-    testingPart->IsBroken(true);
+    testingPart.IsBroken(true);
 
-    ASSERT_TRUE(testingPart->IsBroken());
-    ASSERT_EQ(testingPart->PartId(), 1);
-
-    cleanUp();
+    ASSERT_TRUE(testingPart.IsBroken());
+    ASSERT_EQ(testingPart.PartId(), 1);
 }
 
 TEST(PartsTest, TestEquivalenceOp)
 {
-    testingPart = new Part();
-    secondTestingPart = new Part();
+    Part testingPart;
+    Part secondTestingPart;
+    Part greaterPart(3);
+    Part brokenPart(1, true);
 
-    ASSERT_TRUE(*testingPart == *secondTestingPart);
+    ASSERT_TRUE(testingPart == secondTestingPart);
 
-    secondTestingPart = new Part(2);
-    ASSERT_FALSE(*testingPart == *secondTestingPart);
+    ASSERT_FALSE(testingPart == greaterPart);
 
-    secondTestingPart = new Part(1, true);
-    ASSERT_FALSE(*testingPart == *secondTestingPart);
+    ASSERT_FALSE(testingPart == brokenPart);
+}
 
-    cleanUp();
+TEST(PartsTest, TestLessThanOp)
+{
+    Part testingPart(3);
+    Part secondTestingPart(4);
+    Part thirdTestingPart(5);
+
+    ASSERT_TRUE(testingPart < secondTestingPart);
+    ASSERT_TRUE(testingPart < thirdTestingPart);
+    ASSERT_FALSE(thirdTestingPart < secondTestingPart);
 }
 
 TEST(PartsTest, TestToString)
 {
-    testingPart = new Part();
-    std::string value = testingPart->toString();
+    Part testingPart;
+    std::string value = testingPart.toString();
 
-    ASSERT_TRUE(value.find(std::to_string(testingPart->PartId())) != std::string::npos);
-    ASSERT_TRUE(value.find(std::to_string(testingPart->IsBroken())) != std::string::npos);
+    ASSERT_TRUE(value.find(std::to_string(testingPart.PartId())) != std::string::npos);
+    ASSERT_TRUE(value.find(std::to_string(testingPart.IsBroken())) != std::string::npos);
 
-    ASSERT_EQ(testingPart->PartId(), 1);
-    ASSERT_EQ(testingPart->IsBroken(), false);
-
-    cleanUp();
+    ASSERT_EQ(testingPart.PartId(), 1);
+    ASSERT_EQ(testingPart.IsBroken(), false);
 }
