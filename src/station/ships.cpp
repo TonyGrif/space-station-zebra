@@ -1,5 +1,7 @@
 #include "ships.h"
 
+std::default_random_engine Ship::gen = std::default_random_engine(time(NULL));
+
 Ship::Ship() 
 {
     this->ShipID(1);
@@ -16,12 +18,9 @@ Ship::Ship(int id)
 
 void Ship::SetType()
 {
-    // Generate number of parts
-    std::random_device rd;
-    std::mt19937 gen(rd());
     std::uniform_int_distribution<int> uiDistro(0, 100);
 
-    int randNum = uiDistro(gen);
+    int randNum = uiDistro(Ship::gen);
 
     if(randNum <= 51) {
         this->type = 'H';
@@ -76,8 +75,6 @@ void Ship::GenerateParts()
         brokenVal = 7;
     }
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
     std::uniform_int_distribution<> brokenDistro(0, 100);
 
     // Special case, generate 100 random parts with ids in the range provided
@@ -85,8 +82,8 @@ void Ship::GenerateParts()
         std::uniform_int_distribution<> distr(minVal, maxVal);
 
         for(int x = 0; x < 100; x++) {
-            int randNum = distr(gen);
-            int broken = brokenDistro(gen);
+            int randNum = distr(Ship::gen);
+            int broken = brokenDistro(Ship::gen);
 
             Part* ptr;
 
@@ -110,7 +107,7 @@ void Ship::GenerateParts()
             continue;
         }
 
-        int broken = brokenDistro(gen);
+        int broken = brokenDistro(Ship::gen);
         Part* ptr;
         
         if(broken <= brokenVal) {
