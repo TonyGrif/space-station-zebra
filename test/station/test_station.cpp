@@ -70,6 +70,8 @@ TEST(StationTest, TestRepairTimeCycle)
     ASSERT_EQ(defaultStation.Bays()[0].Designation(), 'A');
     ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'B');
     ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'C');
+
+    delete testPtr, storePtr;
 }
 
 TEST(StationTest, TestStationBays)

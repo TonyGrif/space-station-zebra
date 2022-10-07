@@ -1,8 +1,10 @@
 #include "ships.h"
-#include <iostream>
 
 // Todo: look up why {} works in this case
-std::default_random_engine Ship::gen = std::default_random_engine(std::random_device{}());
+//std::default_random_engine Ship::gen = std::default_random_engine(std::random_device{}());
+
+// Used due to MinGW limitations
+std::default_random_engine Ship::gen = std::default_random_engine(time(NULL));
 
 Ship::Ship() 
 {

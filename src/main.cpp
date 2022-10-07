@@ -10,8 +10,7 @@ int main()
     Ship* newShipPtr;
 
     // Generation settings for the number of ships to arrive w/ each time cycle
-    std::random_device rd;
-    std::mt19937 generator(rd());    
+    std::default_random_engine *gen = new std::default_random_engine(time(NULL));
     std::poisson_distribution<int> pDistribution(1.2);
 
     /* Display Title */
@@ -29,7 +28,7 @@ int main()
         for(int x = 0; x < timeCycles; x++)
         {
             // Determine number of ships entering the station
-            int shipNum = pDistribution(generator);
+            int shipNum = pDistribution(*gen);
 
             // Process them into the station
             for(int x = 0; x < shipNum; x++) {
