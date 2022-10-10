@@ -5,17 +5,19 @@ Imagine in deep space there is a space station designed to repair docked space s
 	* Space Station
 		* 3 repair bays
 		* Queue of ships waiting for a free dock
-		* Station ID name (first one == Zebra)
+		* Station ID name
 	* Repair Bays 
-		* Repair counter (Measures dock time until finished)
-			* Repair time (sum of IDs of broken parts divided by 5)
-		* Ship pointer (pointer to the current ship; if null == no ship there)
-		* Designation (A, B, C)
+		* Repair counter - measures dock time until ship is fully repaired
+		* Ship pointer 
+			* Pointer to the current ship
+			* If null, no ship is currently docked
+		* Designation
 	* Ships
 		* Id (1 through 999 sequential)
-		* Type (char (H, F, K, and R, O)), determines parts 
+		* Type 
+			* H, F, K, R, or O
+			* Determines parts 
 		* Collection of parts
-			* Number of parts is a normal distribution with a mean of 7 (+-3) and a minimum of 1
 	* Parts
 		* Part ID #
 		* Bool for broken or not
@@ -51,4 +53,7 @@ Imagine in deep space there is a space station designed to repair docked space s
 Output will be generated in a diary format describing the current status of each of the objects in play
 
 ## Due Date
-October 3rd, 2022
+October 10th, 2022
+
+## Grade Recieved
+TBD
