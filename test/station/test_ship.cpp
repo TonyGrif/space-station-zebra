@@ -2,108 +2,95 @@
 
 #include "../../src/station/ships.h"
 
-Ship *testingPtr, *secondPtr;
-
-// Utility function for pointer deletion
-void cleanUpShips() {
-    delete testingPtr;
-    delete secondPtr;
-}
-
 TEST(ShipTest, TestDefaultConstructor)
 {
-    testingPtr = new Ship();
+    Ship testingShip;
 
-    ASSERT_EQ(testingPtr->ShipID(), 1);
-    ASSERT_TRUE(testingPtr->Type() == 'H'
-        || testingPtr->Type() == 'F'
-        || testingPtr->Type() == 'K'
-        || testingPtr->Type() == 'R'
-        || testingPtr->Type() == 'O');
+    ASSERT_EQ(testingShip.ShipID(), 1);
+    ASSERT_TRUE(testingShip.Type() == 'H'
+        || testingShip.Type() == 'F'
+        || testingShip.Type() == 'K'
+        || testingShip.Type() == 'R'
+        || testingShip.Type() == 'O');
 
-    ASSERT_FALSE(testingPtr->GetParts().empty());
-
-    cleanUpShips();
+    ASSERT_FALSE(testingShip.GetParts().empty());
 }
 
 TEST(ShipTest, TestNonDefaultConstructor)
 {
-    testingPtr = new Ship();
-    secondPtr = new Ship(7);
+    Ship testingShip;
+    Ship secondShip(7);
 
     // Compare the two ships
-    ASSERT_NE(testingPtr->ShipID(), secondPtr->ShipID());
-    ASSERT_EQ(secondPtr->ShipID(), 7);
+    ASSERT_NE(testingShip.ShipID(), secondShip.ShipID());
+    ASSERT_EQ(secondShip.ShipID(), 7);
 
-    ASSERT_TRUE(secondPtr->Type() == 'H'
-        || secondPtr->Type() == 'F'
-        || secondPtr->Type() == 'K'
-        || secondPtr->Type() == 'R'
-        || secondPtr->Type() == 'O');
+    ASSERT_TRUE(secondShip.Type() == 'H'
+        || secondShip.Type() == 'F'
+        || secondShip.Type() == 'K'
+        || secondShip.Type() == 'R'
+        || secondShip.Type() == 'O');
 
-    ASSERT_FALSE(secondPtr->GetParts().empty());
-
-    cleanUpShips();
+    ASSERT_FALSE(secondShip.GetParts().empty());
 }
 
 TEST(ShipTest, TestShipID)
 {
-    testingPtr = new Ship();
-    secondPtr = new Ship(24);
+    Ship testingShip;
+    Ship secondShip(24);
 
     // Test default set
-    ASSERT_EQ(testingPtr->ShipID(), 1);
+    ASSERT_EQ(testingShip.ShipID(), 1);
 
     // Testing non default set
-    ASSERT_NE(secondPtr->ShipID(), testingPtr->ShipID());
-    ASSERT_EQ(secondPtr->ShipID(), 24);
+    ASSERT_NE(secondShip.ShipID(), testingShip.ShipID());
+    ASSERT_EQ(secondShip.ShipID(), 24);
 
     // Ensure no other variables were changed
-    ASSERT_TRUE(testingPtr->Type() == 'H'
-        || testingPtr->Type() == 'F'
-        || testingPtr->Type() == 'K'
-        || testingPtr->Type() == 'R'
-        || testingPtr->Type() == 'O');
+    ASSERT_TRUE(secondShip.Type() == 'H'
+        || secondShip.Type() == 'F'
+        || secondShip.Type() == 'K'
+        || secondShip.Type() == 'R'
+        || secondShip.Type() == 'O');
 
-    ASSERT_FALSE(secondPtr->GetParts().empty());
-
-    cleanUpShips();
+    ASSERT_FALSE(secondShip.GetParts().empty());
 }
 
 TEST(ShipTest, TestSetType)
 {
-    testingPtr = new Ship();
+    Ship *testingPtr;
 
     // Efficient? No!
     // Works? Probably!
     do { testingPtr = new Ship(); }
     while(testingPtr->Type() != 'H');
     ASSERT_EQ(testingPtr->Type(), 'H');
+    delete testingPtr;
 
     do { testingPtr = new Ship(); }
     while(testingPtr->Type() != 'F');
     ASSERT_EQ(testingPtr->Type(), 'F');
+    delete testingPtr;
 
     do { testingPtr = new Ship(); }
     while(testingPtr->Type() != 'K');
     ASSERT_EQ(testingPtr->Type(), 'K');
+    delete testingPtr;
 
     do { testingPtr = new Ship(); }
     while(testingPtr->Type() != 'R');
     ASSERT_EQ(testingPtr->Type(), 'R');
+    delete testingPtr;
 
     do { testingPtr = new Ship(); }
     while(testingPtr->Type() != 'O');
     ASSERT_EQ(testingPtr->Type(), 'O');
-
-    ASSERT_FALSE(testingPtr->GetParts().empty());
-
-    cleanUpShips();
+    delete testingPtr;
 }
 
 TEST(ShipTest, TestGenerateParts)
 {
-    testingPtr = new Ship();
+    Ship* testingPtr = new Ship();
 
     ASSERT_FALSE(testingPtr->GetParts().empty());
     ASSERT_TRUE(testingPtr->GetParts().size() >= 1);
@@ -144,20 +131,20 @@ TEST(ShipTest, TestGenerateParts)
         ASSERT_EQ(testingPtr->GetParts().size(), 100);
     }
 
-    cleanUpShips();
+    delete testingPtr;
 }
 
 TEST(ShipTest, TestToString)
 {
-    testingPtr = new Ship();
+    Ship testingShip;
 
-    std::string value = testingPtr->toString();
+    std::string value = testingShip.toString();
 
-    ASSERT_TRUE(value.find(std::to_string(testingPtr->ShipID())) != std::string::npos);
-    ASSERT_TRUE(value.find(testingPtr->Type()) != std::string::npos);
+    ASSERT_TRUE(value.find(std::to_string(testingShip.ShipID())) != std::string::npos);
+    ASSERT_TRUE(value.find(testingShip.Type()) != std::string::npos);
 
     // Contains all broken part info
-    for(auto& i : testingPtr->GetParts()) {
+    for(auto& i : testingShip.GetParts()) {
         if(i.IsBroken()) {
             ASSERT_TRUE(value.find(std::to_string(i.PartId())) != std::string::npos);
             ASSERT_TRUE(value.find(std::to_string(i.IsBroken())) != std::string::npos);

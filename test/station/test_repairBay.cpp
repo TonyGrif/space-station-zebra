@@ -17,11 +17,16 @@ TEST(RepairBayTest, TestNonDefaultBayConstructor)
     RepairBay defaultBay;
     RepairBay nonDefaultBay('Z');
 
-    // Testing set value
+    Ship battleship;
+    Ship* bPtr = &battleship;
+    RepairBay shipBay('C', bPtr);
+
     ASSERT_NE(defaultBay.Designation(), nonDefaultBay.Designation());
     ASSERT_EQ(nonDefaultBay.Designation(), 'Z');
 
-    // Testing remaining variables
+    ASSERT_EQ(shipBay.Designation(), 'C');
+    ASSERT_EQ(&battleship, shipBay.CurrentShip());
+
     ASSERT_EQ(defaultBay.CurrentShip(), nonDefaultBay.CurrentShip());
     ASSERT_EQ(NULL, nonDefaultBay.CurrentShip());
     ASSERT_EQ(nonDefaultBay.TimeToRepair(), 0);
@@ -45,6 +50,26 @@ TEST(RepairBayTest, TestBayDesignation)
     ASSERT_EQ(bay2.TimeToRepair(), 0);
 }
 
+TEST(RepairBayTest, TestCurrentShip)
+{
+    // Testing default current ship (null)
+    RepairBay bay;
+    ASSERT_EQ(NULL, bay.CurrentShip());
+    ASSERT_EQ(bay.TimeToRepair(), 0);
+
+    // Testing result when adding ship pointer
+    Ship battleship;
+    Ship* testingPtr = &battleship;
+    bay.CurrentShip(testingPtr);
+
+    ASSERT_EQ(bay.CurrentShip(), &battleship);
+    ASSERT_NE(bay.TimeToRepair(), 0);
+
+    // Testing all other variables
+    ASSERT_EQ(bay.Designation(), 'A');
+    ASSERT_NE(bay.TimeToRepair(), 0);
+}
+
 TEST(RepairBayTest, TestRemoveShip)
 {
     RepairBay defaultBay;
@@ -54,9 +79,22 @@ TEST(RepairBayTest, TestRemoveShip)
     defaultBay.CurrentShip(testPtr);
 
     ASSERT_TRUE(defaultBay.CurrentShip() != NULL);
+    ASSERT_NE(defaultBay.TimeToRepair(), 0);
 
     defaultBay.RemoveShip();
     ASSERT_EQ(NULL, defaultBay.CurrentShip());
+    ASSERT_EQ(defaultBay.TimeToRepair(), 0);
+}
+
+TEST(RepairBayTest, TestCalcRepairTime)
+{
+    RepairBay bay;
+    ASSERT_EQ(bay.TimeToRepair(), 0);
+
+    Ship* sPtr = new Ship();
+    bay.CurrentShip(sPtr);
+
+    ASSERT_NE(bay.TimeToRepair(), 0);
 }
 
 TEST(RepairBayTest, TestDecrementCounter)
@@ -72,24 +110,6 @@ TEST(RepairBayTest, TestDecrementCounter)
     defaultBay.DecrementRepairCounter();
     ASSERT_NE(defaultCounter, defaultBay.TimeToRepair());
     ASSERT_EQ(defaultCounter-1, defaultBay.TimeToRepair());
-}
-
-TEST(RepairBayTest, TestCurrentShip)
-{
-    // Testing default current ship (null)
-    RepairBay bay;
-    ASSERT_EQ(NULL, bay.CurrentShip());
-
-    // Testing result when adding ship pointer
-    Ship battleship;
-    Ship* testingPtr = &battleship;
-    bay.CurrentShip(testingPtr);
-
-    ASSERT_EQ(bay.CurrentShip(), &battleship);
-
-    // Testing all other variables
-    ASSERT_EQ(bay.Designation(), 'A');
-    ASSERT_NE(bay.TimeToRepair(), 0);
 }
 
 TEST(RepairBayTest, TestIsFull)

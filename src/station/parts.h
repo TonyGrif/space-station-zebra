@@ -61,6 +61,13 @@ class Part
         bool operator==(const Part&) const;
 
         /**
+         * Less than operator.
+         * 
+         * @return true if LHS part id comes after RHS part id.
+         */
+        bool operator<(const Part&) const;
+
+        /**
          * Return a string representation of this object.
          * 
          * @return string of this object.

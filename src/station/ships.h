@@ -4,6 +4,7 @@
 #include "parts.h"
 
 #include <list>
+#include <ctime>
 #include <random>
 
 /**
@@ -105,6 +106,9 @@ class Ship
          * O = id (200 - 999), 7% chance of broken part.
          */
         void GenerateParts();
+
+        // Generates a random engine that will persist through all instances of ships objects.
+        static std::default_random_engine gen;
 };
 
 #endif 

@@ -4,7 +4,9 @@
 #include "ships.h"
 
 /**
+ * Repair Bay class.
  * 
+ * Responsible for conducting ship repairs.
  */
 class RepairBay
 {
@@ -25,13 +27,16 @@ class RepairBay
         /**
          * Return the char designation of a bay object. 
          * 
-         * @return char representation. 
+         * @return designation value. 
          */
         char Designation() const {
             return this->designation;
         }
 
         /**
+         * TODO: Move to private and create add ship function?
+         *       Syntax difference not really functionality difference. 
+         * 
          * Set the current ship pointer. 
          * Calculate the time it will take to repair the new ship.
          */
@@ -42,18 +47,20 @@ class RepairBay
 
         /**
          * Return the current ship pointer.
-         * @return Ship*.
+         * 
+         * @return Ship* docked.
          */
         Ship* CurrentShip() const {
             return this->currentShip;
         }
 
         /**
-         * Removes the current ship pointer.
+         * Removes the current ship pointer and set to NULL.
          */
         void RemoveShip() {
             delete this->currentShip;
             this->currentShip = NULL;
+            this->repairTime = 0;
         }
 
         /**
@@ -105,13 +112,15 @@ class RepairBay
                 
         /**
          * Calculate the total time it will take to repair the current ship
+         * 
+         * TODO: Beyond this project, move to ship class and have each part carry this repair number.
          */
         void CalculateRepairTime();
 
         /**
          * Set the designation of a bay object.
          * 
-         * @param char = character representation of a bay.
+         * @param char representation of a bay.
          */
         void Designation(char d) {
             this->designation = d;

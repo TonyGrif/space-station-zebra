@@ -21,6 +21,13 @@ bool Part::operator==(const Part& rhs) const
     return false;
 }
 
+bool Part::operator<(const Part& rhs) const
+{
+    if(this->PartId() != rhs.PartId()) {
+        return (this->PartId() < rhs.PartId());
+    }
+}
+
 std::string Part::toString() const
 {
     std::string temp;

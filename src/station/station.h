@@ -10,12 +10,13 @@
 const int NUM_OF_REPAIR_BAYS = 3;
 
 /**
- *   
+ * Station class.
+ * 
+ * Responsible for managing a collection of repair bays and wait line to the bays.
  */
 class Station 
 {
     public:
-        // Easier to change this way if needed
         using bayCollection = std::array<RepairBay, NUM_OF_REPAIR_BAYS>;
         using lineCollection = std::queue<Ship*>;
 
@@ -32,20 +33,19 @@ class Station
         Station(std::string);
 
         /**
+         * Returns station id.
+         * 
+         * @return string representation of identification. 
+         */
+        std::string StationID() const {
+            return this->stationID;
+        }
+
+        /**
          * Get the repair bays.
          */
         bayCollection Bays() const {
             return this->bays;
-        }
-
-        /**
-         * Return one of the bays
-         * 
-         * @param loc determines which of the bays to return
-         * @return RepairBay 
-         */
-        RepairBay Bay(int loc) const {
-            return this->bays.at(loc);
         }
 
         /**
@@ -68,20 +68,16 @@ class Station
         }
 
         /**
-         * Returns station id.
-         * 
-         * @return string representation of identification. 
-         */
-        std::string StationID() const {
-            return this->stationID;
-        }
-
-        /**
          * Create a string report of the Station's status.
          */
         std::string toString() const;
 
     private: 
+        /**
+         * String representation of a Station object's identification. 
+         */
+        std::string stationID;
+        
         /**
          * Collection of repair bays.
          * Number is determined by the constant supplied.
@@ -96,16 +92,9 @@ class Station
         lineCollection waitLine;
 
         /**
-         * String representation of a Station object's identification. 
-         */
-        std::string stationID;
-
-        /**
          * Sets the station id.
          * 
-         * Sets the station id based on the string input supplied.
-         * 
-         * @param string = string representation of identification.
+         * @param string representation of identification.
          */
         void StationID(std::string sid) {
             this->stationID = sid;
