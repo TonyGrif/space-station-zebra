@@ -49,8 +49,8 @@ void RepairBay::CalculateRepairTime()
         break;
     }
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
+    std::default_random_engine gen;
+    gen = std::default_random_engine(time(NULL));
     std::uniform_int_distribution<int> uiDistro(minTime, maxTime);
     
     for(auto& i : this->CurrentShip()->GetParts()) {
