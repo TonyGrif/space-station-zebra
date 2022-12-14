@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../../src/station/repairBay.h"
+#include "../../main/headers/repairBay.h"
 
 TEST(RepairBayTest, TestBayConstructor)
 {

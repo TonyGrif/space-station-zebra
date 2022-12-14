@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../../src/station/ships.h"
+#include "../../main/headers/ships.h"
 
 TEST(ShipTest, TestDefaultConstructor)
 {

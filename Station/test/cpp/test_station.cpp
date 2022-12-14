@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../../src/station/station.h"
+#include "../../main/headers/station.h"
 
 using ::testing::Ne;
 
@@ -161,10 +161,4 @@ TEST(StationTest, TestToString)
     ASSERT_TRUE(defaultStation.WaitLine().empty());
 
     ASSERT_EQ(defaultStation.StationID(), "Zebra");
-}
-
-int main(int argc, char** argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }
