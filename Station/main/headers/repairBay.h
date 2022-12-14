@@ -6,7 +6,7 @@
 /**
  * Repair Bay class.
  * 
- * Responsible for conducting ship repairs.
+ * This class is responsible for conducting ship repairs.
  */
 class RepairBay
 {
@@ -25,9 +25,9 @@ class RepairBay
         RepairBay(char, Ship* = NULL);
 
         /**
-         * Return the char designation of a bay object. 
+         * Return the character designation of this Bay object. 
          * 
-         * @return designation value. 
+         * @return Character. 
          */
         char Designation() const {
             return this->designation;
@@ -39,6 +39,8 @@ class RepairBay
          * 
          * Set the current ship pointer. 
          * Calculate the time it will take to repair the new ship.
+         * 
+         * @param cs ship pointer to the Ship to be docked at this Bay.
          */
         void CurrentShip(Ship* cs) {
             this->currentShip = cs;
@@ -48,14 +50,15 @@ class RepairBay
         /**
          * Return the current ship pointer.
          * 
-         * @return Ship* docked.
+         * @return Ship*.
          */
         Ship* CurrentShip() const {
             return this->currentShip;
         }
 
         /**
-         * Removes the current ship pointer and set to NULL.
+         * Remove the current ship pointer and set to NULL.
+         * Reset the repair time counter. 
          */
         void RemoveShip() {
             delete this->currentShip;
@@ -64,7 +67,9 @@ class RepairBay
         }
 
         /**
-         * Return the time to repair
+         * Return the time to repair the current ship.
+         * 
+         * @return Integer.
          */
         int TimeToRepair() const {
             return this->repairTime;
@@ -78,10 +83,10 @@ class RepairBay
         }
 
         /** 
-         * Return boolean status of this bay.
+         * Return boolean status of this Bay.
          * 
-         * @return false if current ship pointer is NULL
-         * @return true if current ship pointer is not NULL
+         * @return false if current ship pointer is NULL.
+         * @return true if current ship pointer is not NULL.
          */
         bool IsFull() const {
             return (this->CurrentShip() == NULL ? false : true);
@@ -90,37 +95,37 @@ class RepairBay
         /**
          * Return a string representation of this object.
          * 
-         * @return std::string 
+         * @return std::string.
          */
         std::string toString() const;
 
     private:
         /**
-         * Stores the char representation of a bay.
+         * Stores the char representation of this Bay.
          */
         char designation;
 
         /**
-         * Pointer to the ship currently docked
+         * Pointer to the ship currently docked.
          */
         Ship *currentShip;
 
         /**
-         * Counter for how long the current ship will take to repair
+         * Counter for how long the current ship will take to repair.
          */
         int repairTime;
                 
         /**
-         * Calculate the total time it will take to repair the current ship
+         * Calculate the total time it will take to repair the current ship.
          * 
          * TODO: Beyond this project, move to ship class and have each part carry this repair number.
          */
         void CalculateRepairTime();
 
         /**
-         * Set the designation of a bay object.
+         * Set the designation of this Bay.
          * 
-         * @param char representation of a bay.
+         * @param char representation of this Bay.
          */
         void Designation(char d) {
             this->designation = d;
