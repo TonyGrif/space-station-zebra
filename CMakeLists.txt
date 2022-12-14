@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 project(SpaceStation VERSION 1.0)
 
-enable_testing()
+add_subdirectory(Station/main)
 
-add_subdirectory(src)
-add_subdirectory(test)
+# Should make optional
+add_subdirectory(Station/test)

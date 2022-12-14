@@ -1,19 +1,11 @@
-#include "ships.h"
+#include "../headers/ships.h"
 
-// Todo: look up why {} works in this case
-//std::default_random_engine Ship::gen = std::default_random_engine(std::random_device{}());
+std::default_random_engine Ship::gen = std::default_random_engine(std::random_device{}());
 
 // Used due to MinGW limitations
-std::default_random_engine Ship::gen = std::default_random_engine(time(NULL));
+// std::default_random_engine Ship::gen = std::default_random_engine(time(NULL));
 
-Ship::Ship() 
-{
-    this->ShipID(1);
-    this->SetType();
-    this->GenerateParts();
-}
-
-Ship::Ship(int id)
+Ship::Ship(int id) 
 {
     this->ShipID(id);
     this->SetType();

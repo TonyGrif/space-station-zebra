@@ -1,4 +1,4 @@
-#include "station.h"
+#include "../headers/station.h"
 
 Station::Station() 
 {

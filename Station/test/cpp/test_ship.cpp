@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../../src/station/ships.h"
+#include "../../main/headers/ships.h"
 
 TEST(ShipTest, TestDefaultConstructor)
 {
@@ -14,24 +14,18 @@ TEST(ShipTest, TestDefaultConstructor)
         || testingShip.Type() == 'O');
 
     ASSERT_FALSE(testingShip.GetParts().empty());
-}
 
-TEST(ShipTest, TestNonDefaultConstructor)
-{
-    Ship testingShip;
-    Ship secondShip(7);
+    Ship IDShip(88);
 
-    // Compare the two ships
-    ASSERT_NE(testingShip.ShipID(), secondShip.ShipID());
-    ASSERT_EQ(secondShip.ShipID(), 7);
+    ASSERT_EQ(IDShip.ShipID(), 88);
+    ASSERT_NE(IDShip.ShipID(), testingShip.ShipID());
+    ASSERT_TRUE(IDShip.Type() == 'H'
+        || IDShip.Type() == 'F'
+        || IDShip.Type() == 'K'
+        || IDShip.Type() == 'R'
+        || IDShip.Type() == 'O');
 
-    ASSERT_TRUE(secondShip.Type() == 'H'
-        || secondShip.Type() == 'F'
-        || secondShip.Type() == 'K'
-        || secondShip.Type() == 'R'
-        || secondShip.Type() == 'O');
-
-    ASSERT_FALSE(secondShip.GetParts().empty());
+    ASSERT_FALSE(IDShip.GetParts().empty());
 }
 
 TEST(ShipTest, TestShipID)
@@ -39,14 +33,11 @@ TEST(ShipTest, TestShipID)
     Ship testingShip;
     Ship secondShip(24);
 
-    // Test default set
     ASSERT_EQ(testingShip.ShipID(), 1);
 
-    // Testing non default set
     ASSERT_NE(secondShip.ShipID(), testingShip.ShipID());
     ASSERT_EQ(secondShip.ShipID(), 24);
 
-    // Ensure no other variables were changed
     ASSERT_TRUE(secondShip.Type() == 'H'
         || secondShip.Type() == 'F'
         || secondShip.Type() == 'K'
@@ -95,9 +86,10 @@ TEST(ShipTest, TestGenerateParts)
     ASSERT_FALSE(testingPtr->GetParts().empty());
     ASSERT_TRUE(testingPtr->GetParts().size() >= 1);
 
-    // Note: does not test for odd/even
-    // Note: does not test for all values in each run
+    bool isEven = false;
+    bool isOdd = false;
     int minVal, maxVal;
+
     if(testingPtr->Type() == 'H') {
         minVal = 1;
         maxVal= 100;
@@ -109,10 +101,12 @@ TEST(ShipTest, TestGenerateParts)
     else if(testingPtr->Type() == 'K') {
         minVal = 2;
         maxVal= 200;
+        isEven = true;
     }
     else if(testingPtr->Type() == 'R') {
         minVal = 1;
         maxVal= 199;
+        isOdd = true;
     }
     else {
         minVal = 200;
@@ -122,6 +116,15 @@ TEST(ShipTest, TestGenerateParts)
     for(auto& i : testingPtr->GetParts())
     {
         ASSERT_TRUE(i.PartId() >= minVal && i.PartId() <= maxVal);
+
+        if(isEven)
+        {
+            ASSERT_TRUE(i.PartId() % 2 == 0);
+        }
+        else if(isOdd)
+        {
+            ASSERT_TRUE(i.PartId() % 2 != 0);
+        }
     }
 
     if(testingPtr->Type() != 'K' && testingPtr->Type() != 'R' && testingPtr->Type() != 'O') {

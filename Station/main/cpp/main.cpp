@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "station/station.h"
+#include "../headers/station.h"
 
 int main()
 {

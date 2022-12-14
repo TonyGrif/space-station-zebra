@@ -1,9 +1,10 @@
 #ifndef SHIP_H 
 #define SHIP_H
 
-#include "parts.h"
+#include "part.h"
 
 #include <list>
+
 #include <ctime>
 #include <random>
 
@@ -19,47 +20,42 @@ class Ship
 
         /**
          * Default Ship constructor.
+         * 
+         * @param id sets the ID for this Ship.
          */
-        Ship();
+        Ship(int id = 1);
 
         /**
-         * Non-default Ship constructor.
+         * Return this Ship's identification number.
          * 
-         * @param int sets the ship identification number.
-         */
-        Ship(int);
-
-        /**
-         * Return the ship's identification number.
-         * 
-         * @return ship identification number.
+         * @return Integer.
          */
         int ShipID() const {
             return this->shipID;
         }
 
         /**
-         * Return the ship's type.
+         * Return this Ship's type.
          * 
-         * @return the ship's types.
+         * @return Character.
          */
         char Type() const {
             return this->type;
         }
 
         /**
-         * Get the parts collection. 
+         * Return this Ship's part collection. 
          * 
-         * @return partsCollection 
+         * @return partsCollection.
          */
         partsCollection GetParts() const {
             return this->parts;
         }
 
         /**
-         * Generate a string representation of this object.
+         * Return a string representation of this object.
          * 
-         * @return std::string 
+         * @return std::string.
          */
         std::string toString() const;
 
@@ -82,14 +78,14 @@ class Ship
         /**
          * Set the ship identification number.
          * 
-         * @param si integer identification number.
+         * @param si sets the ID for this Ship.
          */
         void ShipID(int si) {
             this->shipID = si;
         }
 
         /**
-         * Generate the ship's type.
+         * Generate this Ship's type.
          * 
          * Set the value based on the percentage chance of any of them.
          * H(50%), F(15%), K(10%), R(5%), O(20%).
@@ -97,7 +93,7 @@ class Ship
         void SetType();
 
         /**
-         * Function to generate parts for this ship based on the type.
+         * Function to generate parts for this Ship based on the type.
          * 
          * H = id (1 - 100), 5% chance of broken part.
          * F = id (75 - 150), 8% chance of broken part.

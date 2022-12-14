@@ -1,10 +1,4 @@
-#include "parts.h"
-
-Part::Part()
-{
-    this->PartId(1);
-    this->IsBroken(false);
-}
+#include "../headers/part.h"
 
 Part::Part(int id, bool b)
 {
@@ -26,6 +20,7 @@ bool Part::operator<(const Part& rhs) const
     if(this->PartId() != rhs.PartId()) {
         return (this->PartId() < rhs.PartId());
     }
+    return false;
 }
 
 std::string Part::toString() const
