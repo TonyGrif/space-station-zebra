@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../../main/headers/parts.h"
+#include "../../main/headers/part.h"
 
 TEST(PartsTest, TestDefaultConstructor)
 {

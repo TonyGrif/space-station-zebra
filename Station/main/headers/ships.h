@@ -1,7 +1,7 @@
 #ifndef SHIP_H 
 #define SHIP_H
 
-#include "parts.h"
+#include "part.h"
 
 #include <list>
 #include <ctime>

@@ -4,7 +4,7 @@ set(SOURCES
     cpp/station.cpp
     cpp/repairBay.cpp
     cpp/ships.cpp
-    cpp/parts.cpp)
+    cpp/part.cpp)
 
 add_library(Station ${SOURCES})
 
