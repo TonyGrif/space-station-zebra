@@ -1,15 +1,9 @@
 #include "../headers/repairBay.h"
 
-RepairBay::RepairBay()
+RepairBay::RepairBay(char id, Ship* sPtr)
 {
-    this->Designation('A');
-    this->CurrentShip(NULL);
-}
-
-RepairBay::RepairBay(char d, Ship* ptr)
-{
-    this->Designation(d);
-    this->CurrentShip(ptr);
+    this->Designation(id);
+    this->CurrentShip(sPtr);
 }
 
 void RepairBay::CalculateRepairTime() 
@@ -70,6 +64,7 @@ std::string RepairBay::toString() const
     if(this->IsFull() == false)
     {
         tempStr.append(" - Empty");
+        tempStr.append("\n");
     }
     else
     {

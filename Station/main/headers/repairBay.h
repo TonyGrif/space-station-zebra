@@ -13,16 +13,11 @@ class RepairBay
     public:
         /**
          * Default constructor for a repair bay.
-         */
-        RepairBay();
-
-        /**
-         * Non-default constructor for a repair bay.
          * 
-         * @param char character representation of a bay.
-         * @param Ship pointer to a ship to be docked at the bay (optional)
+         * @param id character representation of this Bay.
+         * @param sPtr ship pointer to be added to this Bay.
          */
-        RepairBay(char, Ship* = NULL);
+        RepairBay(char id = 'A', Ship* sPtr = NULL);
 
         /**
          * Return the character designation of this Bay object. 
@@ -118,7 +113,8 @@ class RepairBay
         /**
          * Calculate the total time it will take to repair the current ship.
          * 
-         * TODO: Beyond this project, move to ship class and have each part carry this repair number.
+         * TODO: Beyond this project, move to ship class and have each part carry a repair number.
+         *       Update the parts as repairs are conducted.
          */
         void CalculateRepairTime();
 
