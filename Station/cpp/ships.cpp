@@ -1,4 +1,4 @@
-#include "ships.h"
+#include "../headers/ships.h"
 
 // Todo: look up why {} works in this case
 //std::default_random_engine Ship::gen = std::default_random_engine(std::random_device{}());

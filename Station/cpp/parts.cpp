@@ -1,4 +1,4 @@
-#include "parts.h"
+#include "../headers/parts.h"
 
 Part::Part()
 {

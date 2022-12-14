@@ -7,5 +7,5 @@ project(SpaceStation VERSION 1.0)
 
 enable_testing()
 
-add_subdirectory(src)
+add_subdirectory(Station)
 add_subdirectory(test)
