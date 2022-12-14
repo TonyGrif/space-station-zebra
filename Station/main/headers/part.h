@@ -4,50 +4,43 @@
 #include <string>
 
 /**
- * Parts class.
+ * Part class.
  * 
- * Parts class to later make up a ships class.
- * This class is responsible for generating a part (its id and health status).
+ * This class is responsible for creating a part with an id and health status.
  */
 class Part
 {
     public:
         /**
          * Default constructor.
+         * 
+         * @param id sets the ID of this Part.
+         * @param b sets the health status of this Part.
          */
-        Part();
+        Part(int id = 1, bool b = false);
 
         /**
-         * Non default constructor.
+         * @brief Return the ID of this Part.
          * 
-         * @param int sets the part id.
-         * @param bool sets the broken status, optional.
-         */
-        Part(int, bool = false);
-
-        /**
-         * Return the part id.
-         * 
-         * @return the part id.
+         * @return Integer. 
          */
         int PartId() const {
             return this->partId;
         }
 
         /**
-         * Set the status of this parts health.
-         * Note: Leaving public due to potential future use to change over repair time.
+         * Set the health status of this Part.
          * 
-         * @param bool sets the status of health based on this parameter.
+         * @param ib sets the health status of this Part.
          */
         void IsBroken(bool ib) {
             this->isBroken = ib;
         }
 
         /**
-         * Return the status of this parts health.
+         * Return the health status of this Part.
          * 
-         * @return the boolean health status of this part.
+         * @return Boolean.
          */
         bool IsBroken() const {
             return this->isBroken;
@@ -56,14 +49,14 @@ class Part
         /**
          * Equivalence operator. 
          * 
-         * @return true if both the part id and the heath status are the same.
+         * @return True if both the part id and the heath status are the same.
          */
         bool operator==(const Part&) const;
 
         /**
          * Less than operator.
          * 
-         * @return true if LHS part id comes after RHS part id.
+         * @return True if LHS part ID comes after RHS part ID.
          */
         bool operator<(const Part&) const;
 
@@ -86,9 +79,9 @@ class Part
         bool isBroken;
 
         /**
-         * Sets the part id.
+         * Set the ID for this Part.
          * 
-         * @param int sets the part id.
+         * @param int sets the ID of this Part.
          */
         void PartId(int id) {
             this->partId = id;
