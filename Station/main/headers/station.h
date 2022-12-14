@@ -28,21 +28,23 @@ class Station
         /**
          * Non-Default constructor for Station.
          * 
-         * @param string = sets the identification of this Station.
+         * @param string sets the identification of this Station.
          */
         Station(std::string);
 
         /**
-         * Returns station id.
+         * Returns this Station's ID.
          * 
-         * @return string representation of identification. 
+         * @return std::string. 
          */
         std::string StationID() const {
             return this->stationID;
         }
 
         /**
-         * Get the repair bays.
+         * Return the Repair Bay collection.
+         * 
+         * @return bayCollection.
          */
         bayCollection Bays() const {
             return this->bays;
@@ -55,20 +57,24 @@ class Station
 
         /**
          * Add ship to the appropriate state (bay or queue).
+         * 
+         * @param sPtr Ship pointer.
          */
-        void AddShip(Ship*);
+        void AddShip(Ship* sPtr);
 
         /**
-         * Return the queue of ships to the user.
+         * Return the collection of ships located in the wait line.
          * 
-         * @return queue of ship pointers.  
+         * @return lineCollection. 
          */
         lineCollection WaitLine() const {
             return this->waitLine;
         }
 
         /**
-         * Create a string report of the Station's status.
+         * Return a string representation of this Station.
+         * 
+         * @return std::string.
          */
         std::string toString() const;
 
@@ -92,9 +98,9 @@ class Station
         lineCollection waitLine;
 
         /**
-         * Sets the station id.
+         * Set this Station's ID.
          * 
-         * @param string representation of identification.
+         * @param string sets the ID.
          */
         void StationID(std::string sid) {
             this->stationID = sid;
@@ -103,7 +109,7 @@ class Station
         /** 
          * Set the repair bays.
          * 
-         * @param RepairBays are the bays to be added to a Station's collection.
+         * @param RepairBays RepairBays to be added to this Station.
          */
         void Bays(RepairBay a, RepairBay b, RepairBay c) {
             this->bays[0] = a;
@@ -114,22 +120,23 @@ class Station
         /**
          * Attempt to add the ship to the bay.
          * 
+         * @param sPtr Ship pointer to be added.
          * @return true if ship was added.
          * @return false if the ship was not added.
          */
-        bool AddShipToBay(Ship*);
+        bool AddShipToBay(Ship* sPtr);
 
         /**
          * Add a ship to this wait line.
          * 
-         * @param sp a ship pointer to be added. 
+         * @param sPtr ship pointer to be added. 
          */
-        void AddShipToQueue(Ship* sp) {
-            this->waitLine.push(sp);
+        void AddShipToQueue(Ship* sPtr) {
+            this->waitLine.push(sPtr);
         }
 
         /**
-         * Remove the ship from the top of the queue.
+         * Remove a ship from the top of the queue.
          */
         void RemoveShipFromQueue() {
             this->waitLine.pop();
