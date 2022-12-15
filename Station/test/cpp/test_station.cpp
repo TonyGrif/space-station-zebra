@@ -6,33 +6,22 @@ using ::testing::Ne;
 
 TEST(StationTest, TestStationConstructor)
 {
-    Station testDefault;
+    Station defaultStation, idStation("Otter");
 
-    ASSERT_EQ(testDefault.StationID(), "Zebra");
-
-    ASSERT_EQ(testDefault.Bays()[0].Designation(), 'A');
-    ASSERT_EQ(testDefault.Bays()[1].Designation(), 'B');
-    ASSERT_EQ(testDefault.Bays()[2].Designation(), 'C');
-
-    ASSERT_TRUE(testDefault.WaitLine().empty());
-}
-
-TEST(StationTest, TestStationNonDefaultConstuctor)
-{
-    Station defaultStation;
-    Station nonDefaultStation("Otter");
-
-    // Testing set values
     ASSERT_EQ(defaultStation.StationID(), "Zebra");
-    ASSERT_EQ(nonDefaultStation.StationID(), "Otter");
-    ASSERT_NE(defaultStation.StationID(), nonDefaultStation.StationID());
+    ASSERT_EQ(idStation.StationID(), "Otter");
+    ASSERT_NE(defaultStation.StationID(), idStation.StationID());
 
-    // Testing other variables
-    ASSERT_EQ(nonDefaultStation.Bays()[0].Designation(), 'A');
-    ASSERT_EQ(nonDefaultStation.Bays()[1].Designation(), 'B');
-    ASSERT_EQ(nonDefaultStation.Bays()[2].Designation(), 'C');
+    ASSERT_EQ(defaultStation.Bays()[0].Designation(), 'A');
+    ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'B');
+    ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'C');
 
-    ASSERT_TRUE(nonDefaultStation.WaitLine().empty());
+    ASSERT_EQ(idStation.Bays()[0].Designation(), 'A');
+    ASSERT_EQ(idStation.Bays()[1].Designation(), 'B');
+    ASSERT_EQ(idStation.Bays()[2].Designation(), 'C');
+
+    ASSERT_TRUE(defaultStation.WaitLine().empty());
+    ASSERT_TRUE(idStation.WaitLine().empty());
 }
 
 TEST(StationTest, TestStationDesignation)
@@ -55,12 +44,10 @@ TEST(StationTest, TestStationBays)
 {
     Station defaultStation;
 
-    // Testing default values
     ASSERT_EQ(defaultStation.Bays()[0].Designation(), 'A');
     ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'B');
     ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'C');
 
-    // Ensuring no other variables were changed
     ASSERT_EQ(defaultStation.StationID(), "Zebra");
     ASSERT_TRUE(defaultStation.WaitLine().empty());
 }
@@ -68,56 +55,52 @@ TEST(StationTest, TestStationBays)
 TEST(StationTest, TestRepairTimeCycle)
 {
     Station defaultStation;
-    Ship* testPtr;
 
     // Add a new ship to each bay
     // Add three extra to the queue
     for(auto& i : defaultStation.Bays()) {
-        testPtr = new Ship();
-        defaultStation.AddShip(testPtr);
+        defaultStation.AddShip(new Ship);
+        defaultStation.AddShip(new Ship);
+    }
 
-        testPtr = new Ship();
-        defaultStation.AddShip(testPtr);
+    int smallestBay = 0;
+    for(int x = 1; x < NUM_OF_REPAIR_BAYS; x++) {
+        if(defaultStation.Bays()[smallestBay].TimeToRepair() > defaultStation.Bays()[x].TimeToRepair()) {
+            smallestBay = x;
+        }
     }
 
     // Grab the first repair time number
-    int repairNumber = defaultStation.Bays()[0].TimeToRepair();
+    int repairNumber = defaultStation.Bays()[smallestBay].TimeToRepair();
 
     // Ensure changes to the repair time counter
     defaultStation.RepairTimeStep();
-    ASSERT_NE(repairNumber, defaultStation.Bays()[0].TimeToRepair());
+    ASSERT_NE(repairNumber, defaultStation.Bays()[smallestBay].TimeToRepair());
 
     Ship *storePtr;
 
-    while(defaultStation.Bays()[0].TimeToRepair() != 0) {
+    while(defaultStation.Bays()[smallestBay].TimeToRepair() != 0) {
         defaultStation.RepairTimeStep();
     }
     storePtr = defaultStation.WaitLine().front();
     defaultStation.RepairTimeStep();
 
-    ASSERT_EQ(storePtr, defaultStation.Bays()[0].CurrentShip());
+    ASSERT_EQ(storePtr, defaultStation.Bays()[smallestBay].CurrentShip());
 
-    // Ensure no other changes
     ASSERT_EQ(defaultStation.Bays()[0].Designation(), 'A');
     ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'B');
     ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'C');
 
-    delete testPtr, storePtr;
+    delete storePtr;
 }
 
 TEST(StationTest, TestAddShip)
 {
     Station defaultStation;
-    Ship s1, s2, s3, s4, s5;
-    Ship* s1p = &s1, 
-        *s2p = &s2,
-        *s3p = &s3,
-        *s4p = &s4,
-        *s5p = &s5;
 
-    defaultStation.AddShip(s1p);
-    defaultStation.AddShip(s2p);
-    defaultStation.AddShip(s3p);
+    for(int x = 0; x < NUM_OF_REPAIR_BAYS; x++) {
+        defaultStation.AddShip(new Ship);
+    }
 
     // Ensure each bay is full
     for(auto& i : defaultStation.Bays()) {
@@ -126,11 +109,14 @@ TEST(StationTest, TestAddShip)
     // Ensure queue remains empty
     ASSERT_TRUE(defaultStation.WaitLine().empty());
 
-    defaultStation.AddShip(s4p);
-    defaultStation.AddShip(s5p);
+    defaultStation.AddShip(new Ship);
+
+    Ship* lastShip = new Ship;
+    defaultStation.AddShip(lastShip);
 
     for(auto& i : defaultStation.Bays()) {
         ASSERT_TRUE(i.CurrentShip() != NULL);
+        ASSERT_FALSE(i.CurrentShip() == lastShip);
     }
     ASSERT_EQ(defaultStation.WaitLine().size(), 2);
 }
@@ -138,22 +124,17 @@ TEST(StationTest, TestAddShip)
 TEST(StationTest, TestToString)
 {
     Station defaultStation;
-    std::string value;
 
-    value = defaultStation.toString();
+    std::string value = defaultStation.toString();
 
-    // Contains Station information at the top
     ASSERT_TRUE(value.find(defaultStation.StationID()) != std::string::npos);
 
     // Testing that important data is included in our report
     for(int x = 0; x < NUM_OF_REPAIR_BAYS; x++)
     {
-        ASSERT_TRUE(value.find(defaultStation.Bays()[x].Designation()) != std::string::npos);
+        ASSERT_TRUE(value.find(defaultStation.Bays()[x].toString()) != std::string::npos);
     }
-    //ASSERT_TRUE(value.find(std::to_string(defaultStation.Bays()[0].CurrentShip()->ShipID())));
 
-
-    // Ensure no variables were changed
     ASSERT_EQ(defaultStation.Bays()[0].Designation(), 'A');
     ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'B');
     ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'C');

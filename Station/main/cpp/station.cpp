@@ -1,13 +1,6 @@
 #include "../headers/station.h"
 
-Station::Station() 
-{
-    this->StationID("Zebra");
-    this->Bays(RepairBay('A'), RepairBay('B'), RepairBay('C'));
-    // Queue is already initialized
-}
-
-Station::Station(std::string id)
+Station::Station(std::string id) 
 {
     this->StationID(id);
     this->Bays(RepairBay('A'), RepairBay('B'), RepairBay('C'));

@@ -22,15 +22,10 @@ class Station
 
         /**
          * Default constructor for Station.
-         */
-        Station();
-
-        /**
-         * Non-Default constructor for Station.
          * 
-         * @param string sets the identification of this Station.
+         * @param id sets the identification of this Station.
          */
-        Station(std::string);
+        Station(std::string id = "Zebra");
 
         /**
          * Returns this Station's ID.
