@@ -3,7 +3,7 @@
 RepairBay::RepairBay(char id, Ship* sPtr)
 {
     this->Designation(id);
-    this->CurrentShip(sPtr);
+    this->AddShip(sPtr);
 }
 
 void RepairBay::CalculateRepairTime() 

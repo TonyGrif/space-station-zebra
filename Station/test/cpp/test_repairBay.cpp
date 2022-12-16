@@ -36,18 +36,43 @@ TEST(RepairBayTest, TestBayDesignation)
     ASSERT_EQ(bay2.TimeToRepair(), 0);
 }
 
+TEST(RepairBayTest, TestAddShip)
+{
+    RepairBay bay;
+    ASSERT_EQ(NULL, bay.CurrentShip());
+    ASSERT_EQ(bay.TimeToRepair(), 0);
+    ASSERT_EQ(bay.Designation(), 'A');
+
+    bay.AddShip(new Ship);
+
+    ASSERT_FALSE(bay.CurrentShip() == NULL);
+    ASSERT_NE(bay.TimeToRepair(), 0);
+    ASSERT_EQ(bay.Designation(), 'A');
+}
+
 TEST(RepairBayTest, TestCurrentShip)
 {
     RepairBay bay;
     ASSERT_EQ(NULL, bay.CurrentShip());
     ASSERT_EQ(bay.TimeToRepair(), 0);
+    ASSERT_EQ(bay.Designation(), 'A');
 
-    bay.CurrentShip(new Ship);
+    bay.AddShip(new Ship);
 
     ASSERT_FALSE(bay.CurrentShip() == NULL);
+    ASSERT_EQ(bay.Designation(), 'A');
+}
+
+TEST(RepairBayTest, TestCalcRepairTime)
+{
+    RepairBay bay;
+    ASSERT_EQ(bay.TimeToRepair(), 0);
+
+    bay.AddShip(new Ship);
     ASSERT_NE(bay.TimeToRepair(), 0);
 
     ASSERT_EQ(bay.Designation(), 'A');
+    ASSERT_TRUE(bay.CurrentShip() != NULL);
 }
 
 TEST(RepairBayTest, TestRemoveShip)
@@ -64,23 +89,11 @@ TEST(RepairBayTest, TestRemoveShip)
     ASSERT_EQ(defaultBay.Designation(), 'A');
 }
 
-TEST(RepairBayTest, TestCalcRepairTime)
-{
-    RepairBay bay;
-    ASSERT_EQ(bay.TimeToRepair(), 0);
-
-    bay.CurrentShip(new Ship);
-    ASSERT_NE(bay.TimeToRepair(), 0);
-
-    ASSERT_EQ(bay.Designation(), 'A');
-    ASSERT_TRUE(bay.CurrentShip() != NULL);
-}
-
 TEST(RepairBayTest, TestDecrementCounter)
 {
     RepairBay defaultBay;
 
-    defaultBay.CurrentShip(new Ship);
+    defaultBay.AddShip(new Ship);
 
     int defaultCounter = defaultBay.TimeToRepair();
 
@@ -95,7 +108,7 @@ TEST(RepairBayTest, TestDecrementCounter)
 TEST(RepairBayTest, TestIsFull)
 {
     RepairBay nullBay, nonNullBay;
-    nonNullBay.CurrentShip(new Ship);
+    nonNullBay.AddShip(new Ship);
 
     ASSERT_FALSE(nullBay.IsFull());
     ASSERT_TRUE(nonNullBay.IsFull());
@@ -114,7 +127,7 @@ TEST(RepairBayTest, TestToString)
     // Contains string empty because the current ship pointer is null
     ASSERT_TRUE(value.find("Empty"));
 
-    defaultBay.CurrentShip(testingPtr);
+    defaultBay.AddShip(testingPtr);
     value = defaultBay.toString();
     ASSERT_TRUE(value.find(defaultBay.CurrentShip()->toString()) != std::string::npos);
 

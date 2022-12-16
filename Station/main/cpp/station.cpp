@@ -54,7 +54,7 @@ bool Station::AddShipToBay(Ship* toAdd)
 {
     for(auto& i : this->bays) {
         if(i.IsFull() == false) {
-            i.CurrentShip(toAdd);
+            i.AddShip(toAdd);
             return true;
         }
     }

@@ -29,16 +29,14 @@ class RepairBay
         }
 
         /**
-         * TODO: Move to private and create add ship function?
-         *       Syntax difference not really functionality difference. 
+         * @brief Set the current ship pointer and calculate the necessary repair time.
          * 
-         * Set the current ship pointer. 
-         * Calculate the time it will take to repair the new ship.
+         * Does not check to ensure a Ship is not already docked at this bay, must do so before calling this function.
          * 
-         * @param cs ship pointer to the Ship to be docked at this Bay.
+         * @param cs ship pointer to be docked at this Bay.
          */
-        void CurrentShip(Ship* cs) {
-            this->currentShip = cs;
+        void AddShip(Ship* cs) {
+            this->CurrentShip(cs);
             this->CalculateRepairTime();
         }
 
@@ -109,7 +107,16 @@ class RepairBay
          * Counter for how long the current ship will take to repair.
          */
         int repairTime;
-                
+
+        /**
+         * @brief Set the current ship pointer. 
+         * 
+         * @param cs ship pointer to the Ship to be docked at this Bay.
+         */
+        void CurrentShip(Ship* cs) {
+            this->currentShip = cs;
+        }
+
         /**
          * Calculate the total time it will take to repair the current ship.
          * 
