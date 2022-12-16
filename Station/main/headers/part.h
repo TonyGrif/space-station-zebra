@@ -4,15 +4,15 @@
 #include <string>
 
 /**
- * Part class.
+ * @brief Part class.
  * 
- * This class is responsible for creating a part with an id and health status.
+ * This class is responsible for creating a part with an ID and health status.
  */
 class Part
 {
     public:
         /**
-         * Default constructor.
+         * @brief Default constructor.
          * 
          * @param id sets the ID of this Part.
          * @param b sets the health status of this Part.
@@ -29,7 +29,7 @@ class Part
         }
 
         /**
-         * Set the health status of this Part.
+         * @brief Set the health status of this Part.
          * 
          * @param ib sets the health status of this Part.
          */
@@ -38,7 +38,7 @@ class Part
         }
 
         /**
-         * Return the health status of this Part.
+         * @brief Return the health status of this Part.
          * 
          * @return Boolean.
          */
@@ -47,9 +47,9 @@ class Part
         }
 
         /**
-         * Equivalence operator. 
+         * @brief Equivalence operator. 
          * 
-         * @return True if both the part id and the heath status are the same.
+         * @return True if both the part ID and the heath status are the same.
          */
         bool operator==(const Part&) const;
 
@@ -69,7 +69,7 @@ class Part
 
     private:
         /**
-         * Integer representation of this Part object.
+         * Integer representation of this Part's ID.
          */
         int partId;
 
