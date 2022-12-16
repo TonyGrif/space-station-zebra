@@ -4,7 +4,7 @@
 #include "ships.h"
 
 /**
- * Repair Bay class.
+ * @brief Repair Bay class.
  * 
  * This class is responsible for conducting ship repairs.
  */
@@ -12,7 +12,7 @@ class RepairBay
 {
     public:
         /**
-         * Default constructor for a repair bay.
+         * @brief Default constructor for a repair bay.
          * 
          * @param id character representation of this Bay.
          * @param sPtr ship pointer to be added to this Bay.
@@ -20,7 +20,7 @@ class RepairBay
         RepairBay(char id = 'A', Ship* sPtr = NULL);
 
         /**
-         * Return the character designation of this Bay object. 
+         * @brief Return the character designation of this Bay object. 
          * 
          * @return Character. 
          */
@@ -41,7 +41,7 @@ class RepairBay
         }
 
         /**
-         * Return the current ship pointer.
+         * @brief Return the current ship pointer.
          * 
          * @return Ship*.
          */
@@ -61,7 +61,7 @@ class RepairBay
         }
 
         /**
-         * Return the time to repair the current ship.
+         * @brief Return the time to repair the current ship.
          * 
          * @return Integer.
          */
@@ -70,14 +70,16 @@ class RepairBay
         }
 
         /**
-         * Decrements the repair counter by one.
+         * @brief Decrements the repair counter by one.
+         * 
+         * Will continue whether or not zero has been reached; check before or after this function for appropriate response.
          */
         void DecrementRepairCounter() {
             this->repairTime--;
         }
 
         /** 
-         * Return boolean status of this Bay.
+         * @brief Return boolean status of this Bay.
          * 
          * @return false if current ship pointer is NULL.
          * @return true if current ship pointer is not NULL.
@@ -87,7 +89,7 @@ class RepairBay
         }
 
         /**
-         * Return a string representation of this object.
+         * @brief Return a string representation of this object.
          * 
          * @return std::string.
          */
@@ -95,17 +97,17 @@ class RepairBay
 
     private:
         /**
-         * Stores the char representation of this Bay.
+         * @brief Stores the character representation of this Bay.
          */
         char designation;
 
         /**
-         * Pointer to the ship currently docked.
+         * @brief Pointer to the ship currently docked.
          */
         Ship *currentShip;
 
         /**
-         * Counter for how long the current ship will take to repair.
+         * @brief Counter for how long the current ship will take to repair.
          */
         int repairTime;
 
@@ -119,12 +121,12 @@ class RepairBay
         }
 
         /**
-         * Calculate the total time it will take to repair the current ship.
+         * @brief Calculate the total time it will take to repair the current ship.
          */
         void CalculateRepairTime();
 
         /**
-         * Set the designation of this Bay.
+         * @brief Set the designation of this Bay.
          * 
          * @param char representation of this Bay.
          */

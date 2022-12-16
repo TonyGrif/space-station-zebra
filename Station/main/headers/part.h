@@ -54,14 +54,14 @@ class Part
         bool operator==(const Part&) const;
 
         /**
-         * Less than operator.
+         * @brief Less than operator.
          * 
          * @return True if this ID comes after RHS ID.
          */
         bool operator<(const Part&) const;
 
         /**
-         * Return a string representation of this Part.
+         * @brief Return a string representation of this Part.
          * 
          * @return std::string.
          */
@@ -69,17 +69,17 @@ class Part
 
     private:
         /**
-         * Integer representation of this Part's ID.
+         * @brief Integer representation of this Part's ID.
          */
         int partId;
 
         /**
-         * Boolean status of this Part's health.
+         * @brief Boolean status of this Part's health.
          */
         bool isBroken;
 
         /**
-         * Set the ID for this Part.
+         * @brief Set the ID for this Part.
          * 
          * @param int sets the ID of this Part.
          */

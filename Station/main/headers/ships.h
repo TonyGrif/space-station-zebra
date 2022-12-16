@@ -9,24 +9,27 @@
 #include <random>
 
 /**
- * Ship class.
+ * @brief Ship class.
  * 
- * This class is responsible for generating a type, list of parts (broken or not), and have its own id number.
+ * This class is responsible for generating a type, list of parts (broken or not), and its own ID number.
  */
 class Ship 
 {    
     public:
+        /**
+         * @brief Data structure to be used in part collection.
+         */
         using partsCollection = std::list<Part>;
 
         /**
-         * Default Ship constructor.
+         * @brief Default Ship constructor.
          * 
          * @param id sets the ID for this Ship.
          */
         Ship(int id = 1);
 
         /**
-         * Return this Ship's identification number.
+         * @brief Return this Ship's identification number.
          * 
          * @return Integer.
          */
@@ -35,7 +38,7 @@ class Ship
         }
 
         /**
-         * Return this Ship's type.
+         * @brief Return this Ship's type.
          * 
          * @return Character.
          */
@@ -44,7 +47,7 @@ class Ship
         }
 
         /**
-         * Return this Ship's part collection. 
+         * @brief Return this Ship's part collection. 
          * 
          * @return partsCollection.
          */
@@ -53,7 +56,7 @@ class Ship
         }
 
         /**
-         * Return a string representation of this object.
+         * @brief Return a string representation of this object.
          * 
          * @return std::string.
          */
@@ -61,22 +64,22 @@ class Ship
 
     private:
         /**
-         * Ship identification number.
+         * @brief Ship identification number.
          */
         int shipID;
 
         /**
-         * Ship type.
+         * @brief Ship type.
          */
         char type;
 
         /**
-         * Collection of parts that make up the ship.
+         * @brief Collection of parts that make up the ship.
          */
         partsCollection parts;
 
         /**
-         * Set the ship identification number.
+         * @brief Set the ship identification number.
          * 
          * @param si sets the ID for this Ship.
          */
@@ -85,7 +88,7 @@ class Ship
         }
 
         /**
-         * Generate this Ship's type.
+         * @brief Generate this Ship's type.
          * 
          * Set the value based on the percentage chance of any of them.
          * H(50%), F(15%), K(10%), R(5%), O(20%).
@@ -93,7 +96,7 @@ class Ship
         void SetType();
 
         /**
-         * Function to generate parts for this Ship based on the type.
+         * @brief Function to generate parts for this Ship based on the type.
          * 
          * H = id (1 - 100), 5% chance of broken part.
          * F = id (75 - 150), 8% chance of broken part.
@@ -103,7 +106,9 @@ class Ship
          */
         void GenerateParts();
 
-        // Generates a random engine that will persist through all instances of ships objects.
+        /**
+         * @brief Random engine to be shared amongst all Ships.
+         */
         static std::default_random_engine gen;
 };
 

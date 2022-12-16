@@ -10,25 +10,34 @@
 const int NUM_OF_REPAIR_BAYS = 3;
 
 /**
- * Station class.
+ * @brief Station class.
  * 
- * Responsible for managing a collection of repair bays and wait line to the bays.
+ * Responsible for managing a collection of repair bays and a wait line to the bays.
  */
 class Station 
 {
     public:
+        /**
+         * @brief Data structure to be used to create a colleciton of Bays.
+         * 
+         * Number is determined by a constant supplied.
+         */
         using bayCollection = std::array<RepairBay, NUM_OF_REPAIR_BAYS>;
+
+        /**
+         * @brief Data structure to be used to create a line of Ships.
+         */
         using lineCollection = std::queue<Ship*>;
 
         /**
-         * Default constructor for Station.
+         * @brief Default constructor for Station.
          * 
          * @param id sets the identification of this Station.
          */
         Station(std::string id = "Zebra");
 
         /**
-         * Returns this Station's ID.
+         * @brief Returns this Station's ID.
          * 
          * @return std::string. 
          */
@@ -37,7 +46,7 @@ class Station
         }
 
         /**
-         * Return the Repair Bay collection.
+         * @brief Return the Repair Bay collection.
          * 
          * @return bayCollection.
          */
@@ -46,19 +55,19 @@ class Station
         }
 
         /**
-         * Runs through all the bays and handles one time cycle worth of repairs if needed.
+         * @brief Runs through all the bays and handles one time cycle worth of repairs if needed.
          */
         void RepairTimeStep();
 
         /**
-         * Add ship to the appropriate state (bay or queue).
+         * @brief Add ship to the appropriate state (bay or queue).
          * 
          * @param sPtr Ship pointer.
          */
         void AddShip(Ship* sPtr);
 
         /**
-         * Return the collection of ships located in the wait line.
+         * @brief Return the collection of ships located in the wait line.
          * 
          * @return lineCollection. 
          */
@@ -67,7 +76,7 @@ class Station
         }
 
         /**
-         * Return a string representation of this Station.
+         * @brief Return a string representation of this Station.
          * 
          * @return std::string.
          */
@@ -75,25 +84,25 @@ class Station
 
     private: 
         /**
-         * String representation of a Station object's identification. 
+         * @brief String representation of this Station's identification. 
          */
         std::string stationID;
         
         /**
-         * Collection of repair bays.
-         * Number is determined by the constant supplied.
+         * @brief Collection of repair bays.
          */
         bayCollection bays;
 
         /**
-         * Queue of ship pointers.
+         * @brief Queue of ship pointers.
+         * 
          * Occupants are added whenever a bay is unavailable.
          * Occupant is freed when a bay is made available.
          */
         lineCollection waitLine;
 
         /**
-         * Set this Station's ID.
+         * @brief Set this Station's ID.
          * 
          * @param string sets the ID.
          */
@@ -102,7 +111,7 @@ class Station
         }
 
         /** 
-         * Set the repair bays.
+         * @brief Set the repair bays.
          * 
          * @param RepairBays RepairBays to be added to this Station.
          */
@@ -113,7 +122,7 @@ class Station
         }
 
         /**
-         * Attempt to add the ship to the bay.
+         * @brief Attempt to add the ship to the bay.
          * 
          * @param sPtr Ship pointer to be added.
          * @return true if ship was added.
@@ -122,7 +131,7 @@ class Station
         bool AddShipToBay(Ship* sPtr);
 
         /**
-         * Add a ship to this wait line.
+         * @brief Add a ship to this wait line.
          * 
          * @param sPtr ship pointer to be added. 
          */
@@ -131,7 +140,7 @@ class Station
         }
 
         /**
-         * Remove a ship from the top of the queue.
+         * @brief Remove a ship from the top of the queue.
          */
         void RemoveShipFromQueue() {
             this->waitLine.pop();
