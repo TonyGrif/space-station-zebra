@@ -79,6 +79,7 @@ TEST(RepairBayTest, TestRemoveShip)
 {
     RepairBay defaultBay('A', new Ship);
 
+    ASSERT_EQ(defaultBay.Designation(), 'A');
     ASSERT_TRUE(defaultBay.CurrentShip() != NULL);
     ASSERT_NE(defaultBay.TimeToRepair(), 0);
 

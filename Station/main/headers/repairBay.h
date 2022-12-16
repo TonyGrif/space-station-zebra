@@ -50,8 +50,9 @@ class RepairBay
         }
 
         /**
-         * Remove the current ship pointer and set to NULL.
-         * Reset the repair time counter. 
+         * @brief Remove the current ship pointer and set to NULL; then, reset the time counter to zero.
+         * 
+         * Does not check to ensure the current ship has been fully repaired; check must happen before calling this function. 
          */
         void RemoveShip() {
             delete this->currentShip;
@@ -119,9 +120,6 @@ class RepairBay
 
         /**
          * Calculate the total time it will take to repair the current ship.
-         * 
-         * TODO: Beyond this project, move to ship class and have each part carry a repair number.
-         *       Update the parts as repairs are conducted.
          */
         void CalculateRepairTime();
 
