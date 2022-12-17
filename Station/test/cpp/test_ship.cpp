@@ -113,9 +113,11 @@ TEST(ShipTest, TestGenerateParts)
         maxVal = 999;
     }
 
+    int lastVal = 0;
     for(auto& i : testingPtr->GetParts())
     {
         ASSERT_TRUE(i.PartId() >= minVal && i.PartId() <= maxVal);
+        ASSERT_TRUE(i.PartId() >= lastVal) << testingPtr->toString();
 
         if(isEven)
         {
@@ -125,6 +127,7 @@ TEST(ShipTest, TestGenerateParts)
         {
             ASSERT_TRUE(i.PartId() % 2 != 0);
         }
+        lastVal = i.PartId();
     }
 
     if(testingPtr->Type() != 'K' && testingPtr->Type() != 'R' && testingPtr->Type() != 'O') {
