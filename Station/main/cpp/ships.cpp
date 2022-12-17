@@ -91,6 +91,7 @@ void Ship::GenerateParts()
             }
 
             this->parts.push_back(*ptr);
+            this->parts.sort();
         }
         return;
     }
