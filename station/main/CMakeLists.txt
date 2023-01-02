@@ -6,6 +6,6 @@ set(SOURCES
     cpp/ships.cpp
     cpp/part.cpp)
 
-add_library(Station ${SOURCES})
+add_library(station ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} Station)
+target_link_libraries(${PROJECT_NAME} station)

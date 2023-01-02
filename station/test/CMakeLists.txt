@@ -21,12 +21,12 @@ set(TESTS
   cpp/test_parts.cpp
 )
 
-add_executable(Test_${PROJECT_NAME} ${TESTS})
+add_executable(test_${PROJECT_NAME} ${TESTS})
 
 target_link_libraries(
-    Test_${PROJECT_NAME}
+    test_${PROJECT_NAME}
     GTest::gtest_main
-    Station
+    station
     )
 
-gtest_discover_tests(Test_${PROJECT_NAME})
+gtest_discover_tests(test_${PROJECT_NAME})
