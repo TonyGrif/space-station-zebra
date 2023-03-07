@@ -1,6 +1,9 @@
-enable_testing()
+if(${CMAKE_PROJECT_NAME}_BUILD_EXECUTABLE)
+  set(${CMAKE_PROJECT_NAME}_TEST_LIB ${CMAKE_PROJECT_NAME}_LIB)
+else()
+  set(${CMAKE_PROJECT_NAME}_TEST_LIB ${CMAKE_PROJECT_NAME})
+endif()
 
-# Should move to a git submodule soon
 include(FetchContent)
 include(GoogleTest)
 
@@ -26,7 +29,7 @@ add_executable(test_${PROJECT_NAME} ${TESTS})
 target_link_libraries(
     test_${PROJECT_NAME}
     GTest::gtest_main
-    station
+    ${${CMAKE_PROJECT_NAME}_TEST_LIB}
     )
 
 gtest_discover_tests(test_${PROJECT_NAME})

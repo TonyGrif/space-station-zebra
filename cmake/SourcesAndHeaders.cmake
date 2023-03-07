@@ -18,9 +18,9 @@ set(headers
 )
 
 set(test_sources
-    station/test/cpp/main.cpp
-    station/test/cpp/test_parts.cpp
-    station/test/cpp/test_repairBay.cpp
-    station/test/cpp/test_ship.cpp
-    station/test/cpp/test_station.cpp
+    cpp/main.cpp
+    cpp/test_parts.cpp
+    cpp/test_repairBay.cpp
+    cpp/test_ship.cpp
+    cpp/test_station.cpp
 )
