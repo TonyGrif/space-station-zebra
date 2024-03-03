@@ -1,4 +1,9 @@
-# Project 1
+# Space Station Zebra
+
+## Requirements
+
+## Running Instructions
+
 Imagine in deep space there is a space station designed to repair docked space ships. Space ships will arrive with damage and, if there is docking bay that is free, then the ship will dock for repairs; if there is no free dock, the damaged ship waits in the queue.
 
 ## Class Lists

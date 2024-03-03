@@ -3,6 +3,7 @@
 all:
 	@echo "Creating build directory"
 	@[ -d build ] || mkdir build
+	@cmake -S . -B build
 
 clean:
 	@echo "Removing build directory"
