@@ -12,9 +12,9 @@ endif()
 
 add_executable(
     station 
-    station/main/cpp/main.cpp
-    station/main/cpp/part.cpp
-    station/main/cpp/ships.cpp
-    station/main/cpp/repairBay.cpp
-    station/main/cpp/station.cpp
+    src/main.cpp
+    src/cpp/part.cpp
+    src/cpp/ships.cpp
+    src/cpp/repairBay.cpp
+    src/cpp/station.cpp
 )
