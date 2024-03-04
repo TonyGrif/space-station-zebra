@@ -28,7 +28,7 @@ add_executable(
 )
 target_link_libraries(station-zebra PRIVATE station)
 
-if(TEST_STATION)
+if(BUILD_TESTING)
     include(CTest)
     enable_testing()
     add_subdirectory(tests)
