@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../../main/headers/station.h"
+#include "station/station.h"
 
 using ::testing::Ne;
 
