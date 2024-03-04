@@ -1,4 +1,4 @@
-#include "../headers/part.h"
+#include "station/part.h"
 
 Part::Part(int id, bool b)
 {

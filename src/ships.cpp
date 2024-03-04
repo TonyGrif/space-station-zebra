@@ -1,4 +1,4 @@
-#include "../headers/ships.h"
+#include "station/ships.h"
 
 std::default_random_engine Ship::gen = std::default_random_engine(std::random_device{}());
 
