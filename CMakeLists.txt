@@ -13,6 +13,8 @@ endif()
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+option(TEST_STATION "Build the unit tests for the station library." ON)
+
 add_subdirectory(src)
 
 add_executable(
@@ -21,7 +23,8 @@ add_executable(
 )
 target_link_libraries(station-zebra PRIVATE station)
 
-# Testing
-include(CTest)
-enable_testing()
-add_subdirectory(tests)
+if(TEST_STATION)
+    include(CTest)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
