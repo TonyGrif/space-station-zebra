@@ -10,6 +10,9 @@ if(${CMAKE_VERSION} VERSION_LESS 3.12)
     cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 endif()
 
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 add_subdirectory(src)
 
 add_executable(
@@ -17,3 +20,8 @@ add_executable(
     main.cpp
 )
 target_link_libraries(station-zebra PRIVATE station)
+
+# Testing
+include(CTest)
+enable_testing()
+add_subdirectory(tests)
