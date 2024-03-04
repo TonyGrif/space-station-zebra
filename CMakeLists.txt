@@ -13,7 +13,12 @@ endif()
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-option(TEST_STATION "Build the unit tests for the station library." ON)
+option(BUILD_TESTING "Build the unit tests for the station library." ON)
+
+file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
+if(EXISTS "${LOC_PATH}")
+    message(FATAL_ERROR "In-source builds are unavailable, please create a build directory and try again.")
+endif()
 
 add_subdirectory(src)
 
