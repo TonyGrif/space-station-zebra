@@ -1,4 +1,4 @@
-#include "../headers/repairBay.h"
+#include "station/repairBay.h"
 
 RepairBay::RepairBay(char id, Ship* sPtr)
 {
