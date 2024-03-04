@@ -38,3 +38,7 @@ cmake-build-debug/
 
 # VS Code Files
 .vscode
+
+# Errant CMake Files
+CMakeCache.txt
+CMakeFiles/
