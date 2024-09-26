@@ -1,8 +1,14 @@
 # Space Station Zebra
 
 ## Requirements
+* [GCC Compiler](https://gcc.gnu.org/)
+* [CMake](https://cmake.org/)
+
+### Optional Requirements
+* [GNU Make](https://www.gnu.org/software/make/)
 
 ## Running Instructions
+Use the provided makefile by running `make`
 
 Imagine in deep space there is a space station designed to repair docked space ships. Space ships will arrive with damage and, if there is docking bay that is free, then the ship will dock for repairs; if there is no free dock, the damaged ship waits in the queue.
 
