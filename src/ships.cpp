@@ -5,7 +5,7 @@ std::default_random_engine Ship::gen = std::default_random_engine(std::random_de
 // Used due to MinGW limitations
 // std::default_random_engine Ship::gen = std::default_random_engine(time(NULL));
 
-Ship::Ship(int id) 
+Ship::Ship(int id)
 {
     this->ShipID(id);
     this->SetType();
@@ -18,19 +18,24 @@ void Ship::SetType()
 
     int randNum = uiDistro(Ship::gen);
 
-    if(randNum <= 51) {
+    if (randNum <= 51)
+    {
         this->type = 'H';
     }
-    else if(randNum <= 65) {
+    else if (randNum <= 65)
+    {
         this->type = 'F';
     }
-    else if(randNum <= 75) {
+    else if (randNum <= 75)
+    {
         this->type = 'K';
     }
-    else if(randNum <= 80) {
+    else if (randNum <= 80)
+    {
         this->type = 'R';
     }
-    else if(randNum <= 100) {
+    else if (randNum <= 100)
+    {
         this->type = 'O';
     }
 }
@@ -43,29 +48,34 @@ void Ship::GenerateParts()
     // Representation of the percent chance of a broken part (8 = 8%)
     int brokenVal;
 
-    if(this->Type() == 'H') {
+    if (this->Type() == 'H')
+    {
         minVal = 1;
-        maxVal= 100;
+        maxVal = 100;
         brokenVal = 5; // 5%
     }
-    else if(this->Type() == 'F') {
+    else if (this->Type() == 'F')
+    {
         minVal = 75;
-        maxVal= 150;
+        maxVal = 150;
         brokenVal = 8; // 8%
     }
-    else if(this->Type() == 'K') {
+    else if (this->Type() == 'K')
+    {
         minVal = 2;
-        maxVal= 200;
+        maxVal = 200;
         isEven = true;
         brokenVal = 6;
     }
-    else if(this->Type() == 'R') {
+    else if (this->Type() == 'R')
+    {
         minVal = 1;
-        maxVal= 199;
+        maxVal = 199;
         isOdd = true;
         brokenVal = 6;
     }
-    else {
+    else
+    {
         minVal = 200;
         maxVal = 999;
         brokenVal = 7;
@@ -74,19 +84,23 @@ void Ship::GenerateParts()
     std::uniform_int_distribution<> brokenDistro(0, 100);
 
     // Special case, generate 100 random parts with ids in the range provided
-    if(this->Type() == 'O') {
+    if (this->Type() == 'O')
+    {
         std::uniform_int_distribution<> distr(minVal, maxVal);
 
-        for(int x = 0; x < 100; x++) {
+        for (int x = 0; x < 100; x++)
+        {
             int randNum = distr(Ship::gen);
             int broken = brokenDistro(Ship::gen);
 
             Part* ptr;
 
-            if(broken <= brokenVal) {
+            if (broken <= brokenVal)
+            {
                 ptr = new Part(randNum, true);
             }
-            else {
+            else
+            {
                 ptr = new Part(randNum);
             }
 
@@ -96,21 +110,26 @@ void Ship::GenerateParts()
         return;
     }
 
-    for(int x = minVal; x <= maxVal; x++) {
-        if(isEven == true && (x%2 != 0)) {
+    for (int x = minVal; x <= maxVal; x++)
+    {
+        if (isEven == true && (x % 2 != 0))
+        {
             continue;
         }
-        else if(isOdd == true && (x%2 ==0)) {
+        else if (isOdd == true && (x % 2 == 0))
+        {
             continue;
         }
 
         int broken = brokenDistro(Ship::gen);
         Part* ptr;
-        
-        if(broken <= brokenVal) {
+
+        if (broken <= brokenVal)
+        {
             ptr = new Part(x, true);
         }
-        else {
+        else
+        {
             ptr = new Part(x);
         }
 
@@ -130,8 +149,9 @@ std::string Ship::toString() const
     tempStr += ")";
 
     tempStr += "\n";
-    for(auto& i : this->GetParts()) {
-        if(i.IsBroken() == true)
+    for (auto& i : this->GetParts())
+    {
+        if (i.IsBroken() == true)
         {
             tempStr += "    ";
             tempStr += i.toString();

@@ -1,6 +1,6 @@
 #include "station/station.h"
 
-Station::Station(std::string id) 
+Station::Station(std::string id)
 {
     this->StationID(id);
     this->Bays(RepairBay('A'), RepairBay('B'), RepairBay('C'));
@@ -8,16 +8,20 @@ Station::Station(std::string id)
 
 void Station::RepairTimeStep()
 {
-    for(auto& i : this->bays) {
-        if(i.TimeToRepair() != 0) {
+    for (auto& i : this->bays)
+    {
+        if (i.TimeToRepair() != 0)
+        {
             i.DecrementRepairCounter();
         }
         // If the ship is ready to go
-        else {
+        else
+        {
             i.RemoveShip();
 
             // Add in another one from the queue if applicable
-            if(this->WaitLine().empty() != true) {
+            if (this->WaitLine().empty() != true)
+            {
                 Ship* holdingPtr;
                 holdingPtr = this->waitLine.front();
                 AddShipToBay(holdingPtr);
@@ -32,19 +36,23 @@ void Station::AddShip(Ship* toAdd)
     Ship* tempPtr;
 
     // If there is already a line, add to queue
-    if(this->WaitLine().empty() != true) {
+    if (this->WaitLine().empty() != true)
+    {
         this->AddShipToQueue(toAdd);
 
         // Ship to add will be the one at the front of the queue
         // Not popped off the queue until we can determine if it is added to a bay
         tempPtr = this->waitLine.front();
-        if(this->AddShipToBay(tempPtr) == true) {
+        if (this->AddShipToBay(tempPtr) == true)
+        {
             this->RemoveShipFromQueue();
         }
     }
-    else {
+    else
+    {
         tempPtr = toAdd;
-        if(this->AddShipToBay(tempPtr) != true) {
+        if (this->AddShipToBay(tempPtr) != true)
+        {
             this->AddShipToQueue(tempPtr);
         }
     }
@@ -52,8 +60,10 @@ void Station::AddShip(Ship* toAdd)
 
 bool Station::AddShipToBay(Ship* toAdd)
 {
-    for(auto& i : this->bays) {
-        if(i.IsFull() == false) {
+    for (auto& i : this->bays)
+    {
+        if (i.IsFull() == false)
+        {
             i.AddShip(toAdd);
             return true;
         }
@@ -71,7 +81,7 @@ std::string Station::toString() const
     tempStr.append("\n");
 
     // Add in repair bay information
-    for(auto& i : this->Bays())
+    for (auto& i : this->Bays())
     {
         tempStr.append(i.toString());
         tempStr.append("\n");

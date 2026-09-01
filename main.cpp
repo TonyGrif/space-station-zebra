@@ -10,7 +10,7 @@ int main()
     Ship* newShipPtr;
 
     // Generation settings for the number of ships to arrive w/ each time cycle
-    std::default_random_engine *gen = new std::default_random_engine(time(NULL));
+    std::default_random_engine* gen = new std::default_random_engine(time(NULL));
     std::poisson_distribution<int> pDistribution(1.2);
 
     /* Display Title */
@@ -19,19 +19,20 @@ int main()
     std::cout << "==================================" << std::endl;
 
     do
-    {   
+    {
         /* Determine time cycles */
         std::cout << "Enter how many time cycles would you like to run: ";
         std::cin >> timeCycles;
         std::cout << std::endl;
 
-        for(int x = 0; x < timeCycles; x++)
+        for (int x = 0; x < timeCycles; x++)
         {
             // Determine number of ships entering the station
             int shipNum = pDistribution(*gen);
 
             // Process them into the station
-            for(int x = 0; x < shipNum; x++) {
+            for (int x = 0; x < shipNum; x++)
+            {
                 newShipPtr = new Ship(currentShipCount);
                 station.AddShip(newShipPtr);
                 currentShipCount++;

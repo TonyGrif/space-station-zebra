@@ -58,14 +58,18 @@ TEST(StationTest, TestRepairTimeCycle)
 
     // Add a new ship to each bay
     // Add three extra to the queue
-    for(auto& i : defaultStation.Bays()) {
+    for (auto& i : defaultStation.Bays())
+    {
         defaultStation.AddShip(new Ship);
         defaultStation.AddShip(new Ship);
     }
 
     int smallestBay = 0;
-    for(int x = 1; x < NUM_OF_REPAIR_BAYS; x++) {
-        if(defaultStation.Bays()[smallestBay].TimeToRepair() > defaultStation.Bays()[x].TimeToRepair()) {
+    for (int x = 1; x < NUM_OF_REPAIR_BAYS; x++)
+    {
+        if (defaultStation.Bays()[smallestBay].TimeToRepair() >
+            defaultStation.Bays()[x].TimeToRepair())
+        {
             smallestBay = x;
         }
     }
@@ -77,9 +81,10 @@ TEST(StationTest, TestRepairTimeCycle)
     defaultStation.RepairTimeStep();
     ASSERT_NE(repairNumber, defaultStation.Bays()[smallestBay].TimeToRepair());
 
-    Ship *storePtr;
+    Ship* storePtr;
 
-    while(defaultStation.Bays()[smallestBay].TimeToRepair() != 0) {
+    while (defaultStation.Bays()[smallestBay].TimeToRepair() != 0)
+    {
         defaultStation.RepairTimeStep();
     }
     storePtr = defaultStation.WaitLine().front();
@@ -98,12 +103,14 @@ TEST(StationTest, TestAddShip)
 {
     Station defaultStation;
 
-    for(int x = 0; x < NUM_OF_REPAIR_BAYS; x++) {
+    for (int x = 0; x < NUM_OF_REPAIR_BAYS; x++)
+    {
         defaultStation.AddShip(new Ship);
     }
 
     // Ensure each bay is full
-    for(auto& i : defaultStation.Bays()) {
+    for (auto& i : defaultStation.Bays())
+    {
         ASSERT_TRUE(i.CurrentShip() != NULL);
     }
     // Ensure queue remains empty
@@ -114,7 +121,8 @@ TEST(StationTest, TestAddShip)
     Ship* lastShip = new Ship;
     defaultStation.AddShip(lastShip);
 
-    for(auto& i : defaultStation.Bays()) {
+    for (auto& i : defaultStation.Bays())
+    {
         ASSERT_TRUE(i.CurrentShip() != NULL);
         ASSERT_FALSE(i.CurrentShip() == lastShip);
     }
@@ -130,7 +138,7 @@ TEST(StationTest, TestToString)
     ASSERT_TRUE(value.find(defaultStation.StationID()) != std::string::npos);
 
     // Testing that important data is included in our report
-    for(int x = 0; x < NUM_OF_REPAIR_BAYS; x++)
+    for (int x = 0; x < NUM_OF_REPAIR_BAYS; x++)
     {
         ASSERT_TRUE(value.find(defaultStation.Bays()[x].toString()) != std::string::npos);
     }

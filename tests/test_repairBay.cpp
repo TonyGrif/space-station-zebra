@@ -102,7 +102,7 @@ TEST(RepairBayTest, TestDecrementCounter)
 
     defaultBay.DecrementRepairCounter();
     ASSERT_NE(defaultCounter, defaultBay.TimeToRepair());
-    ASSERT_EQ(defaultCounter-1, defaultBay.TimeToRepair());
+    ASSERT_EQ(defaultCounter - 1, defaultBay.TimeToRepair());
 
     ASSERT_EQ(defaultBay.Designation(), 'A');
     ASSERT_TRUE(defaultBay.CurrentShip() != NULL);

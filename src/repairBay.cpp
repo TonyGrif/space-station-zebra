@@ -6,9 +6,10 @@ RepairBay::RepairBay(char id, Ship* sPtr)
     this->AddShip(sPtr);
 }
 
-void RepairBay::CalculateRepairTime() 
+void RepairBay::CalculateRepairTime()
 {
-    if(this->CurrentShip() == NULL) {
+    if (this->CurrentShip() == NULL)
+    {
         this->repairTime = 0;
         return;
     }
@@ -36,7 +37,7 @@ void RepairBay::CalculateRepairTime()
         minTime = 3;
         maxTime = 7;
         break;
-    
+
     case 'O':
         minTime = 1;
         maxTime = 10;
@@ -46,9 +47,11 @@ void RepairBay::CalculateRepairTime()
     std::default_random_engine gen;
     gen = std::default_random_engine(time(NULL));
     std::uniform_int_distribution<int> uiDistro(minTime, maxTime);
-    
-    for(auto& i : this->CurrentShip()->GetParts()) {
-        if(i.IsBroken()) {
+
+    for (auto& i : this->CurrentShip()->GetParts())
+    {
+        if (i.IsBroken())
+        {
             repairTime += uiDistro(gen);
         }
     }
@@ -61,7 +64,7 @@ std::string RepairBay::toString() const
     tempStr.append("Repair Bay ");
     tempStr += this->Designation();
 
-    if(this->IsFull() == false)
+    if (this->IsFull() == false)
     {
         tempStr.append(" - Empty");
         tempStr.append("\n");

@@ -7,11 +7,9 @@ TEST(ShipTest, TestDefaultConstructor)
     Ship testingShip;
 
     ASSERT_EQ(testingShip.ShipID(), 1);
-    ASSERT_TRUE(testingShip.Type() == 'H'
-        || testingShip.Type() == 'F'
-        || testingShip.Type() == 'K'
-        || testingShip.Type() == 'R'
-        || testingShip.Type() == 'O');
+    ASSERT_TRUE(testingShip.Type() == 'H' || testingShip.Type() == 'F' ||
+                testingShip.Type() == 'K' || testingShip.Type() == 'R' ||
+                testingShip.Type() == 'O');
 
     ASSERT_FALSE(testingShip.GetParts().empty());
 
@@ -19,11 +17,8 @@ TEST(ShipTest, TestDefaultConstructor)
 
     ASSERT_EQ(IDShip.ShipID(), 88);
     ASSERT_NE(IDShip.ShipID(), testingShip.ShipID());
-    ASSERT_TRUE(IDShip.Type() == 'H'
-        || IDShip.Type() == 'F'
-        || IDShip.Type() == 'K'
-        || IDShip.Type() == 'R'
-        || IDShip.Type() == 'O');
+    ASSERT_TRUE(IDShip.Type() == 'H' || IDShip.Type() == 'F' || IDShip.Type() == 'K' ||
+                IDShip.Type() == 'R' || IDShip.Type() == 'O');
 
     ASSERT_FALSE(IDShip.GetParts().empty());
 }
@@ -38,43 +33,50 @@ TEST(ShipTest, TestShipID)
     ASSERT_NE(secondShip.ShipID(), testingShip.ShipID());
     ASSERT_EQ(secondShip.ShipID(), 24);
 
-    ASSERT_TRUE(secondShip.Type() == 'H'
-        || secondShip.Type() == 'F'
-        || secondShip.Type() == 'K'
-        || secondShip.Type() == 'R'
-        || secondShip.Type() == 'O');
+    ASSERT_TRUE(secondShip.Type() == 'H' || secondShip.Type() == 'F' || secondShip.Type() == 'K' ||
+                secondShip.Type() == 'R' || secondShip.Type() == 'O');
 
     ASSERT_FALSE(secondShip.GetParts().empty());
 }
 
 TEST(ShipTest, TestSetType)
 {
-    Ship *testingPtr;
+    Ship* testingPtr;
 
     // Efficient? No!
     // Works? Probably!
-    do { testingPtr = new Ship(); }
-    while(testingPtr->Type() != 'H');
+    do
+    {
+        testingPtr = new Ship();
+    } while (testingPtr->Type() != 'H');
     ASSERT_EQ(testingPtr->Type(), 'H');
     delete testingPtr;
 
-    do { testingPtr = new Ship(); }
-    while(testingPtr->Type() != 'F');
+    do
+    {
+        testingPtr = new Ship();
+    } while (testingPtr->Type() != 'F');
     ASSERT_EQ(testingPtr->Type(), 'F');
     delete testingPtr;
 
-    do { testingPtr = new Ship(); }
-    while(testingPtr->Type() != 'K');
+    do
+    {
+        testingPtr = new Ship();
+    } while (testingPtr->Type() != 'K');
     ASSERT_EQ(testingPtr->Type(), 'K');
     delete testingPtr;
 
-    do { testingPtr = new Ship(); }
-    while(testingPtr->Type() != 'R');
+    do
+    {
+        testingPtr = new Ship();
+    } while (testingPtr->Type() != 'R');
     ASSERT_EQ(testingPtr->Type(), 'R');
     delete testingPtr;
 
-    do { testingPtr = new Ship(); }
-    while(testingPtr->Type() != 'O');
+    do
+    {
+        testingPtr = new Ship();
+    } while (testingPtr->Type() != 'O');
     ASSERT_EQ(testingPtr->Type(), 'O');
     delete testingPtr;
 }
@@ -90,50 +92,57 @@ TEST(ShipTest, TestGenerateParts)
     bool isOdd = false;
     int minVal, maxVal;
 
-    if(testingPtr->Type() == 'H') {
+    if (testingPtr->Type() == 'H')
+    {
         minVal = 1;
-        maxVal= 100;
+        maxVal = 100;
     }
-    else if(testingPtr->Type() == 'F') {
+    else if (testingPtr->Type() == 'F')
+    {
         minVal = 75;
-        maxVal= 150;
+        maxVal = 150;
     }
-    else if(testingPtr->Type() == 'K') {
+    else if (testingPtr->Type() == 'K')
+    {
         minVal = 2;
-        maxVal= 200;
+        maxVal = 200;
         isEven = true;
     }
-    else if(testingPtr->Type() == 'R') {
+    else if (testingPtr->Type() == 'R')
+    {
         minVal = 1;
-        maxVal= 199;
+        maxVal = 199;
         isOdd = true;
     }
-    else {
+    else
+    {
         minVal = 200;
         maxVal = 999;
     }
 
     int lastVal = 0;
-    for(auto& i : testingPtr->GetParts())
+    for (auto& i : testingPtr->GetParts())
     {
         ASSERT_TRUE(i.PartId() >= minVal && i.PartId() <= maxVal);
         ASSERT_TRUE(i.PartId() >= lastVal) << testingPtr->toString();
 
-        if(isEven)
+        if (isEven)
         {
             ASSERT_TRUE(i.PartId() % 2 == 0);
         }
-        else if(isOdd)
+        else if (isOdd)
         {
             ASSERT_TRUE(i.PartId() % 2 != 0);
         }
         lastVal = i.PartId();
     }
 
-    if(testingPtr->Type() != 'K' && testingPtr->Type() != 'R' && testingPtr->Type() != 'O') {
-        ASSERT_EQ(testingPtr->GetParts().size(), (maxVal-minVal)+1);
+    if (testingPtr->Type() != 'K' && testingPtr->Type() != 'R' && testingPtr->Type() != 'O')
+    {
+        ASSERT_EQ(testingPtr->GetParts().size(), (maxVal - minVal) + 1);
     }
-    else {
+    else
+    {
         ASSERT_EQ(testingPtr->GetParts().size(), 100);
     }
 
@@ -150,8 +159,10 @@ TEST(ShipTest, TestToString)
     ASSERT_TRUE(value.find(testingShip.Type()) != std::string::npos);
 
     // Contains all broken part info
-    for(auto& i : testingShip.GetParts()) {
-        if(i.IsBroken()) {
+    for (auto& i : testingShip.GetParts())
+    {
+        if (i.IsBroken())
+        {
             ASSERT_TRUE(value.find(std::to_string(i.PartId())) != std::string::npos);
             ASSERT_TRUE(value.find(std::to_string(i.IsBroken())) != std::string::npos);
         }

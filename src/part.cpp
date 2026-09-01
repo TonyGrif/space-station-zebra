@@ -8,7 +8,7 @@ Part::Part(int id, bool b)
 
 bool Part::operator==(const Part& rhs) const
 {
-    if(this->PartId() == rhs.PartId() && this->IsBroken() == rhs.IsBroken()) 
+    if (this->PartId() == rhs.PartId() && this->IsBroken() == rhs.IsBroken())
     {
         return true;
     }
@@ -17,7 +17,8 @@ bool Part::operator==(const Part& rhs) const
 
 bool Part::operator<(const Part& rhs) const
 {
-    if(this->PartId() != rhs.PartId()) {
+    if (this->PartId() != rhs.PartId())
+    {
         return (this->PartId() < rhs.PartId());
     }
     return false;
