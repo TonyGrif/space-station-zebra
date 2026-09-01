@@ -8,7 +8,9 @@
 * [GNU Make](https://www.gnu.org/software/make/)
 
 ## Running Instructions
-Use the provided makefile by running `make`
+Build the project by running `make`, then run the resulting `build/station-zebra` executable.
+
+To build and run the test suite instead, run `make test`.
 
 Imagine in deep space there is a space station designed to repair docked space ships. Space ships will arrive with damage and, if there is docking bay that is free, then the ship will dock for repairs; if there is no free dock, the damaged ship waits in the queue.
 
