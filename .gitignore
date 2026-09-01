@@ -42,3 +42,6 @@ cmake-build-debug/
 # Errant CMake Files
 CMakeCache.txt
 CMakeFiles/
+
+# Local dev environment
+shell.nix
