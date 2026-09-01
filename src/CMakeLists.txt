@@ -18,4 +18,5 @@ set(
 
 add_library(station ${SOURCE_LIST} ${HEADER_LIST})
 target_include_directories(station PUBLIC ${INCLUDE_DIR})
+target_compile_options(station PRIVATE -Wall -Wextra -Wpedantic)
 
