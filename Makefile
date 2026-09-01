@@ -1,4 +1,8 @@
-.PHONY: all test build clean
+.PHONY: all test build clean format tidy lint
+
+SOURCES := $(wildcard main.cpp src/*.cpp)
+HEADERS := $(wildcard include/station/*.h)
+TEST_SOURCES := $(wildcard tests/*.cpp)
 
 all:
 	${MAKE} build
@@ -19,3 +23,13 @@ clean:
 	@echo "Removing build directory"
 	@rm -rf build/
 	@rm -rf CMakeCache.txt CMakeFiles/
+
+format:
+	@clang-format -i $(SOURCES) $(HEADERS) $(TEST_SOURCES)
+
+tidy:
+	${MAKE} build
+	@cmake -S . -B build -DBUILD_TESTING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+	@clang-tidy -p build $(SOURCES)
+
+lint: format tidy
