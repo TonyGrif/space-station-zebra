@@ -11,9 +11,10 @@ all:
 
 test:
 	${MAKE} build
-	@cmake -S . -B build -DBUILD_TESTING=ON
+	@cmake -S . -B build -DBUILD_TESTING=ON -DENABLE_COVERAGE=ON
 	@cmake --build build
 	@cd build && ctest --output-on-failure
+	@gcovr --root . --filter 'src/' --filter 'include/' --exclude-unreachable-branches --print-summary build
 
 build:
 	@echo "Creating build directory"

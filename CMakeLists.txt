@@ -16,6 +16,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(BUILD_TESTING "Build the unit tests for the station library." ON)
 option(ENABLE_CLANG_TIDY "Run clang-tidy during the build." OFF)
+option(ENABLE_COVERAGE "Build the station library with coverage instrumentation." OFF)
 
 if(ENABLE_CLANG_TIDY)
     find_program(CLANG_TIDY_EXE NAMES clang-tidy)
