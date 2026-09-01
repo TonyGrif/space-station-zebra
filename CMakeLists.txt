@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.9...3.28)
 project(
-    space-station-zerbra
+    space-station-zebra
     VERSION 1.0
     DESCRIPTION "Simulate the runnings of a space repair station"
     LANGUAGES CXX
