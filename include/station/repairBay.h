@@ -104,7 +104,7 @@ private:
     /**
      * @brief Counter for how long the current ship will take to repair.
      */
-    int repairTime;
+    int repairTime = 0;
 
     /**
      * @brief Set the current ship pointer.

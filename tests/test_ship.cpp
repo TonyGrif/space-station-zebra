@@ -164,7 +164,6 @@ TEST(ShipTest, TestToString)
         if (i.IsBroken())
         {
             ASSERT_TRUE(value.find(std::to_string(i.PartId())) != std::string::npos);
-            ASSERT_TRUE(value.find(std::to_string(i.IsBroken())) != std::string::npos);
         }
     }
 }

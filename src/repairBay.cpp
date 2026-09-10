@@ -14,7 +14,7 @@ void RepairBay::CalculateRepairTime()
         return;
     }
 
-    int minTime, maxTime;
+    int minTime = 0, maxTime = 0;
 
     switch (this->CurrentShip()->Type())
     {

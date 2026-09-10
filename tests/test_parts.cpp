@@ -80,5 +80,4 @@ TEST(PartsTest, TestToString)
     std::string value = testingPart.toString();
 
     ASSERT_TRUE(value.find(std::to_string(testingPart.PartId())) != std::string::npos);
-    ASSERT_TRUE(value.find(std::to_string(testingPart.IsBroken())) != std::string::npos);
 }

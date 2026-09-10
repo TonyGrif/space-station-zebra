@@ -30,8 +30,6 @@ std::string Part::toString() const
 
     temp.append("Part #");
     temp += std::to_string(this->PartId());
-    temp.append(" - ");
-    temp += std::to_string(this->IsBroken());
 
     return temp;
 }
