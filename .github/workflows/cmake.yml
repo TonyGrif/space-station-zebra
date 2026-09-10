@@ -24,7 +24,18 @@ jobs:
     - name: Build with Make
       run: make
 
-    - name: Test
-      working-directory: ${{github.workspace}}/build
-      run: tests/station_test
+    - name: Install gcovr on Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: pip install gcovr
 
+    - name: Test with Coverage
+      if: matrix.os == 'ubuntu-latest'
+      run: make test
+
+    - name: Test no Coverage
+      if: matrix.os != 'ubuntu-latest'
+      working-directory: ${{github.workspace}}/build
+      run: |
+        cmake -S .. -B . -DBUILD_TESTING=ON
+        cmake --build .
+        ctest --output-on-failure
