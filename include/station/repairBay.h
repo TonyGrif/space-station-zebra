@@ -3,6 +3,8 @@
 
 #include "ships.h"
 
+#include <random>
+
 /**
  * @brief Repair Bay class.
  *
@@ -124,6 +126,11 @@ private:
      * @param char representation of this Bay.
      */
     void Designation(char d) { this->designation = d; }
+
+    /**
+     * @brief Random engine to be shared amongst all RepairBays.
+     */
+    static std::default_random_engine gen;
 };
 
 #endif

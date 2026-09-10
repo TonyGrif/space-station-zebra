@@ -1,5 +1,7 @@
 #include "station/repairBay.h"
 
+std::default_random_engine RepairBay::gen = std::default_random_engine(std::random_device{}());
+
 RepairBay::RepairBay(char id, Ship* sPtr)
 {
     this->Designation(id);
@@ -44,15 +46,13 @@ void RepairBay::CalculateRepairTime()
         break;
     }
 
-    std::default_random_engine gen;
-    gen = std::default_random_engine(time(NULL));
     std::uniform_int_distribution<int> uiDistro(minTime, maxTime);
 
     for (auto& i : this->CurrentShip()->GetParts())
     {
         if (i.IsBroken())
         {
-            repairTime += uiDistro(gen);
+            repairTime += uiDistro(RepairBay::gen);
         }
     }
 }
