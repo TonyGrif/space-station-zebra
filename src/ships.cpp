@@ -93,18 +93,7 @@ void Ship::GenerateParts()
             int randNum = distr(Ship::gen);
             int broken = brokenDistro(Ship::gen);
 
-            Part* ptr;
-
-            if (broken <= brokenVal)
-            {
-                ptr = new Part(randNum, true);
-            }
-            else
-            {
-                ptr = new Part(randNum);
-            }
-
-            this->parts.push_back(*ptr);
+            this->parts.push_back(Part(randNum, broken <= brokenVal));
             this->parts.sort();
         }
         return;
@@ -122,18 +111,8 @@ void Ship::GenerateParts()
         }
 
         int broken = brokenDistro(Ship::gen);
-        Part* ptr;
 
-        if (broken <= brokenVal)
-        {
-            ptr = new Part(x, true);
-        }
-        else
-        {
-            ptr = new Part(x);
-        }
-
-        this->parts.push_back(*ptr);
+        this->parts.push_back(Part(x, broken <= brokenVal));
     }
 }
 
