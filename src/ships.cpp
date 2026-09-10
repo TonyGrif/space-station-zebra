@@ -14,11 +14,11 @@ Ship::Ship(int id)
 
 void Ship::SetType()
 {
-    std::uniform_int_distribution<> uiDistro(0, 100);
+    std::uniform_int_distribution<> uiDistro(1, 100);
 
     int randNum = uiDistro(Ship::gen);
 
-    if (randNum <= 51)
+    if (randNum <= 50)
     {
         this->type = 'H';
     }
@@ -81,7 +81,7 @@ void Ship::GenerateParts()
         brokenVal = 7;
     }
 
-    std::uniform_int_distribution<> brokenDistro(0, 100);
+    std::uniform_int_distribution<> brokenDistro(1, 100);
 
     // Special case, generate 100 random parts with ids in the range provided
     if (this->Type() == 'O')
