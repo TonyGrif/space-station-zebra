@@ -5,6 +5,7 @@
 #include "ships.h"
 
 #include <array>
+#include <memory>
 #include <queue>
 
 const int NUM_OF_REPAIR_BAYS = 3;
@@ -27,7 +28,7 @@ public:
     /**
      * @brief Data structure to be used to create a line of Ships.
      */
-    using lineCollection = std::queue<Ship*>;
+    using lineCollection = std::queue<std::unique_ptr<Ship>>;
 
     /**
      * @brief Default constructor for Station.
@@ -48,7 +49,7 @@ public:
      *
      * @return bayCollection.
      */
-    bayCollection Bays() const { return this->bays; }
+    const bayCollection& Bays() const { return this->bays; }
 
     /**
      * @brief Runs through all the bays and handles one time cycle worth of repairs if needed.
@@ -58,16 +59,16 @@ public:
     /**
      * @brief Add ship to the appropriate state (bay or queue).
      *
-     * @param sPtr Ship pointer.
+     * @param sPtr Ship pointer; ownership is transferred to the Station.
      */
-    void AddShip(Ship* sPtr);
+    void AddShip(std::unique_ptr<Ship> sPtr);
 
     /**
      * @brief Return the collection of ships located in the wait line.
      *
      * @return lineCollection.
      */
-    lineCollection WaitLine() const { return this->waitLine; }
+    const lineCollection& WaitLine() const { return this->waitLine; }
 
     /**
      * @brief Return a string representation of this Station.
@@ -103,32 +104,20 @@ private:
     void StationID(std::string sid) { this->stationID = sid; }
 
     /**
-     * @brief Set the repair bays.
-     *
-     * @param RepairBays RepairBays to be added to this Station.
-     */
-    void Bays(RepairBay a, RepairBay b, RepairBay c)
-    {
-        this->bays[0] = a;
-        this->bays[1] = b;
-        this->bays[2] = c;
-    }
-
-    /**
      * @brief Attempt to add the ship to the bay.
      *
-     * @param sPtr Ship pointer to be added.
+     * @param sPtr Ship pointer to be added; moved into a Bay on success, left untouched on failure.
      * @return true if ship was added.
      * @return false if the ship was not added.
      */
-    bool AddShipToBay(Ship* sPtr);
+    bool AddShipToBay(std::unique_ptr<Ship>& sPtr);
 
     /**
      * @brief Add a ship to this wait line.
      *
-     * @param sPtr ship pointer to be added.
+     * @param sPtr ship pointer to be added; ownership is transferred to the wait line.
      */
-    void AddShipToQueue(Ship* sPtr) { this->waitLine.push(sPtr); }
+    void AddShipToQueue(std::unique_ptr<Ship> sPtr) { this->waitLine.push(std::move(sPtr)); }
 
     /**
      * @brief Remove a ship from the top of the queue.

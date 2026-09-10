@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 
+#include <memory>
+
 #include "station/ships.h"
 
 TEST(ShipTest, TestDefaultConstructor)
@@ -41,44 +43,39 @@ TEST(ShipTest, TestShipID)
 
 TEST(ShipTest, TestSetType)
 {
-    Ship* testingPtr;
+    std::unique_ptr<Ship> testingPtr;
 
     // Efficient? No!
     // Works? Probably!
     do
     {
-        testingPtr = new Ship();
+        testingPtr = std::make_unique<Ship>();
     } while (testingPtr->Type() != 'H');
     ASSERT_EQ(testingPtr->Type(), 'H');
-    delete testingPtr;
 
     do
     {
-        testingPtr = new Ship();
+        testingPtr = std::make_unique<Ship>();
     } while (testingPtr->Type() != 'F');
     ASSERT_EQ(testingPtr->Type(), 'F');
-    delete testingPtr;
 
     do
     {
-        testingPtr = new Ship();
+        testingPtr = std::make_unique<Ship>();
     } while (testingPtr->Type() != 'K');
     ASSERT_EQ(testingPtr->Type(), 'K');
-    delete testingPtr;
 
     do
     {
-        testingPtr = new Ship();
+        testingPtr = std::make_unique<Ship>();
     } while (testingPtr->Type() != 'R');
     ASSERT_EQ(testingPtr->Type(), 'R');
-    delete testingPtr;
 
     do
     {
-        testingPtr = new Ship();
+        testingPtr = std::make_unique<Ship>();
     } while (testingPtr->Type() != 'O');
     ASSERT_EQ(testingPtr->Type(), 'O');
-    delete testingPtr;
 }
 
 TEST(ShipTest, TestGenerateParts)

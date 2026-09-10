@@ -3,6 +3,7 @@
 
 #include "ships.h"
 
+#include <memory>
 #include <random>
 
 /**
@@ -17,9 +18,9 @@ public:
      * @brief Default constructor for a repair bay.
      *
      * @param id character representation of this Bay.
-     * @param sPtr ship pointer to be added to this Bay.
+     * @param sPtr ship pointer to be added to this Bay; ownership is transferred to the Bay.
      */
-    RepairBay(char id = 'A', Ship* sPtr = NULL);
+    RepairBay(char id = 'A', std::unique_ptr<Ship> sPtr = nullptr);
 
     /**
      * @brief Return the character designation of this Bay object.
@@ -34,11 +35,11 @@ public:
      * Does not check to ensure a Ship is not already docked at this bay, must do so before calling
      * this function.
      *
-     * @param cs ship pointer to be docked at this Bay.
+     * @param cs ship pointer to be docked at this Bay; ownership is transferred to the Bay.
      */
-    void AddShip(Ship* cs)
+    void AddShip(std::unique_ptr<Ship> cs)
     {
-        this->CurrentShip(cs);
+        this->currentShip = std::move(cs);
         this->CalculateRepairTime();
     }
 
@@ -47,7 +48,7 @@ public:
      *
      * @return Ship*.
      */
-    Ship* CurrentShip() const { return this->currentShip; }
+    Ship* CurrentShip() const { return this->currentShip.get(); }
 
     /**
      * @brief Remove the current ship pointer and set to NULL; then, reset the time counter to zero.
@@ -57,8 +58,7 @@ public:
      */
     void RemoveShip()
     {
-        delete this->currentShip;
-        this->currentShip = NULL;
+        this->currentShip.reset();
         this->repairTime = 0;
     }
 
@@ -83,7 +83,7 @@ public:
      * @return false if current ship pointer is NULL.
      * @return true if current ship pointer is not NULL.
      */
-    bool IsFull() const { return (this->CurrentShip() == NULL ? false : true); }
+    bool IsFull() const { return this->currentShip != nullptr; }
 
     /**
      * @brief Return a string representation of this object.
@@ -101,19 +101,12 @@ private:
     /**
      * @brief Pointer to the ship currently docked.
      */
-    Ship* currentShip;
+    std::unique_ptr<Ship> currentShip;
 
     /**
      * @brief Counter for how long the current ship will take to repair.
      */
     int repairTime = 0;
-
-    /**
-     * @brief Set the current ship pointer.
-     *
-     * @param cs ship pointer to the Ship to be docked at this Bay.
-     */
-    void CurrentShip(Ship* cs) { this->currentShip = cs; }
 
     /**
      * @brief Calculate the total time it will take to repair the current ship.

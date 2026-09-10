@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 
+#include <memory>
+
 #include "station/station.h"
 
 using ::testing::Ne;
@@ -60,8 +62,8 @@ TEST(StationTest, TestRepairTimeCycle)
     // Add three extra to the queue
     for (auto& i : defaultStation.Bays())
     {
-        defaultStation.AddShip(new Ship);
-        defaultStation.AddShip(new Ship);
+        defaultStation.AddShip(std::make_unique<Ship>());
+        defaultStation.AddShip(std::make_unique<Ship>());
     }
 
     int smallestBay = 0;
@@ -81,13 +83,11 @@ TEST(StationTest, TestRepairTimeCycle)
     defaultStation.RepairTimeStep();
     ASSERT_NE(repairNumber, defaultStation.Bays()[smallestBay].TimeToRepair());
 
-    Ship* storePtr;
-
     while (defaultStation.Bays()[smallestBay].TimeToRepair() != 0)
     {
         defaultStation.RepairTimeStep();
     }
-    storePtr = defaultStation.WaitLine().front();
+    Ship* storePtr = defaultStation.WaitLine().front().get();
     defaultStation.RepairTimeStep();
 
     ASSERT_EQ(storePtr, defaultStation.Bays()[smallestBay].CurrentShip());
@@ -95,8 +95,6 @@ TEST(StationTest, TestRepairTimeCycle)
     ASSERT_EQ(defaultStation.Bays()[0].Designation(), 'A');
     ASSERT_EQ(defaultStation.Bays()[1].Designation(), 'B');
     ASSERT_EQ(defaultStation.Bays()[2].Designation(), 'C');
-
-    delete storePtr;
 }
 
 TEST(StationTest, TestAddShip)
@@ -105,26 +103,27 @@ TEST(StationTest, TestAddShip)
 
     for (int x = 0; x < NUM_OF_REPAIR_BAYS; x++)
     {
-        defaultStation.AddShip(new Ship);
+        defaultStation.AddShip(std::make_unique<Ship>());
     }
 
     // Ensure each bay is full
     for (auto& i : defaultStation.Bays())
     {
-        ASSERT_TRUE(i.CurrentShip() != NULL);
+        ASSERT_TRUE(i.CurrentShip() != nullptr);
     }
     // Ensure queue remains empty
     ASSERT_TRUE(defaultStation.WaitLine().empty());
 
-    defaultStation.AddShip(new Ship);
+    defaultStation.AddShip(std::make_unique<Ship>());
 
-    Ship* lastShip = new Ship;
-    defaultStation.AddShip(lastShip);
+    auto lastShip = std::make_unique<Ship>();
+    Ship* lastShipRaw = lastShip.get();
+    defaultStation.AddShip(std::move(lastShip));
 
     for (auto& i : defaultStation.Bays())
     {
-        ASSERT_TRUE(i.CurrentShip() != NULL);
-        ASSERT_FALSE(i.CurrentShip() == lastShip);
+        ASSERT_TRUE(i.CurrentShip() != nullptr);
+        ASSERT_FALSE(i.CurrentShip() == lastShipRaw);
     }
     ASSERT_EQ(defaultStation.WaitLine().size(), 2);
 }

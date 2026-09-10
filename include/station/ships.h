@@ -48,7 +48,7 @@ public:
      *
      * @return partsCollection.
      */
-    partsCollection GetParts() const { return this->parts; }
+    const partsCollection& GetParts() const { return this->parts; }
 
     /**
      * @brief Return a string representation of this object.

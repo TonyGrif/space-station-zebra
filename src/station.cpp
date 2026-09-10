@@ -1,9 +1,8 @@
 #include "station/station.h"
 
-Station::Station(std::string id)
+Station::Station(std::string id) : bays{RepairBay('A'), RepairBay('B'), RepairBay('C')}
 {
     this->StationID(id);
-    this->Bays(RepairBay('A'), RepairBay('B'), RepairBay('C'));
 }
 
 void Station::RepairTimeStep()
@@ -22,49 +21,45 @@ void Station::RepairTimeStep()
             // Add in another one from the queue if applicable
             if (this->WaitLine().empty() != true)
             {
-                Ship* holdingPtr;
-                holdingPtr = this->waitLine.front();
-                AddShipToBay(holdingPtr);
-                this->RemoveShipFromQueue();
+                if (this->AddShipToBay(this->waitLine.front()))
+                {
+                    this->RemoveShipFromQueue();
+                }
             }
         }
     }
 }
 
-void Station::AddShip(Ship* toAdd)
+void Station::AddShip(std::unique_ptr<Ship> toAdd)
 {
-    Ship* tempPtr;
-
     // If there is already a line, add to queue
     if (this->WaitLine().empty() != true)
     {
-        this->AddShipToQueue(toAdd);
+        this->AddShipToQueue(std::move(toAdd));
 
         // Ship to add will be the one at the front of the queue
         // Not popped off the queue until we can determine if it is added to a bay
-        tempPtr = this->waitLine.front();
-        if (this->AddShipToBay(tempPtr) == true)
+        if (this->AddShipToBay(this->waitLine.front()) == true)
         {
             this->RemoveShipFromQueue();
         }
     }
     else
     {
-        tempPtr = toAdd;
-        if (this->AddShipToBay(tempPtr) != true)
+        if (this->AddShipToBay(toAdd) != true)
         {
-            this->AddShipToQueue(tempPtr);
+            this->AddShipToQueue(std::move(toAdd));
         }
     }
 }
 
-bool Station::AddShipToBay(Ship* toAdd)
+bool Station::AddShipToBay(std::unique_ptr<Ship>& toAdd)
 {
     for (auto& i : this->bays)
     {
         if (i.IsFull() == false)
         {
-            i.AddShip(toAdd);
+            i.AddShip(std::move(toAdd));
             return true;
         }
     }

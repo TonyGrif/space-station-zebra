@@ -2,15 +2,15 @@
 
 std::default_random_engine RepairBay::gen = std::default_random_engine(std::random_device{}());
 
-RepairBay::RepairBay(char id, Ship* sPtr)
+RepairBay::RepairBay(char id, std::unique_ptr<Ship> sPtr)
 {
     this->Designation(id);
-    this->AddShip(sPtr);
+    this->AddShip(std::move(sPtr));
 }
 
 void RepairBay::CalculateRepairTime()
 {
-    if (this->CurrentShip() == NULL)
+    if (this->CurrentShip() == nullptr)
     {
         this->repairTime = 0;
         return;
