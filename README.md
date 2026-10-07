@@ -1,4 +1,5 @@
 # Space Station Zebra
+Imagine in deep space there is a space station designed to repair docked space ships. Space ships will arrive with damage and, if there is docking bay that is free, then the ship will dock for repairs; if there is no free dock, the damaged ship waits in the queue. This program simulates this station and operation.
 
 ## Requirements
 * [GCC Compiler](https://gcc.gnu.org/)
@@ -11,8 +12,6 @@
 Build the project by running `make`, then run the resulting `build/station-zebra` executable.
 
 To build and run the test suite instead, run `make test`.
-
-Imagine in deep space there is a space station designed to repair docked space ships. Space ships will arrive with damage and, if there is docking bay that is free, then the ship will dock for repairs; if there is no free dock, the damaged ship waits in the queue.
 
 ## Class Lists
 	* Space Station
@@ -41,17 +40,17 @@ Imagine in deep space there is a space station designed to repair docked space s
 		* Part ID = 1-100
 		* 5% chance of a broken part
 		* 1-5 time steps required per broken part
-	* F -  
+	* F -
 		* 15% chance of being ship
 		* Part ID = 75-150  
 		* 8% chance of a broken part
 		* 2-7 time steps required per broken part
-	* K - 
+	* K -
 		* 10% chance of being ship  
 		* Part ID = 2-200 (only even numbers)
 		* 6% chance of a broken part
 		* 2-6 time steps required per broken part
-	* R -   
+	* R -
 		* 5% chance of being ship
 		* Part ID = 1-199 (only odd numbers)
 		* 6% chance of a broken part
@@ -64,9 +63,3 @@ Imagine in deep space there is a space station designed to repair docked space s
 
 ## Output
 Output will be generated in a diary format describing the current status of each of the objects in play
-
-## Due Date
-October 10th, 2022
-
-## Grade Recieved
-TBD
